@@ -1,0 +1,16 @@
+{
+  "name": "workspace-kit",
+  "private": true,
+  "description": "PCでもスマホでも最初から整ったUI/UXで動く、ツールの土台一式",
+  "scripts": {
+    "dev": "pnpm --filter starter dev",
+    "build": "pnpm -r build",
+    "lint": "pnpm -r lint",
+    "check:ui": "node scripts/check-ui.mjs"
+  },
+  "packageManager": "pnpm@11.1.1",
+  "devDependencies": {
+    "@axe-core/playwright": "^4.14.0",
+    "@playwright/test": "1.64.1"
+  }
+}

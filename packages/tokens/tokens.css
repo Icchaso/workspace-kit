@@ -1,0 +1,125 @@
+/*
+ * Workspace Kit トークン（基準テーマ：グラファイト）
+ *
+ * 画面の色・文字・余白・角丸・影・動き・押せる大きさを、ここ1か所の CSS 変数で決める。
+ * 部品は必ずこの変数を通して色を使う（色コードを部品に直接書かない）。
+ *
+ * - 明るさ：何も指定しなければ端末の設定に従う。<html data-theme="light|dark"> で固定できる
+ * - 密度：<html data-density="compact"> で一覧の行が詰まる（指で触る端末では詰めすぎない）
+ * - 押せる大きさ：画面幅ではなく「指かマウスか」(pointer) で決める。マウス 36px／指 44px
+ * - ブランド色を変えたいときは --accent 系の4つだけ差し替える
+ */
+
+:root {
+  /* 面の色（奥 → 手前） */
+  --wk-canvas: #f7f7f5;      /* 画面の地 */
+  --wk-sidebar: #efeeea;     /* サイドバー・アイコン列 */
+  --wk-surface: #ffffff;     /* カード・パネル・シート */
+  --wk-surface-2: #f1f0ec;   /* ホバー・弱い塗り */
+  --wk-line: #e2e0da;        /* 区切り線・枠 */
+
+  /* 文字 */
+  --wk-fg: #1d1c1a;
+  --wk-fg-2: #55534e;        /* 補足の文 */
+  --wk-fg-3: #6b6964;        /* ラベル・日付（白地で 4.5:1 以上） */
+
+  /* ブランド（差し替えるのはこの4つ） */
+  --wk-accent: #2563eb;
+  --wk-on-accent: #ffffff;
+  --wk-accent-soft: #e7eefc;
+  --wk-accent-text: #1d4fc4;
+
+  /* 状態の色（ブランド色とは別に固定） */
+  --wk-ok: #18794e;      --wk-ok-soft: #e3f3ea;
+  --wk-warn: #8a5200;    --wk-warn-soft: #fbf0dc;
+  --wk-danger: #b42323;  --wk-danger-soft: #fbe6e6;  --wk-on-danger: #ffffff;
+
+  /* 重なり */
+  --wk-scrim: rgb(20 20 18 / 0.32);
+  --wk-shadow-sm: 0 1px 2px rgb(20 20 18 / 0.08);
+  --wk-shadow: 0 12px 32px rgb(20 20 18 / 0.14), 0 2px 6px rgb(20 20 18 / 0.08);
+  --wk-glass: color-mix(in oklab, var(--wk-surface) 72%, transparent);
+  --wk-glass-line: color-mix(in oklab, var(--wk-fg) 8%, transparent);
+
+  /* 角丸（入れ子は「親の角丸 − 余白」） */
+  --wk-r-sm: 6px;
+  --wk-r-md: 10px;
+  --wk-r-lg: 14px;
+  --wk-r-pill: 999px;
+
+  /* 文字 */
+  --wk-font: var(--wk-font-jp, "IBM Plex Sans JP"), "Hiragino Sans", "Yu Gothic UI", "Meiryo", "Noto Sans JP", system-ui, sans-serif;
+  --wk-text-xs: 12px;   /* これより小さくしない */
+  --wk-text-sm: 13px;
+  --wk-text-md: 15px;   /* 本文 */
+  --wk-text-input: 16px; /* 入力欄（iPhone の自動ズームを防ぐ） */
+  --wk-text-lg: 18px;
+  --wk-text-xl: 24px;
+
+  /* 動き（いっちゃんの既存ツールと animate スキルの値にそろえる） */
+  --wk-ease-out: cubic-bezier(0.23, 1, 0.32, 1);
+  --wk-ease-in-out: cubic-bezier(0.77, 0, 0.175, 1);
+  --wk-ease-drawer: cubic-bezier(0.32, 0.72, 0, 1);
+  --wk-dur-press: 120ms;   /* 押し縮み */
+  --wk-dur-fast: 160ms;    /* 色・ホバー */
+  --wk-dur-base: 240ms;    /* 出し入れ */
+  --wk-dur-sheet: 420ms;   /* シート・引き出し */
+
+  /* 押せる大きさ・行の高さ（マウス） */
+  --wk-hit: 36px;
+  --wk-row: 48px;
+
+  /* 骨格の寸法 */
+  --wk-sidebar-w: 240px;
+  --wk-rail-w: 72px;
+  --wk-tabbar-h: 62px;
+  --wk-tabbar-gap: 10px;    /* 下タブと画面下の間 */
+  --wk-safe-b: env(safe-area-inset-bottom, 0px);
+  /* 下タブがあるとき、本文の下に空ける余白 */
+  --wk-tabbar-space: calc(var(--wk-tabbar-h) + var(--wk-tabbar-gap) * 2 + var(--wk-safe-b) + 24px);
+
+  color-scheme: light;
+}
+
+/* 指で触る端末：押せる大きさを 44px に */
+@media (pointer: coarse) {
+  :root { --wk-hit: 44px; --wk-row: 56px; }
+}
+:root[data-density="compact"] { --wk-row: 40px; }
+@media (pointer: coarse) {
+  :root[data-density="compact"] { --wk-row: 48px; }
+}
+
+/* ダーク：端末の設定（明示のライト指定が無いとき） */
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --wk-canvas: #161615; --wk-sidebar: #111110; --wk-surface: #1f1f1d; --wk-surface-2: #2a2a27; --wk-line: #34332f;
+    --wk-fg: #ecebe7; --wk-fg-2: #b6b4ae; --wk-fg-3: #95938d;
+    --wk-accent: #5b8cff; --wk-on-accent: #0b1530; --wk-accent-soft: #1c2a4d; --wk-accent-text: #9db9ff;
+    --wk-ok: #4cc38a; --wk-ok-soft: #16301f; --wk-warn: #e5a83b; --wk-warn-soft: #33270f; --wk-danger: #ff7a7a; --wk-danger-soft: #3a1717; --wk-on-danger: #2a0b0b;
+    --wk-scrim: rgb(0 0 0 / 0.55);
+    --wk-shadow-sm: 0 1px 2px rgb(0 0 0 / 0.4);
+    --wk-shadow: 0 16px 40px rgb(0 0 0 / 0.5), 0 2px 6px rgb(0 0 0 / 0.4);
+    --wk-glass-line: color-mix(in oklab, var(--wk-fg) 12%, transparent);
+    color-scheme: dark;
+  }
+}
+/* ダーク：明示の指定 */
+:root[data-theme="dark"] {
+  --wk-canvas: #161615; --wk-sidebar: #111110; --wk-surface: #1f1f1d; --wk-surface-2: #2a2a27; --wk-line: #34332f;
+  --wk-fg: #ecebe7; --wk-fg-2: #b6b4ae; --wk-fg-3: #95938d;
+  --wk-accent: #5b8cff; --wk-on-accent: #0b1530; --wk-accent-soft: #1c2a4d; --wk-accent-text: #9db9ff;
+  --wk-ok: #4cc38a; --wk-ok-soft: #16301f; --wk-warn: #e5a83b; --wk-warn-soft: #33270f; --wk-danger: #ff7a7a; --wk-danger-soft: #3a1717; --wk-on-danger: #2a0b0b;
+  --wk-scrim: rgb(0 0 0 / 0.55);
+  --wk-shadow-sm: 0 1px 2px rgb(0 0 0 / 0.4);
+  --wk-shadow: 0 16px 40px rgb(0 0 0 / 0.5), 0 2px 6px rgb(0 0 0 / 0.4);
+  --wk-glass-line: color-mix(in oklab, var(--wk-fg) 12%, transparent);
+  color-scheme: dark;
+}
+
+/* 動きを減らす設定：動きはほぼ0に（状態の変化は残す） */
+@media (prefers-reduced-motion: reduce) {
+  :root {
+    --wk-dur-press: 1ms; --wk-dur-fast: 1ms; --wk-dur-base: 1ms; --wk-dur-sheet: 1ms;
+  }
+}

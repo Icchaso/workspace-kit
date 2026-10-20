@@ -1,0 +1,55 @@
+/*
+ * Workspace Kit トークンを Tailwind v4 のクラス名で使えるようにする対応表。
+ * 例：bg-canvas / bg-surface / text-fg-2 / border-line / bg-accent / text-on-accent / rounded-md / h-hit
+ * globals.css で `@import "tailwindcss";` の後に読み込む。
+ */
+@theme inline {
+  --color-canvas: var(--wk-canvas);
+  --color-sidebar: var(--wk-sidebar);
+  --color-surface: var(--wk-surface);
+  --color-surface-2: var(--wk-surface-2);
+  --color-line: var(--wk-line);
+  --color-fg: var(--wk-fg);
+  --color-fg-2: var(--wk-fg-2);
+  --color-fg-3: var(--wk-fg-3);
+  --color-accent: var(--wk-accent);
+  --color-on-accent: var(--wk-on-accent);
+  --color-accent-soft: var(--wk-accent-soft);
+  --color-accent-text: var(--wk-accent-text);
+  --color-ok: var(--wk-ok);
+  --color-ok-soft: var(--wk-ok-soft);
+  --color-warn: var(--wk-warn);
+  --color-warn-soft: var(--wk-warn-soft);
+  --color-danger: var(--wk-danger);
+  --color-danger-soft: var(--wk-danger-soft);
+  --color-on-danger: var(--wk-on-danger);
+  --color-scrim: var(--wk-scrim);
+
+  --radius-sm: var(--wk-r-sm);
+  --radius-md: var(--wk-r-md);
+  --radius-lg: var(--wk-r-lg);
+
+  --shadow-sm: var(--wk-shadow-sm);
+  --shadow-float: var(--wk-shadow);
+
+  --font-sans: var(--wk-font);
+
+  --text-xs: var(--wk-text-xs);
+  --text-sm: var(--wk-text-sm);
+  --text-base: var(--wk-text-md);
+  --text-lg: var(--wk-text-lg);
+  --text-xl: var(--wk-text-xl);
+
+  --ease-out: var(--wk-ease-out);
+  --ease-in-out: var(--wk-ease-in-out);
+  --ease-drawer: var(--wk-ease-drawer);
+
+  --spacing-hit: var(--wk-hit);
+  --spacing-row: var(--wk-row);
+  --spacing-sidebar: var(--wk-sidebar-w);
+  --spacing-rail: var(--wk-rail-w);
+
+  /* 骨格の切り替え点：768px 未満＝下タブ／768〜1279px＝アイコン列／1280px 以上＝サイドバー */
+  --breakpoint-rail: 48rem;
+  --breakpoint-side: 80rem;
+}

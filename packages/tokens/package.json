@@ -1,0 +1,11 @@
+{
+  "name": "@workspace-kit/tokens",
+  "version": "0.1.0",
+  "private": true,
+  "description": "Workspace Kit の色・文字・余白・角丸・影・動き・押せる大きさのトークン（CSS変数）",
+  "exports": {
+    "./tokens.css": "./tokens.css",
+    "./tailwind.css": "./tailwind.css"
+  },
+  "files": ["tokens.css", "tailwind.css"]
+}

@@ -3,3 +3,6 @@ node_modules/
 .env*
 !.env.example
 .DS_Store
+
+# 検査の撮影結果
+/screenshots/
