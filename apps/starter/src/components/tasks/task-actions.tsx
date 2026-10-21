@@ -8,8 +8,8 @@
  */
 import { Menu } from "@base-ui/react/menu";
 import { ArrowRight, Check, FileText, MoreHorizontal, RotateCcw, Sun, Trash2, type LucideIcon } from "lucide-react";
-import { Sheet } from "@/components/ui/sheet";
-import { notify } from "@/components/ui/toast";
+import { Sheet } from "@/components/kit/sheet";
+import { notify } from "@/components/kit/toast";
 import { useCoarsePointer } from "@/lib/prefs";
 import { useTasks, type Task } from "@/lib/tasks";
 import { cn } from "@/lib/cn";

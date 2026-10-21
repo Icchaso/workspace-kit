@@ -5,9 +5,9 @@
  * よく使う操作（完了・今日やる）は大きいボタン、削除は控えめな文字のボタンにする。
  */
 import { ArrowRight, Check, ListChecks, RotateCcw, Sun, Trash2 } from "lucide-react";
-import { Button } from "@/components/ui/button";
-import { EmptyState } from "@/components/ui/feedback";
-import { Sheet } from "@/components/ui/sheet";
+import { Button } from "@/components/kit/button";
+import { EmptyState } from "@/components/kit/feedback";
+import { Sheet } from "@/components/kit/sheet";
 import { CheckButton, DueTag, PriorityTag } from "./task-parts";
 import { useTaskCommands } from "./task-actions";
 import type { Task } from "@/lib/tasks";

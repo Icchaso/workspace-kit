@@ -10,6 +10,7 @@ import { usePathname } from "next/navigation";
 import { PanelLeftClose, PanelLeftOpen, Plus, Search } from "lucide-react";
 import { useState } from "react";
 import { NAV, isActive } from "@/config/nav";
+import { APP } from "@/config/shell";
 import { cn } from "@/lib/cn";
 
 function setCollapsed(collapsed: boolean) {
@@ -43,8 +44,8 @@ export function SideNav({ onSearch, onAdd }: { onSearch?: () => void; onAdd?: ()
       style={{ width: "var(--wk-nav-w)", transition: "width var(--wk-dur-base) var(--wk-ease-out)" }}
     >
       <div className="mb-3 flex items-center gap-2.5 px-1.5 max-side:justify-center max-side:px-0 [:root[data-sidebar=collapsed]_&]:justify-center [:root[data-sidebar=collapsed]_&]:px-0">
-        <span className="grid size-8 flex-none place-items-center rounded-lg bg-accent text-sm font-semibold text-on-accent">K</span>
-        <span className="wk-nav-label truncate text-sm font-semibold">Kit タスク帳</span>
+        <span className="grid size-8 flex-none place-items-center rounded-lg bg-accent text-sm font-semibold text-on-accent">{APP.mark}</span>
+        <span className="wk-nav-label truncate text-sm font-semibold">{APP.name}</span>
       </div>
 
       {onSearch && (
@@ -76,9 +77,9 @@ export function SideNav({ onSearch, onAdd }: { onSearch?: () => void; onAdd?: ()
       <div className="flex-1" />
 
       {onAdd && (
-        <button type="button" onClick={onAdd} title="タスクを追加" className={cn(itemClass, "text-fg-2 hover:bg-surface-2 hover:text-fg")}>
+        <button type="button" onClick={onAdd} title={APP.addLabel} className={cn(itemClass, "text-fg-2 hover:bg-surface-2 hover:text-fg")}>
           <Plus aria-hidden size={20} className="flex-none" />
-          <span className="wk-nav-label">タスクを追加</span>
+          <span className="wk-nav-label">{APP.addLabel}</span>
         </button>
       )}
       {/* 畳む・広げる（1280px 以上のときだけ） */}

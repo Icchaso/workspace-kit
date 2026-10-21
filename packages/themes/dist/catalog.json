@@ -1,0 +1,2379 @@
+[
+ {
+  "id": "graphite",
+  "label": "グラファイト",
+  "desc": "落ち着いた灰色と青。毎日使う管理画面の基準",
+  "from": null,
+  "status": "curated",
+  "darkOnly": false,
+  "swatch": [
+   "#f5f7f9",
+   "#191b1e",
+   "#2563eb",
+   "#e4edff"
+  ],
+  "fonts": {
+   "body": "IBM Plex Sans",
+   "head": "IBM Plex Sans",
+   "jp": "IBM Plex Sans JP",
+   "href": "https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Sans+JP:wght@400;500;600&display=swap"
+  },
+  "radius": {
+   "sm": 6,
+   "md": 10,
+   "lg": 14
+  },
+  "contrast": {
+   "light": {
+    "min": 4.73,
+    "fails": []
+   },
+   "dark": {
+    "min": 5.39,
+    "fails": []
+   }
+  }
+ },
+ {
+  "id": "clinic",
+  "label": "クリニック",
+  "desc": "やわらかい緑と丸い角。お客さま・患者さん向け",
+  "from": null,
+  "status": "curated",
+  "darkOnly": false,
+  "swatch": [
+   "#f4f8f6",
+   "#171c1a",
+   "#008464",
+   "#daf4e9"
+  ],
+  "fonts": {
+   "body": "Zen Maru Gothic",
+   "head": "Zen Maru Gothic",
+   "jp": "Zen Maru Gothic",
+   "href": "https://fonts.googleapis.com/css2?family=Zen+Maru+Gothic:wght@400;500;700&display=swap"
+  },
+  "radius": {
+   "sm": 10,
+   "md": 14,
+   "lg": 20
+  },
+  "contrast": {
+   "light": {
+    "min": 4.69,
+    "fails": []
+   },
+   "dark": {
+    "min": 5.39,
+    "fails": []
+   }
+  }
+ },
+ {
+  "id": "night",
+  "label": "ナイト",
+  "desc": "暗い背景に水色。自分用ツールや夜の作業向け（常に暗い表示）",
+  "from": null,
+  "status": "curated",
+  "darkOnly": true,
+  "swatch": [
+   "#0b0f19",
+   "#e7ebf3",
+   "#5cc8ff",
+   "#053043"
+  ],
+  "fonts": {
+   "body": "IBM Plex Sans",
+   "head": "IBM Plex Sans",
+   "jp": "IBM Plex Sans JP",
+   "href": "https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Sans+JP:wght@400;500;600&display=swap"
+  },
+  "radius": {
+   "sm": 6,
+   "md": 10,
+   "lg": 14
+  },
+  "contrast": {
+   "light": null,
+   "dark": {
+    "min": 5.4,
+    "fails": []
+   }
+  }
+ },
+ {
+  "id": "sky",
+  "label": "スカイ",
+  "desc": "明るい青と大きめの文字。はじめての人にも分かりやすい",
+  "from": "ant",
+  "status": "curated",
+  "darkOnly": false,
+  "swatch": [
+   "#f5f7f9",
+   "#181b1e",
+   "#036df4",
+   "#e3eeff"
+  ],
+  "fonts": {
+   "body": "Plus Jakarta Sans",
+   "head": "Plus Jakarta Sans",
+   "jp": "Noto Sans JP",
+   "href": "https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600&family=Noto+Sans+JP:wght@400;500;600&display=swap"
+  },
+  "radius": {
+   "sm": 6,
+   "md": 8,
+   "lg": 12
+  },
+  "contrast": {
+   "light": {
+    "min": 4.66,
+    "fails": []
+   },
+   "dark": {
+    "min": 5.39,
+    "fails": []
+   }
+  }
+ },
+ {
+  "id": "navy",
+  "label": "ネイビー",
+  "desc": "濃い紺と細めの線。数字の多い業務・会計向け",
+  "from": "enterprise",
+  "status": "curated",
+  "darkOnly": false,
+  "swatch": [
+   "#f5f7f9",
+   "#181b1e",
+   "#0c5cab",
+   "#e1eeff"
+  ],
+  "fonts": {
+   "body": "IBM Plex Sans",
+   "head": "IBM Plex Sans",
+   "jp": "IBM Plex Sans JP",
+   "href": "https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Sans+JP:wght@400;500;600&display=swap"
+  },
+  "radius": {
+   "sm": 4,
+   "md": 8,
+   "lg": 12
+  },
+  "contrast": {
+   "light": {
+    "min": 4.73,
+    "fails": []
+   },
+   "dark": {
+    "min": 5.39,
+    "fails": []
+   }
+  }
+ },
+ {
+  "id": "lavender",
+  "label": "ラベンダー",
+  "desc": "落ち着いた紫。予約・相談など人と向き合う画面向け",
+  "from": "material",
+  "status": "curated",
+  "darkOnly": false,
+  "swatch": [
+   "#f6f6f9",
+   "#1a1a1e",
+   "#6442d6",
+   "#ebebff"
+  ],
+  "fonts": {
+   "body": "Inter",
+   "head": "Roboto",
+   "jp": "Noto Sans JP",
+   "href": "https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Roboto:wght@400;500;600&family=Noto+Sans+JP:wght@400;500;600&display=swap"
+  },
+  "radius": {
+   "sm": 8,
+   "md": 12,
+   "lg": 18
+  },
+  "contrast": {
+   "light": {
+    "min": 4.74,
+    "fails": []
+   },
+   "dark": {
+    "min": 5.39,
+    "fails": []
+   }
+  }
+ },
+ {
+  "id": "ink",
+  "label": "インク",
+  "desc": "黒と白だけ。中身を主役にしたい道具向け",
+  "from": "minimal",
+  "status": "curated",
+  "darkOnly": false,
+  "swatch": [
+   "#f7f7f4",
+   "#1b1b17",
+   "#0c0c09",
+   "#ededeb"
+  ],
+  "fonts": {
+   "body": "Open Sans",
+   "head": "Inter",
+   "jp": "Noto Sans JP",
+   "href": "https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;500;600&family=Inter:wght@400;500;600&family=Noto+Sans+JP:wght@400;500;600&display=swap"
+  },
+  "radius": {
+   "sm": 4,
+   "md": 6,
+   "lg": 10
+  },
+  "contrast": {
+   "light": {
+    "min": 4.73,
+    "fails": []
+   },
+   "dark": {
+    "min": 5.39,
+    "fails": []
+   }
+  }
+ },
+ {
+  "id": "cafe",
+  "label": "カフェ",
+  "desc": "こげ茶とクリーム。お店・飲食・小売の管理向け",
+  "from": "cafe",
+  "status": "curated",
+  "darkOnly": false,
+  "swatch": [
+   "#f9f6f4",
+   "#1e1a17",
+   "#5d4432",
+   "#f4ebe5"
+  ],
+  "fonts": {
+   "body": "Poppins",
+   "head": "Poppins",
+   "jp": "Noto Sans JP",
+   "href": "https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&family=Noto+Sans+JP:wght@400;500;600&display=swap"
+  },
+  "radius": {
+   "sm": 8,
+   "md": 12,
+   "lg": 16
+  },
+  "contrast": {
+   "light": {
+    "min": 4.74,
+    "fails": []
+   },
+   "dark": {
+    "min": 5.39,
+    "fails": []
+   }
+  }
+ },
+ {
+  "id": "leaf",
+  "label": "リーフ",
+  "desc": "元気な緑と丸い文字。学習・習慣づけのツール向け",
+  "from": "lingo",
+  "status": "curated",
+  "darkOnly": false,
+  "swatch": [
+   "#f5f7f5",
+   "#191b18",
+   "#58cc02",
+   "#dff5d7"
+  ],
+  "fonts": {
+   "body": "Nunito",
+   "head": "Nunito",
+   "jp": "M PLUS Rounded 1c",
+   "href": "https://fonts.googleapis.com/css2?family=Nunito:wght@400;500;600&family=M+PLUS+Rounded+1c:wght@400;500;700&display=swap"
+  },
+  "radius": {
+   "sm": 10,
+   "md": 14,
+   "lg": 20
+  },
+  "contrast": {
+   "light": {
+    "min": 4.68,
+    "fails": []
+   },
+   "dark": {
+    "min": 5.39,
+    "fails": []
+   }
+  }
+ },
+ {
+  "id": "terracotta",
+  "label": "テラコッタ",
+  "desc": "素焼きの赤茶と明朝の見出し。住まい・暮らしの紹介向け",
+  "from": "terracotta",
+  "status": "curated",
+  "darkOnly": false,
+  "swatch": [
+   "#f9f6f4",
+   "#1e1917",
+   "#c56a3c",
+   "#ffe7dc"
+  ],
+  "fonts": {
+   "body": "Noto Sans JP",
+   "head": "DM Serif Display",
+   "jp": "Noto Sans JP",
+   "href": "https://fonts.googleapis.com/css2?family=DM+Serif+Display&family=Noto+Sans+JP:wght@400;500;600&family=Noto+Serif+JP:wght@400;500;600&display=swap"
+  },
+  "radius": {
+   "sm": 6,
+   "md": 10,
+   "lg": 14
+  },
+  "contrast": {
+   "light": {
+    "min": 4.7,
+    "fails": []
+   },
+   "dark": {
+    "min": 5.39,
+    "fails": []
+   }
+  }
+ },
+ {
+  "id": "pop",
+  "label": "ポップ",
+  "desc": "黄色の主ボタンと太い枠。社内のちょっとした道具向け",
+  "from": "neobrutalism",
+  "status": "curated",
+  "darkOnly": false,
+  "swatch": [
+   "#f8f7f4",
+   "#1c1a16",
+   "#fdc800",
+   "#f9eccb"
+  ],
+  "fonts": {
+   "body": "Inter",
+   "head": "Inter",
+   "jp": "Noto Sans JP",
+   "href": "https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Noto+Sans+JP:wght@400;500;600&display=swap"
+  },
+  "radius": {
+   "sm": 4,
+   "md": 6,
+   "lg": 8
+  },
+  "contrast": {
+   "light": {
+    "min": 4.72,
+    "fails": []
+   },
+   "dark": {
+    "min": 5.39,
+    "fails": []
+   }
+  }
+ },
+ {
+  "id": "teal",
+  "label": "ディープティール",
+  "desc": "深い青緑とオレンジの差し色。現場・物流・作業記録向け",
+  "from": "stitch",
+  "status": "curated",
+  "darkOnly": false,
+  "swatch": [
+   "#faf7eb",
+   "#1d1b10",
+   "#072c2c",
+   "#e5efef"
+  ],
+  "fonts": {
+   "body": "Noto Sans JP",
+   "head": "Oswald",
+   "jp": "Noto Sans JP",
+   "href": "https://fonts.googleapis.com/css2?family=Oswald:wght@400;500;600&family=Noto+Sans+JP:wght@400;500;600&display=swap"
+  },
+  "radius": {
+   "sm": 4,
+   "md": 8,
+   "lg": 12
+  },
+  "contrast": {
+   "light": {
+    "min": 4.73,
+    "fails": []
+   },
+   "dark": {
+    "min": 5.39,
+    "fails": []
+   }
+  }
+ },
+ {
+  "id": "agentic",
+  "label": "Agentic",
+  "desc": "Conversational AI-first interface with minimal controls, clear outcomes, and delegated task flows for agentic workflows.",
+  "from": "agentic",
+  "status": "converted",
+  "darkOnly": false,
+  "swatch": [
+   "#f9f6f5",
+   "#1e1918",
+   "#ff5701",
+   "#ffe7df"
+  ],
+  "fonts": {
+   "body": "Noto Sans JP",
+   "head": "Playfair Display",
+   "jp": "Noto Sans JP",
+   "href": "https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600&family=Noto+Sans+JP:wght@400;500;600&family=Noto+Serif+JP:wght@400;500;600&display=swap"
+  },
+  "radius": {
+   "sm": 4,
+   "md": 8,
+   "lg": 12
+  },
+  "contrast": {
+   "light": {
+    "min": 4.62,
+    "fails": []
+   },
+   "dark": {
+    "min": 5.39,
+    "fails": []
+   }
+  }
+ },
+ {
+  "id": "artistic",
+  "label": "Artistic",
+  "desc": "High-contrast, expressive style with creative typography and bold color choices for visually striking interfaces.",
+  "from": "artistic",
+  "status": "converted",
+  "darkOnly": false,
+  "swatch": [
+   "#f5f7f9",
+   "#181b1e",
+   "#3b82f6",
+   "#e3eeff"
+  ],
+  "fonts": {
+   "body": "Noto Sans JP",
+   "head": "Limelight",
+   "jp": "Noto Sans JP",
+   "href": "https://fonts.googleapis.com/css2?family=Limelight&family=Noto+Sans+JP:wght@400;500;600&display=swap"
+  },
+  "radius": {
+   "sm": 4,
+   "md": 8,
+   "lg": 12
+  },
+  "contrast": {
+   "light": {
+    "min": 4.63,
+    "fails": []
+   },
+   "dark": {
+    "min": 5.39,
+    "fails": []
+   }
+  }
+ },
+ {
+  "id": "basic",
+  "label": "Basic",
+  "desc": "Print-inspired visual language for books, magazines, and reports with editorial grids and expressive typography.",
+  "from": "basic",
+  "status": "converted",
+  "darkOnly": false,
+  "swatch": [
+   "#f7f6f9",
+   "#1b1a1e",
+   "#a855f7",
+   "#f1e8ff"
+  ],
+  "fonts": {
+   "body": "Nunito",
+   "head": "Oswald",
+   "jp": "M PLUS Rounded 1c",
+   "href": "https://fonts.googleapis.com/css2?family=Nunito:wght@400;500;600&family=Oswald:wght@400;500;600&family=M+PLUS+Rounded+1c:wght@400;500;700&display=swap"
+  },
+  "radius": {
+   "sm": 4,
+   "md": 8,
+   "lg": 12
+  },
+  "contrast": {
+   "light": {
+    "min": 4.61,
+    "fails": []
+   },
+   "dark": {
+    "min": 5.39,
+    "fails": []
+   }
+  }
+ },
+ {
+  "id": "bento",
+  "label": "Bento",
+  "desc": "Modular grid layout with card-like blocks, clear hierarchy, soft spacing, and subtle visual contrast for organized, scannable interfaces.",
+  "from": "bento",
+  "status": "converted",
+  "darkOnly": false,
+  "swatch": [
+   "#fef6e8",
+   "#201a10",
+   "#fad4c0",
+   "#f5eae5"
+  ],
+  "fonts": {
+   "body": "Inter",
+   "head": "Inter",
+   "jp": "Noto Sans JP",
+   "href": "https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Noto+Sans+JP:wght@400;500;600&display=swap"
+  },
+  "radius": {
+   "sm": 4,
+   "md": 8,
+   "lg": 12
+  },
+  "contrast": {
+   "light": {
+    "min": 4.73,
+    "fails": []
+   },
+   "dark": {
+    "min": 5.4,
+    "fails": []
+   }
+  }
+ },
+ {
+  "id": "bold",
+  "label": "Bold",
+  "desc": "Strong visual presence with heavyweight typography, high-contrast colors, and commanding layouts.",
+  "from": "bold",
+  "status": "converted",
+  "darkOnly": false,
+  "swatch": [
+   "#f5f7f9",
+   "#181b1e",
+   "#0077bc",
+   "#deefff"
+  ],
+  "fonts": {
+   "body": "Noto Sans JP",
+   "head": "Archivo Black",
+   "jp": "Noto Sans JP",
+   "href": "https://fonts.googleapis.com/css2?family=Archivo+Black&family=Noto+Sans+JP:wght@400;500;600&display=swap"
+  },
+  "radius": {
+   "sm": 4,
+   "md": 8,
+   "lg": 12
+  },
+  "contrast": {
+   "light": {
+    "min": 4.67,
+    "fails": []
+   },
+   "dark": {
+    "min": 5.39,
+    "fails": []
+   }
+  }
+ },
+ {
+  "id": "brutalism",
+  "label": "Brutalism",
+  "desc": "Raw, anti-design aesthetic inspired by concrete architecture with unadorned elements, jarring layouts, and functional minimalism.",
+  "from": "brutalism",
+  "status": "converted",
+  "darkOnly": false,
+  "swatch": [
+   "#f9f6f5",
+   "#1e1918",
+   "#dd614c",
+   "#ffe7e2"
+  ],
+  "fonts": {
+   "body": "Darker Grotesque",
+   "head": "Darker Grotesque",
+   "jp": "Noto Sans JP",
+   "href": "https://fonts.googleapis.com/css2?family=Darker+Grotesque:wght@400;500;600&family=Noto+Sans+JP:wght@400;500;600&display=swap"
+  },
+  "radius": {
+   "sm": 4,
+   "md": 8,
+   "lg": 12
+  },
+  "contrast": {
+   "light": {
+    "min": 4.62,
+    "fails": []
+   },
+   "dark": {
+    "min": 5.39,
+    "fails": []
+   }
+  }
+ },
+ {
+  "id": "cafe",
+  "label": "Cafe",
+  "desc": "Cozy cafe-inspired interface with warm tones, soft typography, and clean layouts for a relaxed browsing experience.",
+  "from": "cafe",
+  "status": "converted",
+  "darkOnly": false,
+  "swatch": [
+   "#f9f6f4",
+   "#1e1a17",
+   "#5d4432",
+   "#f4ebe5"
+  ],
+  "fonts": {
+   "body": "Poppins",
+   "head": "Poppins",
+   "jp": "Noto Sans JP",
+   "href": "https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&family=Noto+Sans+JP:wght@400;500;600&display=swap"
+  },
+  "radius": {
+   "sm": 4,
+   "md": 8,
+   "lg": 12
+  },
+  "contrast": {
+   "light": {
+    "min": 4.74,
+    "fails": []
+   },
+   "dark": {
+    "min": 5.39,
+    "fails": []
+   }
+  }
+ },
+ {
+  "id": "claymorphism",
+  "label": "Claymorphism",
+  "desc": "Soft, rounded 3D-like shapes mimicking malleable clay with playful, puffy elements and colorful surfaces.",
+  "from": "claymorphism",
+  "status": "converted",
+  "darkOnly": false,
+  "swatch": [
+   "#f5f7f9",
+   "#181b1e",
+   "#3b82f6",
+   "#e3eeff"
+  ],
+  "fonts": {
+   "body": "Montserrat",
+   "head": "Poppins",
+   "jp": "Noto Sans JP",
+   "href": "https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600&family=Poppins:wght@400;500;600&family=Noto+Sans+JP:wght@400;500;600&display=swap"
+  },
+  "radius": {
+   "sm": 4,
+   "md": 8,
+   "lg": 12
+  },
+  "contrast": {
+   "light": {
+    "min": 4.63,
+    "fails": []
+   },
+   "dark": {
+    "min": 5.39,
+    "fails": []
+   }
+  }
+ },
+ {
+  "id": "clean",
+  "label": "Clean",
+  "desc": "Simplicity-focused design with ample whitespace, legible typography, and a limited color palette to reduce visual clutter.",
+  "from": "clean",
+  "status": "converted",
+  "darkOnly": false,
+  "swatch": [
+   "#f5f7f9",
+   "#181b1e",
+   "#3b82f6",
+   "#e3eeff"
+  ],
+  "fonts": {
+   "body": "Roboto",
+   "head": "Poppins",
+   "jp": "Noto Sans JP",
+   "href": "https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;600&family=Poppins:wght@400;500;600&family=Noto+Sans+JP:wght@400;500;600&display=swap"
+  },
+  "radius": {
+   "sm": 4,
+   "md": 8,
+   "lg": 12
+  },
+  "contrast": {
+   "light": {
+    "min": 4.63,
+    "fails": []
+   },
+   "dark": {
+    "min": 5.39,
+    "fails": []
+   }
+  }
+ },
+ {
+  "id": "colorful",
+  "label": "Colorful",
+  "desc": "Vibrant, high-contrast palettes and gradients for engaging, memorable, and modern user experiences.",
+  "from": "colorful",
+  "status": "converted",
+  "darkOnly": false,
+  "swatch": [
+   "#f5f7f9",
+   "#181b1e",
+   "#3b82f6",
+   "#e3eeff"
+  ],
+  "fonts": {
+   "body": "Inter",
+   "head": "Inter",
+   "jp": "Noto Sans JP",
+   "href": "https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Noto+Sans+JP:wght@400;500;600&display=swap"
+  },
+  "radius": {
+   "sm": 4,
+   "md": 8,
+   "lg": 12
+  },
+  "contrast": {
+   "light": {
+    "min": 4.63,
+    "fails": []
+   },
+   "dark": {
+    "min": 5.39,
+    "fails": []
+   }
+  }
+ },
+ {
+  "id": "contemporary",
+  "label": "Contemporary",
+  "desc": "Current-era minimalist design with bento grids, dark mode support, and high-performance accessible layouts.",
+  "from": "contemporary",
+  "status": "converted",
+  "darkOnly": false,
+  "swatch": [
+   "#f8f6f8",
+   "#1c191d",
+   "#c800df",
+   "#fce3ff"
+  ],
+  "fonts": {
+   "body": "Jost",
+   "head": "Jost",
+   "jp": "Noto Sans JP",
+   "href": "https://fonts.googleapis.com/css2?family=Jost:wght@400;500;600&family=Noto+Sans+JP:wght@400;500;600&display=swap"
+  },
+  "radius": {
+   "sm": 4,
+   "md": 8,
+   "lg": 12
+  },
+  "contrast": {
+   "light": {
+    "min": 4.64,
+    "fails": []
+   },
+   "dark": {
+    "min": 5.39,
+    "fails": []
+   }
+  }
+ },
+ {
+  "id": "corporate",
+  "label": "Corporate",
+  "desc": "Professional, brand-aligned design with structured grids, minimalist layouts, and consistent enterprise patterns.",
+  "from": "corporate",
+  "status": "converted",
+  "darkOnly": false,
+  "swatch": [
+   "#f5f7f9",
+   "#181b1e",
+   "#3b82f6",
+   "#e3eeff"
+  ],
+  "fonts": {
+   "body": "Open Sans",
+   "head": "Poppins",
+   "jp": "Noto Sans JP",
+   "href": "https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;500;600&family=Poppins:wght@400;500;600&family=Noto+Sans+JP:wght@400;500;600&display=swap"
+  },
+  "radius": {
+   "sm": 4,
+   "md": 8,
+   "lg": 12
+  },
+  "contrast": {
+   "light": {
+    "min": 4.63,
+    "fails": []
+   },
+   "dark": {
+    "min": 5.39,
+    "fails": []
+   }
+  }
+ },
+ {
+  "id": "cosmic",
+  "label": "Cosmic",
+  "desc": "Futuristic sci-fi aesthetic with dark themes, vibrant neon accents, and immersive spatial elements.",
+  "from": "cosmic",
+  "status": "converted",
+  "darkOnly": false,
+  "swatch": [
+   "#f5f7f9",
+   "#181b1e",
+   "#3b82f6",
+   "#e3eeff"
+  ],
+  "fonts": {
+   "body": "Noto Sans JP",
+   "head": "Audiowide",
+   "jp": "Noto Sans JP",
+   "href": "https://fonts.googleapis.com/css2?family=Audiowide&family=Noto+Sans+JP:wght@400;500;600&display=swap"
+  },
+  "radius": {
+   "sm": 4,
+   "md": 8,
+   "lg": 12
+  },
+  "contrast": {
+   "light": {
+    "min": 4.63,
+    "fails": []
+   },
+   "dark": {
+    "min": 5.39,
+    "fails": []
+   }
+  }
+ },
+ {
+  "id": "creative",
+  "label": "Creative",
+  "desc": "Playful, character-driven design with expressive typography and bold graphics for landing pages and creative projects.",
+  "from": "creative",
+  "status": "converted",
+  "darkOnly": false,
+  "swatch": [
+   "#f5f7f9",
+   "#181b1e",
+   "#3b82f6",
+   "#e3eeff"
+  ],
+  "fonts": {
+   "body": "Noto Sans JP",
+   "head": "Bangers",
+   "jp": "Noto Sans JP",
+   "href": "https://fonts.googleapis.com/css2?family=Bangers&family=Noto+Sans+JP:wght@400;500;600&display=swap"
+  },
+  "radius": {
+   "sm": 4,
+   "md": 8,
+   "lg": 12
+  },
+  "contrast": {
+   "light": {
+    "min": 4.63,
+    "fails": []
+   },
+   "dark": {
+    "min": 5.39,
+    "fails": []
+   }
+  }
+ },
+ {
+  "id": "dithered",
+  "label": "Dithered",
+  "desc": "Dot-pattern rendering technique that simulates shades with a limited palette for nostalgic, retro, high-contrast visuals.",
+  "from": "dithered",
+  "status": "converted",
+  "darkOnly": false,
+  "swatch": [
+   "#f5f7f9",
+   "#181b1e",
+   "#3b82f6",
+   "#e3eeff"
+  ],
+  "fonts": {
+   "body": "Open Sans",
+   "head": "Space Grotesk",
+   "jp": "Noto Sans JP",
+   "href": "https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;500;600&family=Space+Grotesk:wght@400;500;600&family=Noto+Sans+JP:wght@400;500;600&display=swap"
+  },
+  "radius": {
+   "sm": 4,
+   "md": 8,
+   "lg": 12
+  },
+  "contrast": {
+   "light": {
+    "min": 4.63,
+    "fails": []
+   },
+   "dark": {
+    "min": 5.39,
+    "fails": []
+   }
+  }
+ },
+ {
+  "id": "doodle",
+  "label": "Doodle",
+  "desc": "Hand-drawn, sketch-like style with doodles, handwritten fonts, and imperfect lines for a playful, informal feel.",
+  "from": "doodle",
+  "status": "converted",
+  "darkOnly": false,
+  "swatch": [
+   "#f4f7f9",
+   "#171b1e",
+   "#49b6e5",
+   "#d8f2ff"
+  ],
+  "fonts": {
+   "body": "Noto Sans JP",
+   "head": "Delius Swash Caps",
+   "jp": "Noto Sans JP",
+   "href": "https://fonts.googleapis.com/css2?family=Delius+Swash+Caps&family=Noto+Sans+JP:wght@400;500;600&display=swap"
+  },
+  "radius": {
+   "sm": 4,
+   "md": 8,
+   "lg": 12
+  },
+  "contrast": {
+   "light": {
+    "min": 4.61,
+    "fails": []
+   },
+   "dark": {
+    "min": 5.39,
+    "fails": []
+   }
+  }
+ },
+ {
+  "id": "dramatic",
+  "label": "Dramatic",
+  "desc": "High-contrast, theatrical design with bold layouts, immersive visuals, and unconventional compositions that command attention.",
+  "from": "dramatic",
+  "status": "converted",
+  "darkOnly": false,
+  "swatch": [
+   "#f7f6f9",
+   "#1b1a1e",
+   "#8555ef",
+   "#edeaff"
+  ],
+  "fonts": {
+   "body": "Outfit",
+   "head": "Outfit",
+   "jp": "Noto Sans JP",
+   "href": "https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600&family=Noto+Sans+JP:wght@400;500;600&display=swap"
+  },
+  "radius": {
+   "sm": 4,
+   "md": 8,
+   "lg": 12
+  },
+  "contrast": {
+   "light": {
+    "min": 4.61,
+    "fails": []
+   },
+   "dark": {
+    "min": 5.39,
+    "fails": []
+   }
+  }
+ },
+ {
+  "id": "editorial",
+  "label": "Editorial",
+  "desc": "Magazine-inspired editorial layout with refined serif typography, structured grids, and elegant reading experiences.",
+  "from": "editorial",
+  "status": "converted",
+  "darkOnly": false,
+  "swatch": [
+   "#f9f6f7",
+   "#1e191a",
+   "#111111",
+   "#ededed"
+  ],
+  "fonts": {
+   "body": "Gelasio",
+   "head": "Gelasio",
+   "jp": "Noto Serif JP",
+   "href": "https://fonts.googleapis.com/css2?family=Gelasio:wght@400;500;600&family=Noto+Serif+JP:wght@400;500;600&display=swap"
+  },
+  "radius": {
+   "sm": 4,
+   "md": 8,
+   "lg": 12
+  },
+  "contrast": {
+   "light": {
+    "min": 4.74,
+    "fails": []
+   },
+   "dark": {
+    "min": 5.39,
+    "fails": []
+   }
+  }
+ },
+ {
+  "id": "enterprise",
+  "label": "Enterprise",
+  "desc": "Dark-themed cloud-platform aesthetic with modular grids, glass-like panels, and strong data hierarchy for productivity dashboards.",
+  "from": "enterprise",
+  "status": "converted",
+  "darkOnly": false,
+  "swatch": [
+   "#f5f7f9",
+   "#181b1e",
+   "#0c5cab",
+   "#e1eeff"
+  ],
+  "fonts": {
+   "body": "IBM Plex Sans",
+   "head": "IBM Plex Sans",
+   "jp": "IBM Plex Sans JP",
+   "href": "https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Sans+JP:wght@400;500;600&display=swap"
+  },
+  "radius": {
+   "sm": 4,
+   "md": 8,
+   "lg": 12
+  },
+  "contrast": {
+   "light": {
+    "min": 4.73,
+    "fails": []
+   },
+   "dark": {
+    "min": 5.39,
+    "fails": []
+   }
+  }
+ },
+ {
+  "id": "expressive",
+  "label": "Expressive",
+  "desc": "Vibrant, personality-driven design with bold colors, playful graphics, and dynamic layouts that balance creativity with structure.",
+  "from": "expressive",
+  "status": "converted",
+  "darkOnly": false,
+  "swatch": [
+   "#f9f6f6",
+   "#1e191a",
+   "#d72274",
+   "#ffe5ec"
+  ],
+  "fonts": {
+   "body": "IBM Plex Mono",
+   "head": "IBM Plex Mono",
+   "jp": "M PLUS 1 Code",
+   "href": "https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&family=M+PLUS+1+Code:wght@400;500;600&display=swap"
+  },
+  "radius": {
+   "sm": 4,
+   "md": 8,
+   "lg": 12
+  },
+  "contrast": {
+   "light": {
+    "min": 4.61,
+    "fails": []
+   },
+   "dark": {
+    "min": 5.39,
+    "fails": []
+   }
+  }
+ },
+ {
+  "id": "fantasy",
+  "label": "Fantasy",
+  "desc": "Game-inspired fantasy aesthetic with bold, premium visuals, rich color palettes, and immersive thematic elements.",
+  "from": "fantasy",
+  "status": "converted",
+  "darkOnly": false,
+  "swatch": [
+   "#f5f7f9",
+   "#181b1e",
+   "#0250cc",
+   "#e3edff"
+  ],
+  "fonts": {
+   "body": "Noto Sans JP",
+   "head": "New Rocker",
+   "jp": "Noto Sans JP",
+   "href": "https://fonts.googleapis.com/css2?family=New+Rocker&family=Noto+Sans+JP:wght@400;500;600&display=swap"
+  },
+  "radius": {
+   "sm": 4,
+   "md": 8,
+   "lg": 12
+  },
+  "contrast": {
+   "light": {
+    "min": 4.73,
+    "fails": []
+   },
+   "dark": {
+    "min": 5.39,
+    "fails": []
+   }
+  }
+ },
+ {
+  "id": "fiction",
+  "label": "Fiction",
+  "desc": "Playful, storybook-inspired interface with warm surfaces, chunky outlines, and expressive display typography.",
+  "from": "fiction",
+  "status": "converted",
+  "darkOnly": false,
+  "swatch": [
+   "#f9f6f7",
+   "#1e191a",
+   "#222222",
+   "#ededed"
+  ],
+  "fonts": {
+   "body": "Gelasio",
+   "head": "Gelasio",
+   "jp": "Noto Serif JP",
+   "href": "https://fonts.googleapis.com/css2?family=Gelasio:wght@400;500;600&family=Noto+Serif+JP:wght@400;500;600&display=swap"
+  },
+  "radius": {
+   "sm": 4,
+   "md": 8,
+   "lg": 12
+  },
+  "contrast": {
+   "light": {
+    "min": 4.74,
+    "fails": []
+   },
+   "dark": {
+    "min": 5.39,
+    "fails": []
+   }
+  }
+ },
+ {
+  "id": "flat",
+  "label": "Flat",
+  "desc": "Two-dimensional minimalist style with vibrant colors, clean typography, and no 3D effects for fast, user-friendly interfaces.",
+  "from": "flat",
+  "status": "converted",
+  "darkOnly": false,
+  "swatch": [
+   "#f9f6f5",
+   "#1e1918",
+   "#f2673c",
+   "#ffe7e0"
+  ],
+  "fonts": {
+   "body": "Inter",
+   "head": "Inter",
+   "jp": "Noto Sans JP",
+   "href": "https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Noto+Sans+JP:wght@400;500;600&display=swap"
+  },
+  "radius": {
+   "sm": 4,
+   "md": 8,
+   "lg": 12
+  },
+  "contrast": {
+   "light": {
+    "min": 4.65,
+    "fails": []
+   },
+   "dark": {
+    "min": 5.39,
+    "fails": []
+   }
+  }
+ },
+ {
+  "id": "friendly",
+  "label": "Friendly",
+  "desc": "Approachable, intuitive design with rounded elements, ample whitespace, and soft pastel color palettes.",
+  "from": "friendly",
+  "status": "converted",
+  "darkOnly": false,
+  "swatch": [
+   "#f9f6f6",
+   "#1e191a",
+   "#f2d9dc",
+   "#f2ebec"
+  ],
+  "fonts": {
+   "body": "Noto Serif Display",
+   "head": "Noto Serif Display",
+   "jp": "Noto Serif JP",
+   "href": "https://fonts.googleapis.com/css2?family=Noto+Serif+Display:wght@400;500;600&family=Noto+Serif+JP:wght@400;500;600&display=swap"
+  },
+  "radius": {
+   "sm": 4,
+   "md": 8,
+   "lg": 12
+  },
+  "contrast": {
+   "light": {
+    "min": 4.74,
+    "fails": []
+   },
+   "dark": {
+    "min": 5.39,
+    "fails": []
+   }
+  }
+ },
+ {
+  "id": "futuristic",
+  "label": "Futuristic",
+  "desc": "Forward-looking design with tech-inspired typography, modern layouts, and a sleek, innovation-driven aesthetic.",
+  "from": "futuristic",
+  "status": "converted",
+  "darkOnly": false,
+  "swatch": [
+   "#f5f7f9",
+   "#181b1e",
+   "#3b82f6",
+   "#e3eeff"
+  ],
+  "fonts": {
+   "body": "Roboto",
+   "head": "Audiowide",
+   "jp": "Noto Sans JP",
+   "href": "https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;600&family=Audiowide&family=Noto+Sans+JP:wght@400;500;600&display=swap"
+  },
+  "radius": {
+   "sm": 4,
+   "md": 8,
+   "lg": 12
+  },
+  "contrast": {
+   "light": {
+    "min": 4.63,
+    "fails": []
+   },
+   "dark": {
+    "min": 5.39,
+    "fails": []
+   }
+  }
+ },
+ {
+  "id": "geometric",
+  "label": "Geometric",
+  "desc": "Geometric, structured design with clean typography, neutral colors, precise shapes, and intuitive layouts that stay out of the way.",
+  "from": "geometric",
+  "status": "converted",
+  "darkOnly": false,
+  "swatch": [
+   "#f5f7f9",
+   "#181b1e",
+   "#3b82f6",
+   "#e3eeff"
+  ],
+  "fonts": {
+   "body": "Inter",
+   "head": "Inter",
+   "jp": "Noto Sans JP",
+   "href": "https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Noto+Sans+JP:wght@400;500;600&display=swap"
+  },
+  "radius": {
+   "sm": 4,
+   "md": 8,
+   "lg": 12
+  },
+  "contrast": {
+   "light": {
+    "min": 4.63,
+    "fails": []
+   },
+   "dark": {
+    "min": 5.39,
+    "fails": []
+   }
+  }
+ },
+ {
+  "id": "glassmorphism",
+  "label": "Glassmorphism",
+  "desc": "Frosted glass effect with translucent layers, subtle blur, and luminous borders for depth and modern elegance.",
+  "from": "glassmorphism",
+  "status": "converted",
+  "darkOnly": false,
+  "swatch": [
+   "#f5f7f9",
+   "#191b1e",
+   "#1856ff",
+   "#e4edff"
+  ],
+  "fonts": {
+   "body": "Plus Jakarta Sans",
+   "head": "Plus Jakarta Sans",
+   "jp": "Noto Sans JP",
+   "href": "https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600&family=Noto+Sans+JP:wght@400;500;600&display=swap"
+  },
+  "radius": {
+   "sm": 4,
+   "md": 8,
+   "lg": 12
+  },
+  "contrast": {
+   "light": {
+    "min": 4.69,
+    "fails": []
+   },
+   "dark": {
+    "min": 5.39,
+    "fails": []
+   }
+  }
+ },
+ {
+  "id": "gradient",
+  "label": "Gradient",
+  "desc": "Smooth color transitions and gradient-rich surfaces for modern, playful interfaces with visual depth.",
+  "from": "gradient",
+  "status": "converted",
+  "darkOnly": false,
+  "swatch": [
+   "#f7f6f9",
+   "#1b1a1e",
+   "#990ffa",
+   "#f1e8ff"
+  ],
+  "fonts": {
+   "body": "Montserrat",
+   "head": "Space Grotesk",
+   "jp": "Noto Sans JP",
+   "href": "https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600&family=Space+Grotesk:wght@400;500;600&family=Noto+Sans+JP:wght@400;500;600&display=swap"
+  },
+  "radius": {
+   "sm": 4,
+   "md": 8,
+   "lg": 12
+  },
+  "contrast": {
+   "light": {
+    "min": 4.74,
+    "fails": []
+   },
+   "dark": {
+    "min": 5.39,
+    "fails": []
+   }
+  }
+ },
+ {
+  "id": "immersive",
+  "label": "Immersive",
+  "desc": "Exhibit-style interface that blends storytelling and game-like interaction on a continuous deep-green canvas.",
+  "from": "immersive",
+  "status": "converted",
+  "darkOnly": false,
+  "swatch": [
+   "#f5f8f5",
+   "#181c19",
+   "#00592b",
+   "#dff3e3"
+  ],
+  "fonts": {
+   "body": "Noto Sans JP",
+   "head": "Oswald",
+   "jp": "Noto Sans JP",
+   "href": "https://fonts.googleapis.com/css2?family=Oswald:wght@400;500;600&family=Noto+Sans+JP:wght@400;500;600&display=swap"
+  },
+  "radius": {
+   "sm": 4,
+   "md": 8,
+   "lg": 12
+  },
+  "contrast": {
+   "light": {
+    "min": 4.72,
+    "fails": []
+   },
+   "dark": {
+    "min": 5.39,
+    "fails": []
+   }
+  }
+ },
+ {
+  "id": "levels",
+  "label": "Levels",
+  "desc": "Conversion-focused design that removes friction and guides users toward action through clarity, trust, and speed.",
+  "from": "levels",
+  "status": "converted",
+  "darkOnly": false,
+  "swatch": [
+   "#f6f6f9",
+   "#1a1a1e",
+   "#27272a",
+   "#ededee"
+  ],
+  "fonts": {
+   "body": "Inter",
+   "head": "Inter",
+   "jp": "Noto Sans JP",
+   "href": "https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Noto+Sans+JP:wght@400;500;600&display=swap"
+  },
+  "radius": {
+   "sm": 4,
+   "md": 8,
+   "lg": 12
+  },
+  "contrast": {
+   "light": {
+    "min": 4.74,
+    "fails": []
+   },
+   "dark": {
+    "min": 5.39,
+    "fails": []
+   }
+  }
+ },
+ {
+  "id": "matrix",
+  "label": "Matrix",
+  "desc": "Dark cyber-terminal visual language with mono typography, dense data layouts, and one green interaction accent.",
+  "from": "matrix",
+  "status": "converted",
+  "darkOnly": false,
+  "swatch": [
+   "#f4f8f6",
+   "#171c1a",
+   "#2db58a",
+   "#d7f5e7"
+  ],
+  "fonts": {
+   "body": "Space Mono",
+   "head": "Space Mono",
+   "jp": "M PLUS 1 Code",
+   "href": "https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&family=M+PLUS+1+Code:wght@400;500;600&display=swap"
+  },
+  "radius": {
+   "sm": 4,
+   "md": 8,
+   "lg": 12
+  },
+  "contrast": {
+   "light": {
+    "min": 4.69,
+    "fails": []
+   },
+   "dark": {
+    "min": 5.39,
+    "fails": []
+   }
+  }
+ },
+ {
+  "id": "minimal",
+  "label": "Minimal",
+  "desc": "Stripped-back design emphasizing whitespace, clean typography, and restrained color for maximum clarity and focus.",
+  "from": "minimal",
+  "status": "converted",
+  "darkOnly": false,
+  "swatch": [
+   "#f7f7f4",
+   "#1b1b17",
+   "#0c0c09",
+   "#ededeb"
+  ],
+  "fonts": {
+   "body": "Open Sans",
+   "head": "Inter",
+   "jp": "Noto Sans JP",
+   "href": "https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;500;600&family=Inter:wght@400;500;600&family=Noto+Sans+JP:wght@400;500;600&display=swap"
+  },
+  "radius": {
+   "sm": 4,
+   "md": 8,
+   "lg": 12
+  },
+  "contrast": {
+   "light": {
+    "min": 4.73,
+    "fails": []
+   },
+   "dark": {
+    "min": 5.39,
+    "fails": []
+   }
+  }
+ },
+ {
+  "id": "modern",
+  "label": "Modern",
+  "desc": "Contemporary editorial style with serif typography, minimal palettes, and clean layouts for polished digital products.",
+  "from": "modern",
+  "status": "converted",
+  "darkOnly": false,
+  "swatch": [
+   "#f7f5ff",
+   "#1b1923",
+   "#553f83",
+   "#eee9ff"
+  ],
+  "fonts": {
+   "body": "IBM Plex Serif",
+   "head": "IBM Plex Serif",
+   "jp": "Noto Serif JP",
+   "href": "https://fonts.googleapis.com/css2?family=IBM+Plex+Serif:wght@400;500;600&family=Noto+Serif+JP:wght@400;500;600&display=swap"
+  },
+  "radius": {
+   "sm": 4,
+   "md": 8,
+   "lg": 12
+  },
+  "contrast": {
+   "light": {
+    "min": 4.73,
+    "fails": []
+   },
+   "dark": {
+    "min": 5.41,
+    "fails": []
+   }
+  }
+ },
+ {
+  "id": "mono",
+  "label": "Mono",
+  "desc": "Monospace-driven, matrix-inspired design with high-contrast elements, compact density, and a hacker-chic aesthetic.",
+  "from": "mono",
+  "status": "converted",
+  "darkOnly": false,
+  "swatch": [
+   "#f5f7f5",
+   "#191c18",
+   "#37f712",
+   "#ddf5d9"
+  ],
+  "fonts": {
+   "body": "Space Mono",
+   "head": "Space Mono",
+   "jp": "M PLUS 1 Code",
+   "href": "https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&family=M+PLUS+1+Code:wght@400;500;600&display=swap"
+  },
+  "radius": {
+   "sm": 4,
+   "md": 8,
+   "lg": 12
+  },
+  "contrast": {
+   "light": {
+    "min": 4.64,
+    "fails": []
+   },
+   "dark": {
+    "min": 5.39,
+    "fails": []
+   }
+  }
+ },
+ {
+  "id": "neobrutalism",
+  "label": "Neobrutalism",
+  "desc": "Modern take on brutalism with bold borders, vivid accent colors, and raw, high-contrast layouts on warm surfaces.",
+  "from": "neobrutalism",
+  "status": "converted",
+  "darkOnly": false,
+  "swatch": [
+   "#f8f7f4",
+   "#1c1a16",
+   "#fdc800",
+   "#f9eccb"
+  ],
+  "fonts": {
+   "body": "Inter",
+   "head": "Inter",
+   "jp": "Noto Sans JP",
+   "href": "https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Noto+Sans+JP:wght@400;500;600&display=swap"
+  },
+  "radius": {
+   "sm": 4,
+   "md": 8,
+   "lg": 12
+  },
+  "contrast": {
+   "light": {
+    "min": 4.72,
+    "fails": []
+   },
+   "dark": {
+    "min": 5.39,
+    "fails": []
+   }
+  }
+ },
+ {
+  "id": "neon",
+  "label": "Neon",
+  "desc": "Electric neon glow effects with high-contrast color pairings for bold, attention-grabbing interfaces.",
+  "from": "neon",
+  "status": "converted",
+  "darkOnly": false,
+  "swatch": [
+   "#f6f7f4",
+   "#1a1b17",
+   "#bbf351",
+   "#e5f3d3"
+  ],
+  "fonts": {
+   "body": "Roboto",
+   "head": "STIX Two Text",
+   "jp": "Noto Sans JP",
+   "href": "https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;600&family=STIX+Two+Text:wght@400;500;600&family=Noto+Sans+JP:wght@400;500;600&family=Noto+Serif+JP:wght@400;500;600&display=swap"
+  },
+  "radius": {
+   "sm": 4,
+   "md": 8,
+   "lg": 12
+  },
+  "contrast": {
+   "light": {
+    "min": 4.72,
+    "fails": []
+   },
+   "dark": {
+    "min": 5.39,
+    "fails": []
+   }
+  }
+ },
+ {
+  "id": "neumorphism",
+  "label": "Neumorphism",
+  "desc": "Soft, extruded UI elements with inner and outer shadows on monochromatic surfaces for a tactile, embedded look.",
+  "from": "neumorphism",
+  "status": "converted",
+  "darkOnly": false,
+  "swatch": [
+   "#f4f8f7",
+   "#161c1c",
+   "#006666",
+   "#ddf2f1"
+  ],
+  "fonts": {
+   "body": "Space Mono",
+   "head": "Space Mono",
+   "jp": "M PLUS 1 Code",
+   "href": "https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&family=M+PLUS+1+Code:wght@400;500;600&display=swap"
+  },
+  "radius": {
+   "sm": 4,
+   "md": 8,
+   "lg": 12
+  },
+  "contrast": {
+   "light": {
+    "min": 4.72,
+    "fails": []
+   },
+   "dark": {
+    "min": 5.39,
+    "fails": []
+   }
+  }
+ },
+ {
+  "id": "paper",
+  "label": "Paper",
+  "desc": "Paper-textured, print-inspired design with minimal colors, clean serif/sans typography, and tactile surface qualities.",
+  "from": "paper",
+  "status": "converted",
+  "darkOnly": false,
+  "swatch": [
+   "#f9f6f7",
+   "#1e191a",
+   "#111111",
+   "#ededed"
+  ],
+  "fonts": {
+   "body": "Roboto",
+   "head": "Montserrat",
+   "jp": "Noto Sans JP",
+   "href": "https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;600&family=Montserrat:wght@400;500;600&family=Noto+Sans+JP:wght@400;500;600&display=swap"
+  },
+  "radius": {
+   "sm": 4,
+   "md": 8,
+   "lg": 12
+  },
+  "contrast": {
+   "light": {
+    "min": 4.74,
+    "fails": []
+   },
+   "dark": {
+    "min": 5.39,
+    "fails": []
+   }
+  }
+ },
+ {
+  "id": "perspective",
+  "label": "Perspective",
+  "desc": "Spatial depth design with isometric views, vanishing points, and layered elements that guide attention through 3D-like realism.",
+  "from": "perspective",
+  "status": "converted",
+  "darkOnly": false,
+  "swatch": [
+   "#f5f8f6",
+   "#181c19",
+   "#00bd7d",
+   "#d4f7e3"
+  ],
+  "fonts": {
+   "body": "Poppins",
+   "head": "Oswald",
+   "jp": "Noto Sans JP",
+   "href": "https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&family=Oswald:wght@400;500;600&family=Noto+Sans+JP:wght@400;500;600&display=swap"
+  },
+  "radius": {
+   "sm": 4,
+   "md": 8,
+   "lg": 12
+  },
+  "contrast": {
+   "light": {
+    "min": 4.69,
+    "fails": []
+   },
+   "dark": {
+    "min": 5.39,
+    "fails": []
+   }
+  }
+ },
+ {
+  "id": "power",
+  "label": "Power",
+  "desc": "High-end dark aesthetic with bold headings, monochromatic palette, and premium feel for premium brand experiences.",
+  "from": "power",
+  "status": "converted",
+  "darkOnly": false,
+  "swatch": [
+   "#f9f6f7",
+   "#1e191a",
+   "#fafafa",
+   "#ededed"
+  ],
+  "fonts": {
+   "body": "Noto Sans JP",
+   "head": "Oswald",
+   "jp": "Noto Sans JP",
+   "href": "https://fonts.googleapis.com/css2?family=Oswald:wght@400;500;600&family=Noto+Sans+JP:wght@400;500;600&display=swap"
+  },
+  "radius": {
+   "sm": 4,
+   "md": 8,
+   "lg": 12
+  },
+  "contrast": {
+   "light": {
+    "min": 4.69,
+    "fails": []
+   },
+   "dark": {
+    "min": 5.39,
+    "fails": []
+   }
+  }
+ },
+ {
+  "id": "premium",
+  "label": "Premium",
+  "desc": "Apple-inspired premium aesthetic with precise spacing, modern typography, and a refined, polished visual language.",
+  "from": "premium",
+  "status": "converted",
+  "darkOnly": false,
+  "swatch": [
+   "#f5f7f9",
+   "#181b1e",
+   "#3b82f6",
+   "#e3eeff"
+  ],
+  "fonts": {
+   "body": "Inter",
+   "head": "Inter",
+   "jp": "Noto Sans JP",
+   "href": "https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Noto+Sans+JP:wght@400;500;600&display=swap"
+  },
+  "radius": {
+   "sm": 4,
+   "md": 8,
+   "lg": 12
+  },
+  "contrast": {
+   "light": {
+    "min": 4.63,
+    "fails": []
+   },
+   "dark": {
+    "min": 5.39,
+    "fails": []
+   }
+  }
+ },
+ {
+  "id": "professional",
+  "label": "Professional",
+  "desc": "Polished, business-ready design with modern typography, structured layouts, and a trustworthy visual identity.",
+  "from": "professional",
+  "status": "converted",
+  "darkOnly": false,
+  "swatch": [
+   "#f8f7f4",
+   "#1c1b16",
+   "#fece14",
+   "#f8eccb"
+  ],
+  "fonts": {
+   "body": "Poppins",
+   "head": "Poppins",
+   "jp": "Noto Sans JP",
+   "href": "https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&family=Noto+Sans+JP:wght@400;500;600&display=swap"
+  },
+  "radius": {
+   "sm": 4,
+   "md": 8,
+   "lg": 12
+  },
+  "contrast": {
+   "light": {
+    "min": 4.71,
+    "fails": []
+   },
+   "dark": {
+    "min": 5.39,
+    "fails": []
+   }
+  }
+ },
+ {
+  "id": "pulse",
+  "label": "Pulse",
+  "desc": "Dynamic, vibrant style with thick borders, geometric shapes, high-contrast colors, and expressive typography conveying motion and vitality.",
+  "from": "pulse",
+  "status": "converted",
+  "darkOnly": false,
+  "swatch": [
+   "#fff5eb",
+   "#211911",
+   "#ea580b",
+   "#ffe7de"
+  ],
+  "fonts": {
+   "body": "Noto Sans JP",
+   "head": "Limelight",
+   "jp": "Noto Sans JP",
+   "href": "https://fonts.googleapis.com/css2?family=Limelight&family=Noto+Sans+JP:wght@400;500;600&display=swap"
+  },
+  "radius": {
+   "sm": 4,
+   "md": 8,
+   "lg": 12
+  },
+  "contrast": {
+   "light": {
+    "min": 4.6,
+    "fails": []
+   },
+   "dark": {
+    "min": 5.4,
+    "fails": []
+   }
+  }
+ },
+ {
+  "id": "refined",
+  "label": "Refined",
+  "desc": "Carefully curated, modern minimal style with elegant serif typography and understated, sophisticated palettes.",
+  "from": "refined",
+  "status": "converted",
+  "darkOnly": false,
+  "swatch": [
+   "#f5f7f9",
+   "#181b1e",
+   "#3b82f6",
+   "#e3eeff"
+  ],
+  "fonts": {
+   "body": "Noto Sans JP",
+   "head": "Playfair Display",
+   "jp": "Noto Sans JP",
+   "href": "https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600&family=Noto+Sans+JP:wght@400;500;600&family=Noto+Serif+JP:wght@400;500;600&display=swap"
+  },
+  "radius": {
+   "sm": 4,
+   "md": 8,
+   "lg": 12
+  },
+  "contrast": {
+   "light": {
+    "min": 4.63,
+    "fails": []
+   },
+   "dark": {
+    "min": 5.39,
+    "fails": []
+   }
+  }
+ },
+ {
+  "id": "retro",
+  "label": "Retro",
+  "desc": "Throwback design with vintage-inspired typography, high-contrast retro palettes, and nostalgic visual elements.",
+  "from": "retro",
+  "status": "converted",
+  "darkOnly": false,
+  "swatch": [
+   "#f5f7f9",
+   "#181b1e",
+   "#3b82f6",
+   "#e3eeff"
+  ],
+  "fonts": {
+   "body": "Noto Sans JP",
+   "head": "Macondo",
+   "jp": "Noto Sans JP",
+   "href": "https://fonts.googleapis.com/css2?family=Macondo&family=Noto+Sans+JP:wght@400;500;600&display=swap"
+  },
+  "radius": {
+   "sm": 4,
+   "md": 8,
+   "lg": 12
+  },
+  "contrast": {
+   "light": {
+    "min": 4.63,
+    "fails": []
+   },
+   "dark": {
+    "min": 5.39,
+    "fails": []
+   }
+  }
+ },
+ {
+  "id": "riso",
+  "label": "Riso",
+  "desc": "Playful two-color risograph-inspired system with paper-like warmth, vivid pink actions, and bold blue structure.",
+  "from": "riso",
+  "status": "converted",
+  "darkOnly": false,
+  "swatch": [
+   "#f9f6f7",
+   "#1e191b",
+   "#f237a1",
+   "#ffe5ef"
+  ],
+  "fonts": {
+   "body": "Space Grotesk",
+   "head": "Space Grotesk",
+   "jp": "Noto Sans JP",
+   "href": "https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600&family=Noto+Sans+JP:wght@400;500;600&display=swap"
+  },
+  "radius": {
+   "sm": 4,
+   "md": 8,
+   "lg": 12
+  },
+  "contrast": {
+   "light": {
+    "min": 4.64,
+    "fails": []
+   },
+   "dark": {
+    "min": 5.39,
+    "fails": []
+   }
+  }
+ },
+ {
+  "id": "sketch",
+  "label": "Sketch",
+  "desc": "Hand-drawn sketch aesthetic on warm paper with soft teal accents, dashed outlines, and tactile illustrated shadows.",
+  "from": "sketch",
+  "status": "converted",
+  "darkOnly": false,
+  "swatch": [
+   "#f4f8f7",
+   "#171c1b",
+   "#1dad97",
+   "#d6f5ed"
+  ],
+  "fonts": {
+   "body": "Noto Sans JP",
+   "head": "Delicious Handrawn",
+   "jp": "Noto Sans JP",
+   "href": "https://fonts.googleapis.com/css2?family=Delicious+Handrawn&family=Noto+Sans+JP:wght@400;500;600&display=swap"
+  },
+  "radius": {
+   "sm": 4,
+   "md": 8,
+   "lg": 12
+  },
+  "contrast": {
+   "light": {
+    "min": 4.71,
+    "fails": []
+   },
+   "dark": {
+    "min": 5.39,
+    "fails": []
+   }
+  }
+ },
+ {
+  "id": "skeumorphism",
+  "label": "Skeumorphism",
+  "desc": "Real-world mimicry with textured surfaces, 3D effects, and familiar physical metaphors for intuitive digital interfaces.",
+  "from": "skeumorphism",
+  "status": "converted",
+  "darkOnly": false,
+  "swatch": [
+   "#f9f6f5",
+   "#1e1918",
+   "#fa3c00",
+   "#ffe7e1"
+  ],
+  "fonts": {
+   "body": "Roboto",
+   "head": "Germania One",
+   "jp": "Noto Sans JP",
+   "href": "https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;600&family=Germania+One&family=Noto+Sans+JP:wght@400;500;600&display=swap"
+  },
+  "radius": {
+   "sm": 4,
+   "md": 8,
+   "lg": 12
+  },
+  "contrast": {
+   "light": {
+    "min": 4.7,
+    "fails": []
+   },
+   "dark": {
+    "min": 5.39,
+    "fails": []
+   }
+  }
+ },
+ {
+  "id": "sleek",
+  "label": "Sleek",
+  "desc": "Modern minimalist aesthetic with clean lines, intentional color palette, subtle interactions, and consistent spacing.",
+  "from": "sleek",
+  "status": "converted",
+  "darkOnly": false,
+  "swatch": [
+   "#f5f7f9",
+   "#181b1e",
+   "#3b82f6",
+   "#e3eeff"
+  ],
+  "fonts": {
+   "body": "Inter",
+   "head": "Inter",
+   "jp": "Noto Sans JP",
+   "href": "https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Noto+Sans+JP:wght@400;500;600&display=swap"
+  },
+  "radius": {
+   "sm": 4,
+   "md": 8,
+   "lg": 12
+  },
+  "contrast": {
+   "light": {
+    "min": 4.63,
+    "fails": []
+   },
+   "dark": {
+    "min": 5.39,
+    "fails": []
+   }
+  }
+ },
+ {
+  "id": "spacious",
+  "label": "Spacious",
+  "desc": "Generous whitespace, consistent padding, and grid-based layouts for clean, readable, and breathing interfaces.",
+  "from": "spacious",
+  "status": "converted",
+  "darkOnly": false,
+  "swatch": [
+   "#f5f7f9",
+   "#181b1e",
+   "#3b82f6",
+   "#e3eeff"
+  ],
+  "fonts": {
+   "body": "Open Sans",
+   "head": "Montserrat",
+   "jp": "Noto Sans JP",
+   "href": "https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;500;600&family=Montserrat:wght@400;500;600&family=Noto+Sans+JP:wght@400;500;600&display=swap"
+  },
+  "radius": {
+   "sm": 4,
+   "md": 8,
+   "lg": 12
+  },
+  "contrast": {
+   "light": {
+    "min": 4.63,
+    "fails": []
+   },
+   "dark": {
+    "min": 5.39,
+    "fails": []
+   }
+  }
+ },
+ {
+  "id": "square",
+  "label": "Square",
+  "desc": "Graceful, refined aesthetic with delicate typography, minimal palettes, and polished layouts that exude sophistication.",
+  "from": "square",
+  "status": "converted",
+  "darkOnly": false,
+  "swatch": [
+   "#f5f7f9",
+   "#181b1e",
+   "#3b82f6",
+   "#e3eeff"
+  ],
+  "fonts": {
+   "body": "Inter",
+   "head": "Inter",
+   "jp": "Noto Sans JP",
+   "href": "https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Noto+Sans+JP:wght@400;500;600&display=swap"
+  },
+  "radius": {
+   "sm": 4,
+   "md": 8,
+   "lg": 12
+  },
+  "contrast": {
+   "light": {
+    "min": 4.63,
+    "fails": []
+   },
+   "dark": {
+    "min": 5.39,
+    "fails": []
+   }
+  }
+ },
+ {
+  "id": "stitch",
+  "label": "Stitch",
+  "desc": "Clean, high-contrast enterprise design for data-driven workflows with intuitive drag-and-drop patterns and structured layouts.",
+  "from": "stitch",
+  "status": "converted",
+  "darkOnly": false,
+  "swatch": [
+   "#faf7eb",
+   "#1d1b10",
+   "#072c2c",
+   "#e5efef"
+  ],
+  "fonts": {
+   "body": "Noto Sans JP",
+   "head": "Oswald",
+   "jp": "Noto Sans JP",
+   "href": "https://fonts.googleapis.com/css2?family=Oswald:wght@400;500;600&family=Noto+Sans+JP:wght@400;500;600&display=swap"
+  },
+  "radius": {
+   "sm": 4,
+   "md": 8,
+   "lg": 12
+  },
+  "contrast": {
+   "light": {
+    "min": 4.73,
+    "fails": []
+   },
+   "dark": {
+    "min": 5.39,
+    "fails": []
+   }
+  }
+ },
+ {
+  "id": "storytelling",
+  "label": "Storytelling",
+  "desc": "Narrative-driven design using visuals, copy, and interaction to guide users through engaging, emotionally resonant journeys.",
+  "from": "storytelling",
+  "status": "converted",
+  "darkOnly": false,
+  "swatch": [
+   "#f5f7f9",
+   "#181b1e",
+   "#3b82f6",
+   "#e3eeff"
+  ],
+  "fonts": {
+   "body": "Inter",
+   "head": "Abril Fatface",
+   "jp": "Noto Sans JP",
+   "href": "https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Abril+Fatface&family=Noto+Sans+JP:wght@400;500;600&family=Noto+Serif+JP:wght@400;500;600&display=swap"
+  },
+  "radius": {
+   "sm": 4,
+   "md": 8,
+   "lg": 12
+  },
+  "contrast": {
+   "light": {
+    "min": 4.63,
+    "fails": []
+   },
+   "dark": {
+    "min": 5.39,
+    "fails": []
+   }
+  }
+ },
+ {
+  "id": "terracotta",
+  "label": "Terracotta",
+  "desc": "Sun-baked, clay-toned editorial system with warm cream surfaces, serif headlines, and a single terracotta accent.",
+  "from": "terracotta",
+  "status": "converted",
+  "darkOnly": false,
+  "swatch": [
+   "#f9f6f4",
+   "#1e1917",
+   "#c56a3c",
+   "#ffe7dc"
+  ],
+  "fonts": {
+   "body": "Noto Sans JP",
+   "head": "DM Serif Display",
+   "jp": "Noto Sans JP",
+   "href": "https://fonts.googleapis.com/css2?family=DM+Serif+Display&family=Noto+Sans+JP:wght@400;500;600&family=Noto+Serif+JP:wght@400;500;600&display=swap"
+  },
+  "radius": {
+   "sm": 4,
+   "md": 8,
+   "lg": 12
+  },
+  "contrast": {
+   "light": {
+    "min": 4.7,
+    "fails": []
+   },
+   "dark": {
+    "min": 5.39,
+    "fails": []
+   }
+  }
+ },
+ {
+  "id": "vibrant",
+  "label": "Vibrant",
+  "desc": "Lively, colorful design with bold playful typography, warm accents, and dynamic visual energy.",
+  "from": "vibrant",
+  "status": "converted",
+  "darkOnly": false,
+  "swatch": [
+   "#f7f6f9",
+   "#1a1a1e",
+   "#7c61d4",
+   "#eceaff"
+  ],
+  "fonts": {
+   "body": "Noto Sans JP",
+   "head": "Fascinate",
+   "jp": "Noto Sans JP",
+   "href": "https://fonts.googleapis.com/css2?family=Fascinate&family=Noto+Sans+JP:wght@400;500;600&display=swap"
+  },
+  "radius": {
+   "sm": 4,
+   "md": 8,
+   "lg": 12
+  },
+  "contrast": {
+   "light": {
+    "min": 4.65,
+    "fails": []
+   },
+   "dark": {
+    "min": 5.39,
+    "fails": []
+   }
+  }
+ },
+ {
+  "id": "vintage",
+  "label": "Vintage",
+  "desc": "1950s-1990s nostalgia with skeuomorphic touches, grainy textures, retro color palettes, and pixel-style typography.",
+  "from": "vintage",
+  "status": "converted",
+  "darkOnly": false,
+  "swatch": [
+   "#f4f8f7",
+   "#161c1c",
+   "#008080",
+   "#daf3f2"
+  ],
+  "fonts": {
+   "body": "Noto Sans JP",
+   "head": "Silkscreen",
+   "jp": "Noto Sans JP",
+   "href": "https://fonts.googleapis.com/css2?family=Silkscreen:wght@400;700&family=Noto+Sans+JP:wght@400;500;600&display=swap"
+  },
+  "radius": {
+   "sm": 4,
+   "md": 8,
+   "lg": 12
+  },
+  "contrast": {
+   "light": {
+    "min": 4.67,
+    "fails": []
+   },
+   "dark": {
+    "min": 5.39,
+    "fails": []
+   }
+  }
+ }
+]

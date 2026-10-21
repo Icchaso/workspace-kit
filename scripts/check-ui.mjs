@@ -13,9 +13,18 @@
  *   6. 下タブの動き：押した瞬間に選択表示／丸い板が 120〜260ms で止まる／途中で 1.12 倍以上に伸びる／動きを減らす設定では瞬間移動
  *   7. 画面の切り替え：下タブを押してから見出しが変わるまで 150ms 未満
  *   8. コンソールにエラーが出ていない
- *   9. 段階3の操作が通る（スマホ：行を押して詳細シート・長押しで操作シート・右下の主ボタン・今日を締める・AIの成果物を今日に入れる／
+ *   9. （DEMO=1 のときだけ）見本アプリの操作が通る（スマホ：行を押して詳細シート・長押しで操作シート・右下の主ボタン・今日を締める・AIの成果物を今日に入れる／
  *      PC：右の詳細パネル・⌘K で探して開く・↓ キーで選ぶ・… のメニュー・AIの成果物パネル）。シートやメニューを開いた状態も axe で見る
  * 1つでも落ちたら終了コード 1。
+ *
+ * 6・7 は最初の画面（ROUTES の先頭）に下タブがあるときだけ測る。
+ *
+ * 環境変数
+ *   ROUTES=/,/tasks   … 見る画面（既定：/。DEMO=1 なら /,/tasks,/ai,/settings,/kit）
+ *   NO_NAV=/login     … ナビが無いのが正しい画面（ログイン・見本サイトなど。前方一致。既定：/kit）
+ *   DEMO=1            … 雛形の見本アプリ（タスク管理）の操作も確かめる
+ *   PALETTE=sky       … テーマを指定して見る（既定：グラファイト）
+ *   QUICK=1           … 390px と 1440px だけ撮り、動きと操作の検査を飛ばす（テーマの色の検査用）
  */
 import { mkdirSync, writeFileSync } from "node:fs";
 import { join } from "node:path";
@@ -24,8 +33,12 @@ import AxeBuilder from "@axe-core/playwright";
 
 const base = process.argv[2] ?? "http://127.0.0.1:3456";
 const out = process.argv[3] ?? "screenshots/check";
-const ROUTES = (process.env.ROUTES ?? "/,/tasks,/ai,/settings").split(",");
-const VIEWPORTS = [
+const DEMO = process.env.DEMO === "1";
+const ROUTES = (process.env.ROUTES ?? (DEMO ? "/,/tasks,/ai,/settings,/kit" : "/")).split(",");
+const NO_NAV = (process.env.NO_NAV ?? "/kit").split(",").filter(Boolean);
+const PALETTE = process.env.PALETTE ?? "";
+const QUICK = !!process.env.QUICK;
+const ALL_VIEWPORTS = [
   { name: "phone-375", width: 375, height: 812, touch: true },
   { name: "phone-390", width: 390, height: 844, touch: true },
   { name: "tablet-768", width: 768, height: 1024, touch: false },
@@ -33,6 +46,7 @@ const VIEWPORTS = [
   { name: "pc-1280", width: 1280, height: 800, touch: false },
   { name: "pc-1440", width: 1440, height: 900, touch: false },
 ];
+const VIEWPORTS = QUICK ? ALL_VIEWPORTS.filter((v) => v.width === 390 || v.width === 1440) : ALL_VIEWPORTS;
 mkdirSync(out, { recursive: true });
 
 const failures = [];
@@ -51,13 +65,14 @@ async function open(vp, { dark = false, reduced = false } = {}) {
     colorScheme: dark ? "dark" : "light",
     reducedMotion: reduced ? "reduce" : "no-preference",
   });
+  if (PALETTE) await ctx.addInitScript((p) => localStorage.setItem("wk.palette", p), PALETTE);
   const page = await ctx.newPage();
   page.on("console", (m) => m.type() === "error" && consoleErrors.push(`[${vp.name}] ${m.text()}`));
   page.on("pageerror", (e) => consoleErrors.push(`[${vp.name}] ${e.message}`));
   return { ctx, page };
 }
 
-const slug = (r) => (r === "/" ? "today" : r.replace(/\//g, ""));
+const slug = (r) => (r === "/" ? "today" : r.replace(/\//g, "")) + (PALETTE ? `-${PALETTE}` : "");
 
 // ---- 1〜5：幅 × 明るさ × 画面 ----
 for (const vp of VIEWPORTS) {
@@ -101,7 +116,8 @@ for (const vp of VIEWPORTS) {
 
       if (r.overflow > 1) fail(where, `横に ${r.overflow}px はみ出している`);
       const expect = vp.width < 768 ? "tabbar" : "side";
-      if (r.nav.length !== 1 || r.nav[0] !== expect) fail(where, `ナビが「${r.nav.join("・") || "無し"}」（期待：${expect}）`);
+      // ログイン・見本サイトなど、骨組みの外の画面はナビが無くてよい
+      if (!NO_NAV.some((p) => route.startsWith(p)) && (r.nav.length !== 1 || r.nav[0] !== expect)) fail(where, `ナビが「${r.nav.join("・") || "無し"}」（期待：${expect}）`);
       if (r.tiny.length) fail(where, `12px 未満の文字 ${r.tiny.length}件（例：${r.tiny.slice(0, 3).join(" / ")}）`);
       if (r.zoomy.length) fail(where, `16px 未満の入力欄 ${r.zoomy.length}件（例：${r.zoomy.slice(0, 3).join(" / ")}）`);
       if (r.small.length) fail(where, `44px 未満の押せるもの ${r.small.length}件（例：${r.small.slice(0, 3).join(" / ")}）`);
@@ -117,9 +133,13 @@ for (const vp of VIEWPORTS) {
 async function measureTab(reduced) {
   const vp = VIEWPORTS[1];
   const { ctx, page } = await open(vp, { reduced });
-  await page.goto(base + "/", { waitUntil: "networkidle" });
+  await page.goto(base + ROUTES[0], { waitUntil: "networkidle" });
   await page.waitForTimeout(400);
   const nav = page.locator("[data-nav=tabbar]");
+  if (!(await nav.count()) || (await nav.locator("a").count()) < 2) {
+    await ctx.close();
+    return null;
+  }
   const box = await nav.boundingBox();
   const count = await nav.locator("a").count();
   // ページの中で、押した瞬間からの変化を毎フレーム記録する
@@ -165,7 +185,9 @@ async function measureTab(reduced) {
   };
 }
 
-const m = await measureTab(false);
+const m = QUICK ? null : await measureTab(false);
+if (!QUICK && !m) notes.push(`下タブ：${ROUTES[0]} に下タブ（2項目以上）が無いので、動きの検査は飛ばした`);
+if (m) {
 notes.push(
   `下タブ：選択表示 ${m.onAt?.toFixed(0)}ms／板が止まるまで ${m.settleMs?.toFixed(0)}ms（離してから）／伸び 最大 ${m.maxStretch.toFixed(2)}倍／バー 最大 ${m.maxBar.toFixed(3)}倍／見出しが変わるまで ${m.h1At?.toFixed(0)}ms`,
 );
@@ -180,7 +202,10 @@ notes.push(`下タブ（動きを減らす）：板が止まるまで ${r.settle
 if (r.settleMs === null || r.settleMs > 40) fail("下タブ（動きを減らす）", `板が止まるまで ${r.settleMs}ms（瞬間移動のはず）`);
 if (r.maxBar > 1.001 || r.maxStretch > 1.001) fail("下タブ（動きを減らす）", "ふくらみ・伸びが残っている");
 
-// ---- 9：段階3の操作 ----
+}
+
+// ---- 9：見本アプリの操作（DEMO=1） ----
+if (DEMO && !QUICK) {
 async function step(where, fn) {
   try {
     await fn();
@@ -314,6 +339,8 @@ const T = 4000;
     await axeNow(page, "PC：AIの返事が届いた状態");
   });
   await ctx.close();
+}
+
 }
 
 await browser.close();

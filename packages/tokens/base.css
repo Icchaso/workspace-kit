@@ -1,0 +1,91 @@
+/*
+ * Workspace Kit の土台と骨格の CSS（tokens.css・tailwind.css の後に読み込む）。
+ */
+
+/* ---- 土台 ----
+ * @layer base に入れる（入れないと Tailwind の部品の指定 outline-none などより強くなり、部品側で打ち消せない）
+ */
+@layer base {
+  html {
+    background: var(--wk-canvas);
+    color: var(--wk-fg);
+    font-family: var(--wk-font);
+    font-size: var(--wk-text-md);
+    line-height: 1.6;
+    -webkit-text-size-adjust: 100%;
+    -webkit-font-smoothing: antialiased;
+  }
+  body { min-height: 100dvh; background: var(--wk-canvas); }
+  button, [role="button"], a { touch-action: manipulation; -webkit-tap-highlight-color: transparent; }
+  button:not(:disabled), [role="button"] { cursor: pointer; }
+  input, textarea, select { font-size: var(--wk-text-input); }
+  :focus-visible { outline: 2px solid var(--wk-accent); outline-offset: 2px; }
+  .num { font-variant-numeric: tabular-nums; }
+  h1, h2, h3 { text-wrap: balance; font-family: var(--wk-font-head); }
+  /* 日本語は文節で折り返す（「ヒーロ／ー画像」のような切れ方をさせない。対応していないブラウザは今まで通り） */
+  :lang(ja) { word-break: auto-phrase; }
+}
+
+/* ---- 骨格（3段階）----
+ * 767px 以下：下タブ（左の列なし）
+ * 768〜1279px：アイコン列 72px
+ * 1280px 以上：サイドバー 240px（畳むとアイコン列）
+ * 本文はこの幅だけ右へずらす。どの幅でもナビは必ず1つ見える（消える幅を作らない）
+ */
+:root { --wk-nav-w: 0px; }
+@media (min-width: 48rem) { :root { --wk-nav-w: var(--wk-rail-w); } }
+@media (min-width: 80rem) {
+  :root { --wk-nav-w: var(--wk-sidebar-w); }
+  :root[data-sidebar="collapsed"] { --wk-nav-w: var(--wk-rail-w); }
+}
+.wk-content { padding-left: var(--wk-nav-w); transition: padding-left var(--wk-dur-base) var(--wk-ease-out); }
+@media (max-width: 47.99rem) {
+  .wk-content { padding-bottom: var(--wk-tabbar-space); }
+}
+
+/* サイドバーの文字は「広い・畳んでいない」ときだけ出す */
+.wk-nav-label { display: none; }
+@media (min-width: 80rem) {
+  :root:not([data-sidebar="collapsed"]) .wk-nav-label { display: inline; }
+  :root:not([data-sidebar="collapsed"]) .wk-nav-wide { display: flex; }
+}
+.wk-nav-wide { display: none; }
+
+/* 上に貼り付く見出し（すりガラス） */
+.wk-glass-top {
+  background: color-mix(in oklab, var(--wk-canvas) 82%, transparent);
+  backdrop-filter: blur(14px) saturate(1.3);
+  -webkit-backdrop-filter: blur(14px) saturate(1.3);
+}
+@media (prefers-reduced-transparency: reduce) {
+  .wk-glass-top { background: var(--wk-canvas); backdrop-filter: none; -webkit-backdrop-filter: none; }
+}
+
+/* 読み込みの骨：150ms 待ってから出す（速いときにチラつかせない） */
+@keyframes wk-skeleton-in { from { opacity: 0 } to { opacity: 1 } }
+@keyframes wk-skeleton-pulse { 50% { opacity: 0.55 } }
+.wk-skeleton {
+  background: var(--wk-surface-2);
+  border-radius: var(--wk-r-sm);
+  opacity: 0;
+  animation: wk-skeleton-in 1ms 150ms forwards, wk-skeleton-pulse 1.4s 150ms ease-in-out infinite;
+}
+
+@keyframes wk-spin { to { transform: rotate(360deg) } }
+.wk-spin { animation: wk-spin 0.7s linear infinite; }
+@media (prefers-reduced-motion: reduce) {
+  .wk-spin { animation-duration: 2s; }
+  .wk-skeleton { animation: wk-skeleton-in 1ms 150ms forwards; }
+}
+
+/* AI の返事が届いている間のしるし（文字の後ろの棒・考え中の点） */
+@keyframes wk-blink { 50% { opacity: 0 } }
+.wk-caret {
+  display: inline-block; width: 7px; height: 1.05em; margin-left: 2px; vertical-align: -2px;
+  background: var(--wk-accent); animation: wk-blink 1s steps(2) infinite;
+}
+@keyframes wk-dots { 0% { content: "" } 25% { content: "・" } 50% { content: "・・" } 75% { content: "・・・" } }
+.wk-dots::after { content: "・・・"; display: inline-block; width: 3em; animation: wk-dots 1.2s steps(1) infinite; }
+@media (prefers-reduced-motion: reduce) {
+  .wk-caret, .wk-dots::after { animation: none; }
+}

@@ -49,6 +49,7 @@
 
   /* 文字 */
   --wk-font: var(--wk-font-jp, "IBM Plex Sans JP"), "Hiragino Sans", "Yu Gothic UI", "Meiryo", "Noto Sans JP", system-ui, sans-serif;
+  --wk-font-head: var(--wk-font); /* 見出し（テーマによっては飾り文字・明朝になる） */
   --wk-text-xs: 12px;   /* これより小さくしない */
   --wk-text-sm: 13px;
   --wk-text-md: 15px;   /* 本文 */

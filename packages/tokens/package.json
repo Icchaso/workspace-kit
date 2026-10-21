@@ -5,7 +5,12 @@
   "description": "Workspace Kit の色・文字・余白・角丸・影・動き・押せる大きさのトークン（CSS変数）",
   "exports": {
     "./tokens.css": "./tokens.css",
-    "./tailwind.css": "./tailwind.css"
+    "./tailwind.css": "./tailwind.css",
+    "./base.css": "./base.css"
   },
-  "files": ["tokens.css", "tailwind.css"]
+  "files": [
+    "tokens.css",
+    "tailwind.css",
+    "base.css"
+  ]
 }

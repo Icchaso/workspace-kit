@@ -6,3 +6,6 @@ node_modules/
 
 # 検査の撮影結果
 /screenshots/
+
+# Vercel の紐付け情報
+.vercel

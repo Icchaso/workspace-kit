@@ -2,22 +2,22 @@
 
 /**
  * ⌘K パレット（検索と操作の入口）。⌘K / Ctrl+K・「/」・サイドバーの「検索・操作」・一覧の「検索」で開く。
- *   文字を打つと、操作とタスクを同時に絞り込む。↑↓ で選んで Enter、esc で閉じる。
- *   何も打っていないときは、よく使う操作と未完了のタスク4件を出す。
- * 項目を増やすときは commands の配列に足すだけでよい（group が見出しになる）。
+ *   文字を打つと、操作とアプリの中身（config/shell.tsx の useExtraCommands）を同時に絞り込む。↑↓ で選んで Enter、esc で閉じる。
+ * 操作を増やすときは commands の配列に、アプリの中身は useExtraCommands に足す（group が見出しになる）。
  */
 import { Dialog } from "@base-ui/react/dialog";
-import { CornerDownLeft, ListChecks, Monitor, Moon, Plus, Rows3, Search, Sun, type LucideIcon } from "lucide-react";
+import { CornerDownLeft, Monitor, Moon, Palette, Plus, Rows3, Search, Sun, type LucideIcon } from "lucide-react";
 import { useRouter } from "next/navigation";
 import { useId, useState } from "react";
 import { NAV } from "@/config/nav";
-import { setDensity, setTheme } from "@/lib/prefs";
-import { useTasks } from "@/lib/tasks";
+import { PALETTES } from "@workspace-kit/themes/catalog";
+import { setDensity, setPalette, setTheme } from "@/lib/prefs";
+import { APP, AddSheet, useExtraCommands } from "@/config/shell";
 import { cn } from "@/lib/cn";
 
-type Item = { id: string; group: string; label: string; hint?: string; icon: LucideIcon; keywords?: string; run: () => void };
+export type PaletteItem = { id: string; group: string; label: string; hint?: string; icon: LucideIcon; keywords?: string; run: () => void };
 
-export function CommandPalette({ open, onOpenChange, onAdd }: { open: boolean; onOpenChange: (open: boolean) => void; onAdd: () => void }) {
+export function CommandPalette({ open, onOpenChange, onAdd }: { open: boolean; onOpenChange: (open: boolean) => void; onAdd?: () => void }) {
   return (
     <Dialog.Root open={open} onOpenChange={onOpenChange}>
       <Dialog.Portal>
@@ -38,41 +38,31 @@ export function CommandPalette({ open, onOpenChange, onAdd }: { open: boolean; o
   );
 }
 
-function Body({ onRun, onAdd }: { onRun: (run: () => void) => void; onAdd: () => void }) {
+function Body({ onRun, onAdd }: { onRun: (run: () => void) => void; onAdd?: () => void }) {
   const router = useRouter();
-  const { tasks } = useTasks();
   const [q, setQ] = useState("");
+  const needle = q.trim().toLowerCase();
+  const extra = useExtraCommands(needle);
   const [active, setActive] = useState(0);
   const listId = useId();
 
-  const commands: Item[] = [
-    { id: "add", group: "操作", label: "タスクを追加", hint: "N", icon: Plus, keywords: "新規 つくる", run: onAdd },
+  const commands: PaletteItem[] = [
+    ...(AddSheet && onAdd ? [{ id: "add", group: "操作", label: APP.addLabel, hint: "N", icon: Plus, keywords: "新規 つくる 追加", run: onAdd }] : []),
     ...NAV.map((n, i) => ({ id: `go-${n.href}`, group: "移動", label: `${n.label}を開く`, hint: String(i + 1), icon: n.icon, run: () => router.push(n.href) })),
     { id: "light", group: "見た目", label: "明るさ：ライト", icon: Sun, keywords: "テーマ 白", run: () => setTheme("light") },
     { id: "dark", group: "見た目", label: "明るさ：ダーク", icon: Moon, keywords: "テーマ 黒 夜", run: () => setTheme("dark") },
     { id: "system", group: "見た目", label: "明るさ：端末に合わせる", icon: Monitor, keywords: "テーマ 自動", run: () => setTheme("system") },
     { id: "compact", group: "見た目", label: "行の高さ：詰める", icon: Rows3, keywords: "密度", run: () => setDensity("compact") },
     { id: "comfy", group: "見た目", label: "行の高さ：ゆったり", icon: Rows3, keywords: "密度", run: () => setDensity("comfy") },
+    ...PALETTES.map((p) => ({ id: `palette-${p.id}`, group: "テーマ", label: `テーマ：${p.label}`, icon: Palette, keywords: `色 ${p.desc}`, run: () => setPalette(p.id) })),
   ];
 
-  const needle = q.trim().toLowerCase();
   const hit = (s: string) => s.toLowerCase().includes(needle);
-  const taskItems: Item[] = tasks
-    .filter((t) => (needle ? hit(t.title) || hit(t.project) : !t.done))
-    .slice(0, needle ? 8 : 4)
-    .map((t) => ({
-      id: `task-${t.id}`,
-      group: needle ? "タスク" : "未完了のタスク",
-      label: t.title,
-      hint: t.project,
-      icon: ListChecks,
-      run: () => router.push(`/tasks?id=${t.id}${t.done ? "&f=done" : ""}`),
-    }));
-  const items = [...commands.filter((c) => !needle || hit(c.label) || hit(c.keywords ?? "")), ...taskItems];
+  const items = [...commands.filter((c) => !needle || hit(c.label) || hit(c.keywords ?? "")), ...extra];
   const cur = Math.min(active, Math.max(0, items.length - 1));
   const optionId = (i: number) => `${listId}-${i}`;
 
-  const groups: { name: string; rows: { item: Item; index: number }[] }[] = [];
+  const groups: { name: string; rows: { item: PaletteItem; index: number }[] }[] = [];
   items.forEach((item, index) => {
     const g = groups.find((x) => x.name === item.group) ?? groups[groups.push({ name: item.group, rows: [] }) - 1];
     g.rows.push({ item, index });
@@ -88,8 +78,8 @@ function Body({ onRun, onAdd }: { onRun: (run: () => void) => void; onAdd: () =>
           aria-expanded="true"
           aria-controls={listId}
           aria-activedescendant={items.length ? optionId(cur) : undefined}
-          aria-label="タスクを探す・操作を選ぶ"
-          placeholder="タスクを探す・操作を選ぶ"
+          aria-label={APP.searchLabel}
+          placeholder={APP.searchLabel}
           value={q}
           onChange={(e) => {
             setQ(e.target.value);

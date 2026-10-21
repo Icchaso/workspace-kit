@@ -4,12 +4,13 @@
   "private": true,
   "scripts": {
     "dev": "next dev",
-    "build": "next build",
+    "build": "node ../../scripts/build-registry.mjs && next build",
     "start": "next start",
     "lint": "eslint"
   },
   "dependencies": {
     "@base-ui/react": "^1.9.0",
+    "@workspace-kit/themes": "workspace:*",
     "@workspace-kit/tokens": "workspace:*",
     "class-variance-authority": "^0.7.1",
     "clsx": "^2.1.1",

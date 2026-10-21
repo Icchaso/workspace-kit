@@ -5,22 +5,23 @@
  *   767px 以下   … 下タブ（BottomTabBar）
  *   768〜1279px  … アイコン列（SideNav）
  *   1280px 以上  … サイドバー（SideNav・畳める）
- * どの画面からでも使うもの（タスクの追加・⌘K パレット・キーボードの近道）は、ここで1つだけ持つ。
+ * どの画面からでも使うもの（追加・⌘K パレット・キーボードの近道）は、ここで1つだけ持つ。
+ * アプリごとの中身（名前・追加シート・⌘K の候補・外側の入れ物）は config/shell.tsx から受け取る。このファイルは書き換えない。
  *
  * キーボードの近道（文字を入力中・シートやダイアログが開いている間は効かない）
  *   ⌘K / Ctrl+K / 「/」 … 検索・操作
- *   N                    … タスクを追加
+ *   N                    … 追加（config/shell.tsx の AddSheet があるとき）
  *   1〜4                 … ナビの1〜4番目へ移動
  */
 import { useRouter } from "next/navigation";
 import { createContext, useContext, useEffect, useState } from "react";
 import { NAV } from "@/config/nav";
-import { TaskProvider } from "@/lib/tasks";
-import { Toaster } from "@/components/ui/toast";
-import { AddTaskSheet } from "@/components/tasks/add-task-sheet";
+import { AddSheet, ShellProviders } from "@/config/shell";
+import { Toaster } from "@/components/kit/toast";
 import { BottomTabBar } from "./bottom-tab-bar";
 import { CommandPalette } from "./command-palette";
 import { SideNav } from "./side-nav";
+import { ThemeFonts } from "./theme-fonts";
 
 const ShellCtx = createContext<{ openAdd: () => void; openSearch: () => void }>({ openAdd: () => {}, openSearch: () => {} });
 export const useShell = () => useContext(ShellCtx);
@@ -47,7 +48,7 @@ export function AppFrame({ children }: { children: React.ReactNode }) {
       if (e.key === "/") {
         e.preventDefault();
         setSearching(true);
-      } else if (e.key === "n" || e.key === "N") {
+      } else if (AddSheet && (e.key === "n" || e.key === "N")) {
         e.preventDefault();
         setAdding(true);
       } else if (/^[1-9]$/.test(e.key) && NAV[Number(e.key) - 1]) {
@@ -59,20 +60,21 @@ export function AppFrame({ children }: { children: React.ReactNode }) {
   }, [router]);
 
   return (
-    <TaskProvider>
+    <ShellProviders>
       <ShellCtx.Provider value={{ openAdd, openSearch }}>
         <a href="#main" className="sr-only focus:not-sr-only focus:fixed focus:top-2 focus:left-2 focus:z-50 focus:rounded-md focus:bg-surface focus:px-3 focus:py-2">
           本文へ移動
         </a>
-        <SideNav onAdd={openAdd} onSearch={openSearch} />
+        <SideNav onAdd={AddSheet ? openAdd : undefined} onSearch={openSearch} />
         <div className="wk-content">
           <main id="main">{children}</main>
         </div>
         <BottomTabBar />
-        <AddTaskSheet open={adding} onOpenChange={setAdding} />
-        <CommandPalette open={searching} onOpenChange={setSearching} onAdd={openAdd} />
+        {AddSheet && <AddSheet open={adding} onOpenChange={setAdding} />}
+        <CommandPalette open={searching} onOpenChange={setSearching} onAdd={AddSheet ? openAdd : undefined} />
         <Toaster />
+        <ThemeFonts />
       </ShellCtx.Provider>
-    </TaskProvider>
+    </ShellProviders>
   );
 }

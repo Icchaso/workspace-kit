@@ -1,0 +1,16 @@
+{
+  "name": "workspace-kit",
+  "owner": {
+    "name": "ICHI DESIGN"
+  },
+  "metadata": {
+    "description": "Workspace Kit：業務ツールの画面を PC でもスマホでも整える Claude Code プラグイン"
+  },
+  "plugins": [
+    {
+      "name": "workspace-kit",
+      "source": "./plugin",
+      "description": "業務ツールの画面を、PC でもスマホでも整った UI/UX にする土台一式"
+    }
+  ]
+}

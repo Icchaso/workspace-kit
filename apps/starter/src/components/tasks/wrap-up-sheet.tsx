@@ -9,10 +9,10 @@
  */
 import { ArrowLeft, ArrowRight, Check, MoonStar } from "lucide-react";
 import { useState } from "react";
-import { Button, PendingButton } from "@/components/ui/button";
-import { Sheet } from "@/components/ui/sheet";
-import { Steps } from "@/components/ui/steps";
-import { notify } from "@/components/ui/toast";
+import { Button, PendingButton } from "@/components/kit/button";
+import { Sheet } from "@/components/kit/sheet";
+import { Steps } from "@/components/kit/steps";
+import { notify } from "@/components/kit/toast";
 import { useTasks } from "@/lib/tasks";
 import { cn } from "@/lib/cn";
 

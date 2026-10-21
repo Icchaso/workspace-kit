@@ -11,10 +11,10 @@
 import { Clock, MoonStar, Plus } from "lucide-react";
 import { useState, useSyncExternalStore } from "react";
 import { useShell } from "@/components/shell/app-frame";
-import { Button } from "@/components/ui/button";
-import { CountUp } from "@/components/ui/count-up";
-import { Fab } from "@/components/ui/fab";
-import { Page, PageHeader, StatCard } from "@/components/ui/feedback";
+import { Button } from "@/components/kit/button";
+import { CountUp } from "@/components/kit/count-up";
+import { Fab } from "@/components/kit/fab";
+import { Page, PageHeader, StatCard } from "@/components/kit/feedback";
 import { TaskCard } from "@/components/tasks/task-parts";
 import { useTaskCommands } from "@/components/tasks/task-actions";
 import { useTaskSheets } from "@/components/tasks/use-task-sheets";

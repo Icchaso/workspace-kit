@@ -2,11 +2,11 @@
 
 import { Plus } from "lucide-react";
 import { useState } from "react";
-import { Sheet } from "@/components/ui/sheet";
-import { PendingButton } from "@/components/ui/button";
-import { Chip } from "@/components/ui/segmented";
-import { InlineError } from "@/components/ui/feedback";
-import { notify } from "@/components/ui/toast";
+import { Sheet } from "@/components/kit/sheet";
+import { PendingButton } from "@/components/kit/button";
+import { Chip } from "@/components/kit/segmented";
+import { InlineError } from "@/components/kit/feedback";
+import { notify } from "@/components/kit/toast";
 import { PROJECTS, useTasks, type Due, type Priority } from "@/lib/tasks";
 
 const DUES: { value: Due; label: string }[] = [

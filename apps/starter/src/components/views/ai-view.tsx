@@ -12,10 +12,10 @@
 import { ArrowUp, ChevronRight, ClipboardCopy, FileText, History, MessageSquarePlus, Sparkles, Sun } from "lucide-react";
 import { useReducedMotion } from "motion/react";
 import { useEffect, useRef, useState } from "react";
-import { Button } from "@/components/ui/button";
-import { EmptyState, InlineError, Page, PageHeader } from "@/components/ui/feedback";
-import { Sheet } from "@/components/ui/sheet";
-import { notify } from "@/components/ui/toast";
+import { Button } from "@/components/kit/button";
+import { EmptyState, InlineError, Page, PageHeader } from "@/components/kit/feedback";
+import { Sheet } from "@/components/kit/sheet";
+import { notify } from "@/components/kit/toast";
 import { SAMPLE_HISTORY, SUGGESTIONS, answer, type Artifact } from "@/lib/ai-script";
 import { useCoarsePointer, useWide } from "@/lib/prefs";
 import { useTasks } from "@/lib/tasks";

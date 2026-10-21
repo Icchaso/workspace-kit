@@ -1,0 +1,19 @@
+{
+  "name": "@workspace-kit/themes",
+  "version": "0.1.0",
+  "private": true,
+  "description": "Workspace Kit のテーマ集（awesome-design-skills の67種を日本語フォント対応・コントラスト検査済みのトークンに変換）",
+  "type": "module",
+  "scripts": {
+    "build": "node convert.mjs"
+  },
+  "exports": {
+    "./curated.css": "./dist/curated.css",
+    "./all.css": "./dist/all.css",
+    "./catalog.json": "./dist/catalog.json",
+    "./catalog": "./dist/catalog.mjs"
+  },
+  "devDependencies": {
+    "culori": "4.0.2"
+  }
+}
