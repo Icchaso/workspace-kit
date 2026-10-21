@@ -5,19 +5,20 @@
  *   1280px 以上 … 一覧の表＋右の詳細パネル（↑↓ キーで選ぶ、… でメニュー）
  *   それより狭い … カードに近い行。押すと詳細シート、長押し（指）で操作シート
  * 絞り込みと選んだタスクは URL に入れる（?f=today&id=3）。再読み込み・共有・戻るで同じ画面に戻れる。
+ * 並びは「塊（期限ごと・案件ごと）＋塊の中は優先度の高い順」が既定。まとめ方はこの端末で覚える（人ごとの好みなので URL には入れない）。
  */
 import { CheckCheck, CircleCheck, Plus, Search } from "lucide-react";
 import { useSearchParams } from "next/navigation";
-import { useRef, useState } from "react";
+import { Fragment, useRef, useState, useSyncExternalStore } from "react";
 import { useShell } from "@/components/shell/app-frame";
 import { Button } from "@/components/kit/button";
 import { EmptyState, Page, PageHeader, Skeleton } from "@/components/kit/feedback";
-import { Chip } from "@/components/kit/segmented";
+import { Chip, Segmented } from "@/components/kit/segmented";
 import { CheckButton, DueTag, PriorityTag, ProjectTag } from "@/components/tasks/task-parts";
 import { TaskActionSheet, TaskMoreButton, useTaskCommands } from "@/components/tasks/task-actions";
 import { TaskDetail, TaskDetailSheet } from "@/components/tasks/task-detail";
 import { useCoarsePointer, useWide } from "@/lib/prefs";
-import { counts, useTasks, type Task } from "@/lib/tasks";
+import { DUE_LABEL, PROJECTS, counts, useTasks, type Due, type Task } from "@/lib/tasks";
 import { useLongPress } from "@/lib/use-long-press";
 import { cn } from "@/lib/cn";
 import { APP } from "@/config/shell";
@@ -31,6 +32,56 @@ const EMPTY: Record<Filter, [string, string]> = {
   overdue: ["期限切れはありません", "この調子です"],
   done: ["完了したタスクはまだありません", "チェックを付けるとここに入ります"],
 };
+// ---- まとめ方（塊）と並び ----
+type Group = "due" | "project" | "priority";
+const GROUPS: { value: Group; label: string }[] = [
+  { value: "due", label: "期限" },
+  { value: "project", label: "案件" },
+  { value: "priority", label: "優先度" },
+];
+const DUE_ORDER: Due[] = ["overdue", "today", "tomorrow", "week", "later"];
+const PRI = { 高: 0, 中: 1, 低: 2 } as const;
+const byPriority = (a: Task, b: Task) => PRI[a.priority] - PRI[b.priority] || DUE_ORDER.indexOf(a.due) - DUE_ORDER.indexOf(b.due) || a.id - b.id;
+const byDue = (a: Task, b: Task) => DUE_ORDER.indexOf(a.due) - DUE_ORDER.indexOf(b.due) || PRI[a.priority] - PRI[b.priority] || a.id - b.id;
+
+/** 塊に分ける。塊の中は、期限ごとなら優先度の高い順、それ以外は期限の近い順 */
+function groupRows(rows: Task[], g: Group): { key: string; label: string; items: Task[] }[] {
+  const keyOf = (t: Task) => (g === "due" ? t.due : g === "project" ? t.project : t.priority);
+  const order: string[] = g === "due" ? DUE_ORDER : g === "project" ? [...PROJECTS, ...new Set(rows.map((t) => t.project).filter((x) => !PROJECTS.includes(x)))] : ["高", "中", "低"];
+  const label = (k: string) => (g === "due" ? DUE_LABEL[k as Due] : g === "priority" ? `優先度 ${k}` : k);
+  return order
+    .map((k) => ({ key: k, label: label(k), items: rows.filter((t) => keyOf(t) === k).sort(g === "due" ? byPriority : byDue) }))
+    .filter((x) => x.items.length > 0);
+}
+
+const GROUP_KEY = "wk.tasks.group";
+const groupListeners = new Set<() => void>();
+function useGroup(): [Group, (g: Group) => void] {
+  const g = useSyncExternalStore(
+    (cb) => {
+      groupListeners.add(cb);
+      return () => groupListeners.delete(cb);
+    },
+    () => {
+      try {
+        const v = localStorage.getItem(GROUP_KEY);
+        return GROUPS.some((x) => x.value === v) ? (v as Group) : "due";
+      } catch {
+        return "due";
+      }
+    },
+    () => "due" as Group,
+  );
+  const set = (v: Group) => {
+    try {
+      if (v === "due") localStorage.removeItem(GROUP_KEY);
+      else localStorage.setItem(GROUP_KEY, v);
+    } catch {}
+    groupListeners.forEach((f) => f());
+  };
+  return [g, set];
+}
+
 const match = (f: Filter) => (t: Task) =>
   f === "open" ? !t.done : f === "today" ? !t.done && t.due === "today" : f === "overdue" ? !t.done && t.due === "overdue" : t.done;
 
@@ -100,13 +151,16 @@ export function TasksView() {
   const params = useSearchParams();
   const wide = useWide();
   const coarse = useCoarsePointer();
-  const listRef = useRef<HTMLUListElement>(null);
+  const listRef = useRef<HTMLDivElement>(null);
   const [acting, setActing] = useState<{ id: number; open: boolean } | null>(null);
   const press = useLongPress((t: Task) => setActing({ id: t.id, open: true }));
 
   const f = params.get("f");
   const filter: Filter = FILTERS.includes(f as Filter) ? (f as Filter) : "open";
-  const rows = tasks.filter(match(filter));
+  const [group, setGroup] = useGroup();
+  const sections = groupRows(tasks.filter(match(filter)), group);
+  // ↑↓ キーで動く順＝画面に並んでいる順
+  const rows = sections.flatMap((x) => x.items);
   const c = counts(tasks);
   const idParam = Number(params.get("id")) || null;
   const picked = idParam ? (tasks.find((t) => t.id === idParam) ?? null) : null;
@@ -129,13 +183,19 @@ export function TasksView() {
   return (
     <Page className="side:max-w-[1240px]">
       <Header />
-      <div role="group" aria-label="絞り込み" className="mt-1 mb-3.5 flex flex-wrap gap-1.5">
-        {FILTERS.map((k) => (
-          <Chip key={k} pressed={filter === k} onClick={() => setQuery({ f: k === "open" ? null : k, id: null })}>
-            {LABEL[k]}
-            <span className="num text-xs opacity-80">{c[k]}</span>
-          </Chip>
-        ))}
+      <div className="mt-1 mb-3.5 flex flex-wrap items-center justify-between gap-x-3 gap-y-2.5">
+        <div role="group" aria-label="絞り込み" className="flex flex-wrap gap-1.5">
+          {FILTERS.map((k) => (
+            <Chip key={k} pressed={filter === k} onClick={() => setQuery({ f: k === "open" ? null : k, id: null })}>
+              {LABEL[k]}
+              <span className="num text-xs opacity-80">{c[k]}</span>
+            </Chip>
+          ))}
+        </div>
+        <div className="flex items-center gap-2 text-sm text-fg-3">
+          <span aria-hidden>まとめ方</span>
+          <Segmented<Group> label="まとめ方" value={group} onChange={setGroup} options={GROUPS} />
+        </div>
       </div>
 
       <div className="grid gap-5 side:grid-cols-[minmax(0,1fr)_340px] side:items-start">
@@ -150,9 +210,8 @@ export function TasksView() {
                 <span>優先度</span>
                 <span />
               </div>
-              <ul
+              <div
                 ref={listRef}
-                aria-label={`${LABEL[filter]}のタスク`}
                 onKeyDown={(e) => {
                   if (e.key === "ArrowDown" || e.key === "ArrowUp") {
                     e.preventDefault();
@@ -160,59 +219,73 @@ export function TasksView() {
                   }
                 }}
               >
-                {rows.map((t) => {
-                  const on = wide && selected?.id === t.id;
-                  return (
-                    <li
-                      key={t.id}
-                      data-row={t.id}
-                      data-on={on || undefined}
-                      {...press.bind(t)}
-                      className={cn(
-                        "relative grid min-h-row grid-cols-[var(--wk-hit)_minmax(0,1fr)_var(--wk-hit)] items-center gap-x-2 border-b border-line px-2 py-2 transition-colors duration-[var(--wk-dur-fast)] select-none last:border-b-0 [-webkit-touch-callout:none]",
-                        "side:grid-cols-[var(--wk-hit)_minmax(0,1fr)_88px_88px_76px_var(--wk-hit)] side:py-0",
-                        on ? "bg-accent-soft" : "hover:bg-surface-2 active:bg-surface-2 data-[held]:bg-surface-2",
-                      )}
+                {sections.map((sec, gi) => (
+                  <Fragment key={sec.key}>
+                    {/* 塊の見出し：何の塊か・何件か */}
+                    <h3
+                      id={`g-${gi}`}
+                      className="flex h-8 items-center gap-2 border-y border-line bg-canvas px-3 first:border-t-0 text-xs font-semibold text-fg-2 side:pl-[calc(var(--wk-hit)+1rem)]"
                     >
-                      {on && <span aria-hidden className="absolute inset-y-1.5 left-0 w-[3px] rounded-r-full bg-accent" />}
-                      <span className="row-span-2 side:row-span-1">
-                        <CheckButton task={t} onToggle={() => cmd.toggle(t)} />
-                      </span>
-                      {/* 行全体を押せるように、題名のボタンを行いっぱいに広げる */}
-                      <button
-                        type="button"
-                        data-open
-                        aria-current={on || undefined}
-                        onClick={() => {
-                          if (!press.consumed()) select(t);
-                        }}
-                        className={cn(
-                          "min-w-0 text-left text-sm after:absolute after:inset-0 focus-visible:outline-none focus-visible:after:outline-2 focus-visible:after:-outline-offset-2 focus-visible:after:outline-accent",
-                          "max-side:font-medium side:truncate",
-                          t.done && "text-fg-3 line-through",
-                        )}
-                      >
-                        {t.title}
-                      </button>
-                      {/* 広い画面は表の列、狭い画面はタイトルの下に並べる */}
-                      <span className="col-start-2 row-start-2 flex flex-wrap items-center gap-1.5 side:contents">
-                        <span className="side:col-start-3 side:row-start-1 side:justify-self-start">
-                          <DueTag task={t} />
-                        </span>
-                        <span className="side:col-start-4 side:row-start-1 side:justify-self-start">
-                          <ProjectTag name={t.project} />
-                        </span>
-                        <span className="side:col-start-5 side:row-start-1">
-                          <PriorityTag task={t} />
-                        </span>
-                      </span>
-                      <span className="col-start-3 row-span-2 row-start-1 side:col-start-6 side:row-span-1">
-                        <TaskMoreButton task={t} onSheet={(x) => setActing({ id: x.id, open: true })} onOpenDetail={coarse || !wide ? select : undefined} />
-                      </span>
-                    </li>
-                  );
-                })}
-              </ul>
+                      {sec.label}
+                      <span className="num font-normal text-fg-3">{sec.items.length}</span>
+                    </h3>
+                    <ul aria-labelledby={`g-${gi}`}>
+                      {sec.items.map((t) => {
+                        const on = wide && selected?.id === t.id;
+                        return (
+                          <li
+                            key={t.id}
+                            data-row={t.id}
+                            data-on={on || undefined}
+                            {...press.bind(t)}
+                            className={cn(
+                              "relative grid min-h-row grid-cols-[var(--wk-hit)_minmax(0,1fr)_var(--wk-hit)] items-center gap-x-2 border-b border-line px-2 py-2 transition-colors duration-[var(--wk-dur-fast)] select-none last:border-b-0 [-webkit-touch-callout:none]",
+                              "side:grid-cols-[var(--wk-hit)_minmax(0,1fr)_88px_88px_76px_var(--wk-hit)] side:py-0",
+                              on ? "bg-accent-soft" : "hover:bg-surface-2 active:bg-surface-2 data-[held]:bg-surface-2",
+                            )}
+                          >
+                            {on && <span aria-hidden className="absolute inset-y-1.5 left-0 w-[3px] rounded-r-full bg-accent" />}
+                            <span className="row-span-2 side:row-span-1">
+                              <CheckButton task={t} onToggle={() => cmd.toggle(t)} />
+                            </span>
+                            {/* 行全体を押せるように、題名のボタンを行いっぱいに広げる */}
+                            <button
+                              type="button"
+                              data-open
+                              aria-current={on || undefined}
+                              onClick={() => {
+                                if (!press.consumed()) select(t);
+                              }}
+                              className={cn(
+                                "min-w-0 text-left text-sm after:absolute after:inset-0 focus-visible:outline-none focus-visible:after:outline-2 focus-visible:after:-outline-offset-2 focus-visible:after:outline-accent",
+                                "max-side:font-medium side:truncate",
+                                t.done && "text-fg-3 line-through",
+                              )}
+                            >
+                              {t.title}
+                            </button>
+                            {/* 広い画面は表の列、狭い画面はタイトルの下に並べる */}
+                            <span className="col-start-2 row-start-2 flex flex-wrap items-center gap-1.5 side:contents">
+                              <span className="side:col-start-3 side:row-start-1 side:justify-self-start">
+                                <DueTag task={t} />
+                              </span>
+                              <span className="side:col-start-4 side:row-start-1 side:justify-self-start">
+                                <ProjectTag name={t.project} />
+                              </span>
+                              <span className="side:col-start-5 side:row-start-1">
+                                <PriorityTag task={t} />
+                              </span>
+                            </span>
+                            <span className="col-start-3 row-span-2 row-start-1 side:col-start-6 side:row-span-1">
+                              <TaskMoreButton task={t} onSheet={(x) => setActing({ id: x.id, open: true })} onOpenDetail={coarse || !wide ? select : undefined} />
+                            </span>
+                          </li>
+                        );
+                      })}
+                    </ul>
+                  </Fragment>
+                ))}
+              </div>
             </>
           ) : (
             <EmptyState
