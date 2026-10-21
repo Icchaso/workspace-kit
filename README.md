@@ -8,6 +8,82 @@
 
 ![PC とスマホで同じタスク一覧を開いたところ。PC は左のサイドバー・一覧・右の詳細、スマホはカードの並びと下の浮いたタブ](docs/images/hero.jpg)
 
+## 誰のための物か
+| こんな人 | できること |
+|---|---|
+| これから業務ツールを一から作る人 | 見本と同じ土台のアプリが手元で立ち上がる（目安15分）。あとは画面の中身を日本語で頼んで足していく |
+| もう動いているツールを磨きたい人 | 今の機能はそのままに、ナビ・色・文字・ボタンを差し替えて、PC でもスマホでも使える画面にする |
+
+## 使い方
+### 0. 準備（最初の1回だけ）
+1. Claude Code が使えること（ターミナルで `claude` と打って起動できる状態）
+2. Node.js 20 以上（ターミナルで `node -v` と打って確かめる。無ければ https://nodejs.org の LTS 版を入れる）
+3. pnpm（部品を取り寄せる道具）をターミナルで使えるようにする（権限のエラーが出たら `npm i -g pnpm`）：
+```bash
+corepack enable pnpm
+```
+4. Claude Code の中で次の2行を1行ずつ打って、プラグイン（Claude Code に足す追加機能）を入れる：
+```
+/plugin marketplace add Icchaso/workspace-kit
+```
+```
+/plugin install workspace-kit@workspace-kit
+```
+※ いまはこのリポジトリが非公開なので、プラグインを入れられるのは招待された GitHub アカウントだけです。
+
+### 1. 一から作る
+新しいアプリを置きたいフォルダで Claude Code を開いて、こう頼みます：
+```
+Workspace Kit で新しくツールを作りたい
+```
+1. Claude が1回だけまとめて聞きます：アプリの名前・画面（ナビの項目）・画面の型（A 指令室／B 現場／C AI相棒）・テーマ・置き場所。決まっていなければ「おまかせ」で大丈夫です
+2. Claude が自動でやります：
+   1. アプリを作って部品一式を入れる（初回は取り寄せに1〜2分）
+   2. 名前・ナビ・テーマを差し替える
+   3. 6つの幅 × ライト/ダークで検査して全部合格にする
+3. スマホと PC の画像が届き、`http://127.0.0.1:3000` で開ける状態になります。画面を開いて触ってください
+4. あとは「受注の一覧画面を足して」のように日本語で頼めば、同じ作法で画面が増えていきます
+
+### 2. 今のツールを磨く
+磨きたいツールのフォルダで Claude Code を開いて、こう頼みます：
+```
+今のツールを Workspace Kit で整えて
+```
+1. **偵察（読むだけ）**：使っている技術・今のナビ・色の書き方・画面の一覧を読み、入れる前の画像を撮ります
+2. **計画を見せる**：変えること・見た目がどう変わるか・戻し方を1枚の表で見せます。**承認するまで何も変えません**
+3. **別のブランチ（本番と分けた作業場所）で入れる**：色と文字 → ナビ → ボタンなどの部品の順に、画面ごとに進めます
+4. **確かめる**：
+   - ログイン・一覧・保存など今までの操作を実際に押して確かめる
+   - 検査を流す
+   - 入れる前と後の画像（スマホ 375px と PC 1280px）を並べて見せる
+
+本番に出すかどうかは、画像を見てあなたが決めます。
+- Next.js（App Router）＋Tailwind CSS v4 のツール：全部入ります。Pages Router（Next.js の古い作り方）は骨格に少し直しを入れて入れます
+- Tailwind CSS v3 や Vite のツール：色と部品だけの軽い入れ方になります（詳しくは [SKILL.md の「対応している環境」](plugin/skills/workspace-kit/SKILL.md)）
+
+### 3. そのほかの頼み方
+| 頼み方 | すること |
+|---|---|
+| 「テーマをラベンダーにして」 | 12種から変える。ブランド色1色だけ変えることもできる |
+| 「スマホで崩れてないか見て」 | 6つの幅 × ライト/ダークで撮影し、はみ出し・押せる大きさ・文字の小ささ・コントラスト・動きを数字で確かめて日本語で報告する |
+| 「Workspace Kit を更新して」 | 入れた版と最新の差分を見せてから当てる |
+
+検査に合格しても、iPhone での手触り（下タブ・シート・キーボード）は実機で一度触って確かめてください。
+
+### Claude Code を使わずに部品だけ入れる（エンジニア向け）
+shadcn CLI で入れられます。版を固定した URL を使います（後で同じ命令を流しても同じ中身が入る）。
+```bash
+pnpm dlx shadcn@4.21.3 add https://workspace-kit.vercel.app/r/v0.3.0/workspace-kit-shell.json
+```
+| 名前 | 中身 |
+|---|---|
+| `workspace-kit-css` | トークン＋テーマ12種＋土台と骨格の CSS（`app/workspace-kit.css`） |
+| `workspace-kit-ui` | 部品（`components/kit/`）。css も一緒に入る |
+| `workspace-kit-shell` | 骨格（`components/shell/`）。ui と css も一緒に入る。アプリごとに書くのは `config/nav.ts` と `config/shell.tsx` だけ |
+| `workspace-kit-starter` | 上の全部＋見本のタスク管理アプリ |
+
+手順の中身（Claude が従っている手順書）は [plugin/skills/workspace-kit/](plugin/skills/workspace-kit/SKILL.md) にあります。
+
 ## どんな見た目か
 落ち着いた業務ツールの見た目です。主役は中身（一覧・数字・文章）で、色は「押せる物」と「状態（期限切れなど）」にだけ使います。
 下の画像はすべて見本のタスク管理アプリを、そのまま撮ったものです（左が PC 1440px、右がスマホ 390px）。
@@ -54,25 +130,6 @@
 - 色は直接書かず、名前の付いた色（トークン。`bg-surface`・`text-fg-2`・`bg-accent` など）を通す。テーマを変えると全部の画面が一緒に変わる
 
 画像は検査台本と同じ見本アプリから撮っています。実物は https://workspace-kit.vercel.app （スマホでも開けます）。
-
-## 使い方（Claude Code から）
-```
-/plugin marketplace add Icchaso/workspace-kit
-/plugin install workspace-kit@workspace-kit
-```
-あとは日本語で頼むだけ：「Workspace Kit で新しくツールを作りたい」「今のツールを Workspace Kit で整えて」「テーマをラベンダーにして」「スマホで崩れてないか見て」。
-手順の中身は [plugin/skills/workspace-kit/](plugin/skills/workspace-kit/SKILL.md)。
-
-## 使い方（shadcn CLI で部品だけ）
-```bash
-pnpm dlx shadcn@4.21.3 add https://workspace-kit.vercel.app/r/workspace-kit-shell.json
-```
-| 名前 | 中身 |
-|---|---|
-| `workspace-kit-css` | トークン＋テーマ12種＋土台と骨格の CSS（`app/workspace-kit.css`） |
-| `workspace-kit-ui` | 部品（`components/kit/`） |
-| `workspace-kit-shell` | 骨格（`components/shell/`）。アプリごとに書くのは `config/nav.ts` と `config/shell.tsx` だけ |
-| `workspace-kit-starter` | 上の全部＋見本のタスク管理アプリ |
 
 ## このリポジトリの中身
 | 場所 | 中身 |
