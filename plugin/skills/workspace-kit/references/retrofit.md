@@ -38,7 +38,7 @@
 ## 3. 入れる
 ### 3-1. CSS
 ```bash
-pnpm dlx shadcn@4.21.3 add https://workspace-kit.vercel.app/r/v0.3.0/workspace-kit-css.json --yes
+pnpm dlx shadcn@4.21.3 add https://workspace-kit.vercel.app/r/v0.4.0/workspace-kit-css.json --yes
 ```
 `globals.css` の `@import "tailwindcss";` のすぐ後に `@import "./workspace-kit.css";` を足す。
 - `globals.css` に残っている「層の外の `body { font-family / background / color }`」と、`@theme` の `--font-sans` の上書きは外す（create-next-app の初期の CSS にも入っている）。残すと Workspace Kit の字体と色が負け、テーマを変えても地の色が変わらない
@@ -71,7 +71,7 @@ pnpm dlx shadcn@4.21.3 add https://workspace-kit.vercel.app/r/v0.3.0/workspace-k
 
 ### 3-2. 骨格
 ```bash
-pnpm dlx shadcn@4.21.3 add https://workspace-kit.vercel.app/r/v0.3.0/workspace-kit-shell.json --yes
+pnpm dlx shadcn@4.21.3 add https://workspace-kit.vercel.app/r/v0.4.0/workspace-kit-shell.json --yes
 ```
 つなぐ場所は4つ：
 1. ルートの `app/layout.tsx`：`<html lang="ja" suppressHydrationWarning>`、`<head>` に `<WorkspaceBoot />`（`@/components/shell/boot-script` から）。既存の画面にダーク表示の用意が無いときは `<WorkspaceBoot forceTheme="light" />` で明るさを固定する（⌘K の明るさの切り替えも隠れる。ダーク対応は画面ごとに後から）。日本語の字体は `next/font/google` の `IBM_Plex_Sans_JP`（`weight: ["400","500","600"]`, `preload: false`, `display: "swap"`, `variable: "--wk-font-jp"`）を `<html className>` に付ける
@@ -108,13 +108,13 @@ export function useAccount() {
 
 ### 3-3. 部品と色
 ```bash
-pnpm dlx shadcn@4.21.3 add https://workspace-kit.vercel.app/r/v0.3.0/workspace-kit-ui.json --yes
+pnpm dlx shadcn@4.21.3 add https://workspace-kit.vercel.app/r/v0.4.0/workspace-kit-ui.json --yes
 ```
 画面ごとに、相手のコードを読んでから置き換える。全部を一度に変えない。
 - 色コード（`#2563eb`・`bg-blue-600`・`text-gray-500` など）→ トークンのクラス（`bg-accent`・`text-fg-3` など。対応は [rules.md](rules.md)）
 - 押せる物の高さ → `h-hit`（マウス 36px／指 44px を自動で切り替え）
 - 確認ダイアログ → 元に戻せる操作は確認を挟まず、お知らせの「取り消す」で戻す（`components/kit/toast.tsx` の `notify`）。「元に戻せる」は、相手のサーバーが消した物を一定期間残している（ゴミ箱・論理削除）か、送る・消すを数秒遅らせて取り消しを待つ作りになっているときだけ。外への送信（LINE・メール）・お金・本番データの削除は、確認ダイアログを残す
-- 表（`<table>`）→ スマホ幅ではまず表を `overflow-x-auto` の箱に入れて横にずらせるようにする（検査台本が「枠の外に切れている押せるもの」で落とす）。よく見る一覧は、スマホ幅で1行を1枚のカードにした並びに作り直す（見本のタスク一覧と同じ作り）
+- 表（`<table>`）→ スマホ幅ではまず表を `overflow-x-auto` の箱に入れて横にずらせるようにする（検査台本が「枠の外に切れている押せるもの」で落とす）。よく見る一覧は `components/kit/data-list.tsx` の `DataList` に置き換える（列の定義を1回書くと、768px 以上は表、それより狭いと1行1枚のカードになる。使い方はファイルの先頭）。数十件を超える一覧は、既定を「塊（取引先・日付など）＋塊の中は新しい順」にし、並び替えを付ける（見本のタスク一覧の「まとめ方」）
 - スマホでの詳細 → 下から出るシート（`components/kit/sheet.tsx`）
 - 待ちのあるボタン → `components/kit/button.tsx` の `PendingButton`（`pending` と `pendingLabel`。押した瞬間に「◯◯しています」に変わり、二度押しを受け付けない）
 
@@ -138,8 +138,8 @@ pnpm dlx shadcn@4.21.3 add https://workspace-kit.vercel.app/r/v0.3.0/workspace-k
 - Vite＋Tailwind v4：`workspace-kit-css` と `workspace-kit-ui` だけ入れる。`tsconfig.json` と `vite.config.ts` の両方に `@/` の近道を足す。ナビは相手の今のものに、トークンの色と `h-hit` を当てて整える
 - Tailwind v3：v4 にしないなら、`workspace-kit.css` の `:root` の変数（`--wk-*`）だけを相手の CSS に写し、`tailwind.config` の `theme.extend.colors` で `surface: "var(--wk-surface)"` のようにつなぐ。部品は入らない
 
-## 文字の大きさが少し小さくなる
-Workspace Kit は画面の基準の文字を 15px にしている（`html { font-size }`）。相手の画面の `rem` の値（`text-lg`・`p-4` など）は全部 15/16 の大きさになる。見出しが小さく感じたら、その画面だけ1段上げる。
+## 文字の大きさ
+本文は 15px（`body`）。`html` は既定の 16px のままなので、相手の画面の `rem` の値（`p-4`・`max-w-3xl` など）の大きさは変わらない。`text-base`（15px）・`text-lg`（18px）・`text-xl`（24px）・`text-2xl`（28px）・`text-3xl`（34px）はトークンの値になる。
 
 ## 後から更新するとき
 `shadcn add … --overwrite` は `config/nav.ts`・`config/shell.tsx` も最初の見本で上書きする。更新は `config/` を除いた部品だけを入れ直すか、上書きした後に `git diff config/` で相手の設定を戻す。

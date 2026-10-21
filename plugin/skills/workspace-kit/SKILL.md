@@ -13,13 +13,13 @@ description: Workspace Kit で業務ツールの画面を PC でもスマホで�
 | 名前 | 中身 | URL |
 |---|---|---|
 | workspace-kit-css | トークン（色・文字・余白・角丸・影・動き・押せる大きさ）＋テーマ12種＋土台と骨格の CSS。`app/workspace-kit.css` の1枚 | https://workspace-kit.vercel.app/r/workspace-kit-css.json |
-| workspace-kit-ui | 部品（`components/kit/`）：ボタン・シート・お知らせ・確認ダイアログ・切り替え・空の状態・数字が回る表示・右下の主ボタン・手順表示 | https://workspace-kit.vercel.app/r/workspace-kit-ui.json |
+| workspace-kit-ui | 部品（`components/kit/`）：ボタン・シート・お知らせ・確認ダイアログ・切り替え・空の状態・数字が回る表示・右下の主ボタン・手順表示・表→カードの一覧（`DataList`） | https://workspace-kit.vercel.app/r/workspace-kit-ui.json |
 | workspace-kit-shell | 骨格（`components/shell/`）：3段階のナビ・⌘K パレット・キーボードの近道・描画前の台本。アプリごとに書くのは `config/nav.ts` と `config/shell.tsx` だけ | https://workspace-kit.vercel.app/r/workspace-kit-shell.json |
 | workspace-kit-starter | 上の全部＋見本のタスク管理アプリ（画面の型 A 指令室・B 現場・C AI相棒・設定） | https://workspace-kit.vercel.app/r/workspace-kit-starter.json |
 
 下の部品は上の部品を自動で連れてくる（starter → shell → ui → css。shell を入れれば ui と css も入る）。
 **相手のアプリに入れるときは、版を固定した URL（`/r/v<版>/<名前>.json`）を使う**。上の表の版なしの URL は最新を指すので、後で同じ手順を流すと違う中身が入る。
-版を固定した URL は `/r/v0.3.0/<名前>.json`（出した版：v0.1.0・v0.2.0・v0.3.0）。new.md と retrofit.md のコマンドはこの形にしてある（つながる部品も同じ版になる）。後で「Workspace Kit を更新して」と頼まれたら、入れた版と最新の差分を見せてから当てる。
+版を固定した URL は `/r/v0.4.0/<名前>.json`（出した版：v0.1.0・v0.2.0・v0.3.0・v0.4.0）。new.md と retrofit.md のコマンドはこの形にしてある（つながる部品も同じ版になる）。後で「Workspace Kit を更新して」と頼まれたら、入れた版と最新の差分を見せてから当てる。
 
 ## 最初に必ずやること
 1. 相手（使う人）は非エンジニアのことが多い。説明は日本語で、専門用語は残して初出で括弧書きの意味を添える

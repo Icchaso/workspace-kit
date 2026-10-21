@@ -61,7 +61,7 @@ const installed = (name) => JSON.parse(read(join(ROOT, "apps/starter/node_module
 const dep = (name) => `${name}@${installed(name)}`;
 const url = (name) => `${BASE}/r/${name}.json`;
 
-const UI = ["button", "confirm-dialog", "count-up", "fab", "feedback", "segmented", "sheet", "steps", "toast"];
+const UI = ["button", "confirm-dialog", "count-up", "data-list", "fab", "feedback", "segmented", "sheet", "steps", "toast"];
 const SHELL = ["app-frame", "bottom-tab-bar", "boot-script", "command-palette", "side-nav", "theme-fonts"];
 const DEMO = [
   "components/tasks/add-task-sheet.tsx",
@@ -100,7 +100,7 @@ const items = [
     name: "workspace-kit-ui",
     type: "registry:ui",
     title: "Workspace Kit：部品",
-    description: "ボタン（押した瞬間の待ち表示つき）・下から出るシート・お知らせと取り消し・確認ダイアログ・切り替え・空の状態・数字が回るカードなど",
+    description: "ボタン（押した瞬間の待ち表示つき）・下から出るシート・お知らせと取り消し・確認ダイアログ・切り替え・空の状態・数字が回るカード・表→カードの一覧など",
     dependencies: ["@base-ui/react", "class-variance-authority", "clsx", "lucide-react", "motion", "sonner", "tailwind-merge", "vaul"].map(dep),
     registryDependencies: [url("workspace-kit-css")],
     files: [
