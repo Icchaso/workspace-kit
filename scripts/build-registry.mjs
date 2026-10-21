@@ -12,7 +12,7 @@
  *
  * ついでに Claude Code プラグイン（plugin/）へ、検査台本とテーマ一覧を写す（手で写すとずれるため）。
  */
-import { copyFileSync, mkdirSync, readFileSync, writeFileSync } from "node:fs";
+import { copyFileSync, existsSync, mkdirSync, readFileSync, writeFileSync } from "node:fs";
 import { dirname, join } from "node:path";
 import { fileURLToPath, pathToFileURL } from "node:url";
 
@@ -51,13 +51,14 @@ function cssFile() {
     ["土台と骨格", "packages/tokens/base.css"],
   ];
   const content =
-    `/*\n * Workspace Kit ${VERSION}（${BASE}/kit）\n * globals.css の \`@import "tailwindcss";\` のすぐ後に \`@import "./workspace-kit.css";\` と書いて読み込む。\n * テーマの元：awesome-design-skills（Copyright (c) 2026 Bergside, MIT License）\n */\n\n` +
+    `/*\n * Workspace Kit ${VERSION}（${BASE}/kit）\n * globals.css の \`@import "tailwindcss";\` のすぐ後に \`@import "./workspace-kit.css";\` と書いて読み込む。\n * テーマの元：awesome-design-skills（Copyright (c) 2026 Bergside, MIT License。許諾文の全文は https://opensource.org/license/mit ）\n */\n\n` +
     parts.map(([title, p]) => `/* ======== ${title} ======== */\n${read(join(ROOT, p)).trim()}\n`).join("\n");
   return { path: "app/workspace-kit.css", type: "registry:file", target: "app/workspace-kit.css", content };
 }
 
-const DEPS = JSON.parse(read(join(ROOT, "apps/starter/package.json"))).dependencies;
-const dep = (name) => `${name}@${DEPS[name]}`;
+// 相手に入れる npm の版は、範囲（^14.4.0）ではなく、雛形で検査した版そのものにする（版で固定した住所の中身を本当に固定するため）
+const installed = (name) => JSON.parse(read(join(ROOT, "apps/starter/node_modules", name, "package.json"))).version;
+const dep = (name) => `${name}@${installed(name)}`;
 const url = (name) => `${BASE}/r/${name}.json`;
 
 const UI = ["button", "confirm-dialog", "count-up", "fab", "feedback", "segmented", "sheet", "steps", "toast"];
@@ -141,9 +142,19 @@ const items = [
 // 最新（/r/<名前>.json）と、版で固定した住所（/r/v<版>/<名前>.json）の両方に書く。
 // 版で固定した物は、つながる部品も同じ版を指す（後から配信元が変わっても、入れた版の中身は変わらない）
 const pinned = (it) => ({ ...it, registryDependencies: it.registryDependencies?.map((u) => u.replace(`${BASE}/r/`, `${BASE}/r/v${VERSION}/`)) });
+// 一度出した版の中身は変えない。同じ版の番号のまま中身が変わるなら、書き出さずに止める（package.json の version を上げる）
 mkdirSync(join(OUT, `v${VERSION}`), { recursive: true });
+const body = (x) => JSON.stringify({ $schema: "https://ui.shadcn.com/schema/registry-item.json", ...x }, null, 2) + "\n";
+const changed = items.filter((it) => {
+  const p = join(OUT, `v${VERSION}`, `${it.name}.json`);
+  return existsSync(p) && read(p) !== body(pinned(it));
+});
+if (changed.length && !process.env.OUT) {
+  console.error(`✗ 版 ${VERSION} はもう出していて、中身が変わる：${changed.map((it) => it.name).join("・")}`);
+  console.error("  package.json と apps/starter/package.json と plugin/.claude-plugin/plugin.json の version を上げてから作り直す");
+  process.exit(1);
+}
 for (const it of items) {
-  const body = (x) => JSON.stringify({ $schema: "https://ui.shadcn.com/schema/registry-item.json", ...x }, null, 2) + "\n";
   writeFileSync(join(OUT, `${it.name}.json`), body(it));
   writeFileSync(join(OUT, `v${VERSION}`, `${it.name}.json`), body(pinned(it)));
 }

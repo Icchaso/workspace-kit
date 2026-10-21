@@ -1,13 +1,13 @@
 {
   "name": "workspace-kit",
   "private": true,
-  "version": "0.2.0",
+  "version": "0.3.0",
   "description": "PCでもスマホでも最初から整ったUI/UXで動く、ツールの土台一式",
   "scripts": {
     "dev": "pnpm --filter starter dev",
     "build": "pnpm -r build",
     "lint": "pnpm -r lint",
-    "check:ui": "DEMO=1 node scripts/check-ui.mjs",
+    "check:ui": "DEMO=1 ROUTES=/,/tasks,/ai,/settings,/kit node scripts/check-ui.mjs",
     "build:registry": "node scripts/build-registry.mjs"
   },
   "packageManager": "pnpm@11.1.1",

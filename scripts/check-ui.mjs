@@ -20,14 +20,16 @@
  * 6・7 は最初の画面（ROUTES の先頭）に下タブがあるときだけ測る。
  *
  * 環境変数
- *   ROUTES=/,/tasks   … 見る画面（既定：/。DEMO=1 なら /,/tasks,/ai,/settings,/kit）
+ *   ROUTES=/,/tasks   … 見る画面（既定：/。DEMO=1 なら /,/tasks,/ai,/settings。見本サイト /kit は配っていないので、Workspace Kit 自身を測るときだけ足す）
  *   NO_NAV=/login     … ナビが無いのが正しい画面（ログイン・見本サイトなど。前方一致。既定：/kit）
  *   DEMO=1            … 雛形の見本アプリ（タスク管理）の操作も確かめる
  *   PALETTE=sky       … テーマを指定して見る（既定：グラファイト）
- *   COOKIES='a=1;b=2' … 開く前に入れておく Cookie（ログインが要る画面を、手元の試験用の利用者で見るとき。本物のログインの値は使わない）
+ *   COOKIES_FILE=path … 開く前に入れておく Cookie を書いたファイル（1行 or「;」区切りで 名前=値）。ログインが要る画面を、手元の試験用の利用者で見るとき。
+ *                       値がシェルの履歴に残らないようファイルで渡す（COOKIES='a=1;b=2' でも可）。本物のログインの値は使わない。
+ *                       手元の住所（127.0.0.1・localhost）のときだけ受け付ける
  *   QUICK=1           … 390px と 1440px だけ撮り、動きと操作の検査を飛ばす（テーマの色の検査用）
  */
-import { mkdirSync, writeFileSync } from "node:fs";
+import { mkdirSync, readFileSync, writeFileSync } from "node:fs";
 import { join } from "node:path";
 import { chromium } from "@playwright/test";
 import AxeBuilder from "@axe-core/playwright";
@@ -35,11 +37,16 @@ import AxeBuilder from "@axe-core/playwright";
 const base = process.argv[2] ?? "http://127.0.0.1:3456";
 const out = process.argv[3] ?? "screenshots/check";
 const DEMO = process.env.DEMO === "1";
-const ROUTES = (process.env.ROUTES ?? (DEMO ? "/,/tasks,/ai,/settings,/kit" : "/")).split(",");
+const ROUTES = (process.env.ROUTES ?? (DEMO ? "/,/tasks,/ai,/settings" : "/")).split(",");
 const NO_NAV = (process.env.NO_NAV ?? "/kit").split(",").filter(Boolean);
 const PALETTE = process.env.PALETTE ?? "";
 const QUICK = !!process.env.QUICK;
-const COOKIES = (process.env.COOKIES ?? "").split(";").map((c) => c.trim()).filter(Boolean).map((c) => [c.slice(0, c.indexOf("=")), c.slice(c.indexOf("=") + 1)]);
+const cookieText = process.env.COOKIES_FILE ? readFileSync(process.env.COOKIES_FILE, "utf8") : (process.env.COOKIES ?? "");
+const COOKIES = cookieText.split(/[;\n]/).map((c) => c.trim()).filter(Boolean).map((c) => [c.slice(0, c.indexOf("=")), c.slice(c.indexOf("=") + 1)]);
+if (COOKIES.length && !["127.0.0.1", "localhost", "[::1]"].includes(new URL(base).hostname)) {
+  console.error(`✗ Cookie を渡せるのは手元の住所（127.0.0.1・localhost）だけ。いまの住所：${new URL(base).host}`);
+  process.exit(2);
+}
 const ALL_VIEWPORTS = [
   { name: "phone-375", width: 375, height: 812, touch: true },
   { name: "phone-390", width: 390, height: 844, touch: true },
@@ -114,7 +121,35 @@ for (const vp of VIEWPORTS) {
         const zoomy = touch
           ? [...document.querySelectorAll("input:not([type=checkbox]):not([type=radio]),textarea,select")].filter((el) => visible(el) && parseFloat(getComputedStyle(el).fontSize) < 16).map((el) => el.getAttribute("aria-label") || el.id || el.tagName)
           : [];
-        return { overflow: document.documentElement.scrollWidth - innerWidth, nav, tiny, small, zoomy };
+        // 押せる物が、画面の右端や「はみ出しを隠す枠（overflow: hidden）」の外に切れていないか。
+        // ページ全体ははみ出さなくても、表の右の列（操作ボタン）だけが枠の外で切れることがある。横に動かせる枠の中は見ない
+        const clipped = [];
+        for (const el of document.querySelectorAll("a[href],button,input,select,textarea,[role=button]")) {
+          if (!visible(el)) continue;
+          const b = el.getBoundingClientRect();
+          let cut = null;
+          let scrollable = false;
+          for (let a = el.parentElement; a && a !== document.body; a = a.parentElement) {
+            const ox = getComputedStyle(a).overflowX;
+            if (ox === "auto" || ox === "scroll") {
+              scrollable = true;
+              break;
+            }
+            if (ox === "hidden" || ox === "clip") {
+              const r = a.getBoundingClientRect();
+              if (b.right > r.right + 1 || b.left < r.left - 1) {
+                cut = a;
+                break;
+              }
+            }
+          }
+          if (!cut && !scrollable && (b.right > innerWidth + 1 || b.left < -1)) cut = document.body;
+          if (cut) clipped.push(`${(el.getAttribute("aria-label") || el.textContent || el.tagName).trim().slice(0, 12)}`);
+        }
+        // すりガラスの見出し：ぼかしが効いていない（ビルドで backdrop-filter が消えた）と、後ろの文字と重なって読める
+        const glass = [...document.querySelectorAll(".wk-glass-top")].filter(visible);
+        const noBlur = glass.length > 0 && glass.every((g) => getComputedStyle(g).backdropFilter === "none") && !matchMedia("(prefers-reduced-transparency: reduce)").matches;
+        return { overflow: document.documentElement.scrollWidth - innerWidth, nav, tiny, small, zoomy, clipped, noBlur };
       }, vp.touch);
 
       if (r.overflow > 1) fail(where, `横に ${r.overflow}px はみ出している`);
@@ -124,6 +159,8 @@ for (const vp of VIEWPORTS) {
       if (r.tiny.length) fail(where, `12px 未満の文字 ${r.tiny.length}件（例：${r.tiny.slice(0, 3).join(" / ")}）`);
       if (r.zoomy.length) fail(where, `16px 未満の入力欄 ${r.zoomy.length}件（例：${r.zoomy.slice(0, 3).join(" / ")}）`);
       if (r.small.length) fail(where, `44px 未満の押せるもの ${r.small.length}件（例：${r.small.slice(0, 3).join(" / ")}）`);
+      if (r.clipped.length) fail(where, `枠の外に切れている押せるもの ${r.clipped.length}件（例：${r.clipped.slice(0, 3).join(" / ")}）。表ならスマホでは並べ方を変える`);
+      if (r.noBlur) fail(where, "上の見出しのぼかしが効いていない（ビルド後の CSS に backdrop-filter が無い）");
 
       const axe = await new AxeBuilder({ page }).withTags(["wcag2a", "wcag2aa"]).analyze();
       for (const v of axe.violations) fail(where, `axe「${v.id}」${v.nodes.length}か所（${v.help}）例：${v.nodes[0]?.target.join(" ") ?? "?"}`);
@@ -192,13 +229,14 @@ const m = QUICK ? null : await measureTab(false);
 if (!QUICK && !m) notes.push(`下タブ：${ROUTES[0]} に下タブ（2項目以上）が無いので、動きの検査は飛ばした`);
 if (m) {
 notes.push(
-  `下タブ：選択表示 ${m.onAt?.toFixed(0)}ms／板が止まるまで ${m.settleMs?.toFixed(0)}ms（離してから）／伸び 最大 ${m.maxStretch.toFixed(2)}倍／バー 最大 ${m.maxBar.toFixed(3)}倍／見出しが変わるまで ${m.h1At?.toFixed(0)}ms`,
+  `下タブ：選択表示 ${m.onAt?.toFixed(0)}ms／板が止まるまで ${m.settleMs?.toFixed(0)}ms（離してから）／伸び 最大 ${m.maxStretch.toFixed(2)}倍／バー 最大 ${m.maxBar.toFixed(3)}倍／見出しが変わるまで ${m.h1At === null ? "—" : (m.h1At - 90).toFixed(0)}ms（離してから）`,
 );
 if (m.onAt === null || m.onAt > 50) fail("下タブ", `押してから選択表示まで ${m.onAt}ms（50ms 以内のはず）`);
 if (m.settleMs === null || m.settleMs < 120 || m.settleMs > 260) fail("下タブ", `板が止まるまで ${m.settleMs}ms（120〜260ms のはず）`);
 if (m.maxStretch < 1.12) fail("下タブ", `移動中の伸びが ${m.maxStretch.toFixed(2)}倍（1.12倍以上のはず）`);
 if (m.maxBar < 1.015) fail("下タブ", `押している間のふくらみが ${m.maxBar.toFixed(3)}倍（1.03倍前後のはず）`);
-if (m.h1At === null || m.h1At - 90 > 150) fail("画面の切り替え", `指を離してから見出しが変わるまで ${m.h1At === null ? "変わらない" : (m.h1At - 90).toFixed(0) + "ms"}（150ms 未満のはず）`);
+if (m.h1At === null || m.h1At - 90 >= 150)
+  fail("画面の切り替え", `指を離してから見出しが変わるまで ${m.h1At === null ? "変わらない（各画面に、画面の名前の <h1> が1つ要る）" : (m.h1At - 90).toFixed(0) + "ms"}（150ms 未満のはず）`);
 
 const r = await measureTab(true);
 notes.push(`下タブ（動きを減らす）：板が止まるまで ${r.settleMs?.toFixed(0)}ms／伸び 最大 ${r.maxStretch.toFixed(2)}倍／バー 最大 ${r.maxBar.toFixed(3)}倍`);
@@ -314,7 +352,8 @@ const T = 4000;
   await step("PC：⌘K で探して開く", async () => {
     await page.goto(base + "/", { waitUntil: "networkidle" });
     await page.keyboard.press("ControlOrMeta+k");
-    const box = page.getByRole("combobox", { name: "タスクを探す・操作を選ぶ" });
+    // 案内文（config/shell.tsx の APP.searchLabel）は変えてよいので、名前ではなくパレットの中の入力欄で探す
+    const box = page.getByRole("dialog").getByRole("combobox");
     await box.waitFor({ timeout: T });
     await page.waitForTimeout(400); // 開く動き（薄い→濃い）が終わってから色を測る
     await axeNow(page, "PC：⌘K パレットを開いた状態");
