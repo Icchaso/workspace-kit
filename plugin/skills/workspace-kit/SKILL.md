@@ -17,8 +17,9 @@ description: Workspace Kit で業務ツールの画面を PC でもスマホで�
 | workspace-kit-shell | 骨格（`components/shell/`）：3段階のナビ・⌘K パレット・キーボードの近道・描画前の台本。アプリごとに書くのは `config/nav.ts` と `config/shell.tsx` だけ | https://workspace-kit.vercel.app/r/workspace-kit-shell.json |
 | workspace-kit-starter | 上の全部＋見本のタスク管理アプリ（画面の型 A 指令室・B 現場・C AI相棒・設定） | https://workspace-kit.vercel.app/r/workspace-kit-starter.json |
 
-下の部品は上の部品を自動で連れてくる（starter → shell → ui → css）。
-版を固定したいときは `/r/v0.2.0/<名前>.json`（出した版：v0.1.0・v0.2.0） を使う（つながる部品も同じ版になる）。後で「Workspace Kit を更新して」と頼まれたら、入れた版と最新の差分を見せてから当てる。
+下の部品は上の部品を自動で連れてくる（starter → shell → ui → css。shell を入れれば ui と css も入る）。
+**相手のアプリに入れるときは、版を固定した URL（`/r/v<版>/<名前>.json`）を使う**。上の表の版なしの URL は最新を指すので、後で同じ手順を流すと違う中身が入る。
+版を固定した URL は `/r/v0.3.0/<名前>.json`（出した版：v0.1.0・v0.2.0・v0.3.0）。new.md と retrofit.md のコマンドはこの形にしてある（つながる部品も同じ版になる）。後で「Workspace Kit を更新して」と頼まれたら、入れた版と最新の差分を見せてから当てる。
 
 ## 最初に必ずやること
 1. 相手（使う人）は非エンジニアのことが多い。説明は日本語で、専門用語は残して初出で括弧書きの意味を添える
@@ -33,7 +34,8 @@ description: Workspace Kit で業務ツールの画面を PC でもスマホで�
 | 相手のアプリ | できること |
 |---|---|
 | Next.js（App Router）＋ Tailwind v4 | 全部（新規・後付け・テーマ・検査） |
-| Next.js ＋ Tailwind v3 | 先に公式の移行ツール `npx @tailwindcss/upgrade` で v4 にする（相手の承認を取ってから・別ブランチで）。しないなら「軽い入れ方」 |
+| Next.js（Pages Router）＋ Tailwind v4 | 後付け・テーマ・検査（骨格は retrofit.md の「Pages Router のアプリ」の直しが要る） |
+| Next.js ＋ Tailwind v3 | 先に公式の移行ツール `npx @tailwindcss/upgrade` で v4 にする（相手の承認を取ってから・別ブランチで）。しないなら retrofit.md の「Vite・Tailwind v3 のアプリ」 |
 | React＋Tailwind v4（Vite など Next.js 以外） | 「軽い入れ方」：workspace-kit-css と workspace-kit-ui だけ（骨格は next/link・next/navigation を使うので入らない） |
 | それ以外 | CSS の変数（トークン）と rules.md の作法だけを入れる |
 
@@ -46,7 +48,8 @@ pnpm build && pnpm start --port 3999
 node scripts/wk-check-ui.mjs http://127.0.0.1:3999 screenshots/wk-check
 ```
 - 見る画面は `ROUTES=/,/orders,/settings` のように並べる。ナビが無いのが正しい画面（ログインなど）は `NO_NAV=/login`
-- ログインが要る画面は、手元の試験用の利用者のクッキーを `COOKIES='名前=値'` で渡す。本物のパスワードや本番の顧客データは使わない
+- ログインが要る画面は、手元の試験用の利用者のクッキーを `COOKIES='名前=値'`（長いときはファイルに書いて `COOKIES_FILE=ファイルの場所`。会話やシェルの履歴に残らない）で渡す。本物のパスワードや本番の顧客データは使わない。クッキーを渡せるのは 127.0.0.1・localhost の画面だけ（台本が止める）
+- 検査の画像のフォルダ（`screenshots/`）は `.gitignore` に足す
 - 6つの幅（375・390＝指／768・1024・1280・1440＝マウス）× ライト/ダークで撮影し、はみ出し・ナビの有無・12px 未満の文字・指で 44px 未満の押せる物・16px 未満の入力欄・axe（コントラストなど）・下タブの動き・コンソールのエラーを数値で合否にする
 - 落ちた項目は日本語でそのまま伝え、直してからもう一度流す。全部合格したら、撮った画像（スマホ 390 と PC 1440 のライト/ダーク）を見せて終える
 - 検査はサーバーを立ててから流す。`next dev` ではなく `next build` → `next start` で測る（dev は遅く、動きの数値がぶれる）

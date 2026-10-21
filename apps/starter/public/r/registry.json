@@ -22,14 +22,14 @@
       "title": "Workspace Kit：部品",
       "description": "ボタン（押した瞬間の待ち表示つき）・下から出るシート・お知らせと取り消し・確認ダイアログ・切り替え・空の状態・数字が回るカードなど",
       "dependencies": [
-        "@base-ui/react@^1.9.0",
-        "class-variance-authority@^0.7.1",
-        "clsx@^2.1.1",
-        "lucide-react@^1.59.0",
-        "motion@^14.4.0",
-        "sonner@^2.0.8",
-        "tailwind-merge@^3.7.0",
-        "vaul@^1.1.2"
+        "@base-ui/react@1.9.0",
+        "class-variance-authority@0.7.1",
+        "clsx@2.1.1",
+        "lucide-react@1.59.0",
+        "motion@14.4.0",
+        "sonner@2.0.8",
+        "tailwind-merge@3.7.0",
+        "vaul@1.1.2"
       ],
       "registryDependencies": [
         "https://workspace-kit.vercel.app/r/workspace-kit-css.json"
@@ -103,9 +103,9 @@
       "title": "Workspace Kit：骨格",
       "description": "画面幅で3段階に変わるナビ（767px 以下＝下タブ／768px〜＝アイコン列／1280px〜＝サイドバー）、⌘K パレット、キーボードの近道、描画前の台本",
       "dependencies": [
-        "@base-ui/react@^1.9.0",
-        "lucide-react@^1.59.0",
-        "motion@^14.4.0"
+        "@base-ui/react@1.9.0",
+        "lucide-react@1.59.0",
+        "motion@14.4.0"
       ],
       "registryDependencies": [
         "https://workspace-kit.vercel.app/r/workspace-kit-ui.json"
@@ -164,8 +164,8 @@
       "title": "Workspace Kit：雛形（見本のタスク管理アプリ）",
       "description": "骨格と部品の全部に、画面の型 A 指令室（/tasks）・B 現場（/）・C AI相棒（/ai）・設定（/settings）の見本を足した一式。新しく作るとき用",
       "dependencies": [
-        "lucide-react@^1.59.0",
-        "motion@^14.4.0"
+        "lucide-react@1.59.0",
+        "motion@14.4.0"
       ],
       "registryDependencies": [
         "https://workspace-kit.vercel.app/r/workspace-kit-shell.json"
