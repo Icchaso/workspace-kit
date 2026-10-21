@@ -1,7 +1,7 @@
 "use client";
 
 /**
- * タスクの見本データと、画面から使う操作（完了・今日にする・追加・削除・取り消し）。
+ * タスクの見本データと、画面から使う操作（完了・期限の変更・追加・削除・取り消し）。
  * 雛形なので、データはこのブラウザの中だけに持つ（再読み込みで元に戻る）。
  * 本番では、ここをデータベース（Supabase など）の読み書きに差し替える。
  */
@@ -32,7 +32,8 @@ const SAMPLE: Task[] = [
 type Store = {
   tasks: Task[];
   toggle: (id: number) => Task | undefined;
-  makeToday: (ids: number[]) => void;
+  /** 期限を変える（今日に入れる・明日に回す） */
+  setDue: (ids: number[], due: Due) => void;
   add: (t: Omit<Task, "id" | "done">) => Task;
   remove: (id: number) => Task | undefined;
   reset: () => void;
@@ -56,7 +57,7 @@ export function TaskProvider({ children }: { children: React.ReactNode }) {
         change((ts) => ts.map((x) => (x.id === id ? { ...x, done: !x.done } : x)));
         return t && { ...t, done: !t.done };
       },
-      makeToday: (ids) => change((ts) => ts.map((x) => (ids.includes(x.id) && !x.done ? { ...x, due: "today" } : x))),
+      setDue: (ids, due) => change((ts) => ts.map((x) => (ids.includes(x.id) && !x.done ? { ...x, due } : x))),
       add: (t) => {
         const task: Task = { ...t, id: state.seq + 1, done: false };
         setState((s) => ({ tasks: [task, ...s.tasks], prev: s.tasks, seq: s.seq + 1 }));

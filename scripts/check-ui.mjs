@@ -8,11 +8,13 @@
  *   1. 横へのはみ出しが無い
  *   2. ナビがどの幅でも1つ見える（767px 以下＝下タブ、768px 以上＝サイドバーかアイコン列）
  *   3. 12px より小さい文字が無い
- *   4. 指で触る幅では、押せるものが 44px 以上
+ *   4. 指で触る幅では、押せるものが 44px 以上・入力欄の文字が 16px 以上（16px 未満だと iPhone が勝手に拡大する）
  *   5. 文字と背景の差（コントラスト）など、axe-core の WCAG A/AA の指摘が無い
  *   6. 下タブの動き：押した瞬間に選択表示／丸い板が 120〜260ms で止まる／途中で 1.12 倍以上に伸びる／動きを減らす設定では瞬間移動
  *   7. 画面の切り替え：下タブを押してから見出しが変わるまで 150ms 未満
  *   8. コンソールにエラーが出ていない
+ *   9. 段階3の操作が通る（スマホ：行を押して詳細シート・長押しで操作シート・右下の主ボタン・今日を締める・AIの成果物を今日に入れる／
+ *      PC：右の詳細パネル・⌘K で探して開く・↓ キーで選ぶ・… のメニュー・AIの成果物パネル）。シートやメニューを開いた状態も axe で見る
  * 1つでも落ちたら終了コード 1。
  */
 import { mkdirSync, writeFileSync } from "node:fs";
@@ -64,7 +66,7 @@ for (const vp of VIEWPORTS) {
     for (const route of ROUTES) {
       const where = `${slug(route)} ${vp.name} ${dark ? "ダーク" : "ライト"}`;
       await page.goto(base + route, { waitUntil: "networkidle" });
-      await page.waitForTimeout(250);
+      await page.waitForTimeout(700); // 数字の数え上げ（0.52秒）が止まるまで待つ
       await page.screenshot({ path: join(out, `${slug(route)}-${vp.name}-${dark ? "dark" : "light"}.png`) });
 
       const r = await page.evaluate((touch) => {
@@ -84,17 +86,24 @@ for (const vp of VIEWPORTS) {
         if (touch) {
           for (const el of document.querySelectorAll("a[href],button,input,select,textarea,[role=button]")) {
             if (!visible(el)) continue;
-            const b = el.getBoundingClientRect();
+            // 文字ごと押せる <label> の中のチェックは label の大きさ、
+            // カード全体に広げたボタン（::after を position:absolute で広げる作り）は、広げた先の大きさで見る
+            const stretched = getComputedStyle(el, "::after").position === "absolute" && el.offsetParent;
+            const b = (stretched ? el.offsetParent : (el.closest("label") ?? el)).getBoundingClientRect();
             if (b.width < 44 || b.height < 44) small.push(`${(el.getAttribute("aria-label") || el.textContent || el.tagName).trim().slice(0, 16)} ${Math.round(b.width)}×${Math.round(b.height)}`);
           }
         }
-        return { overflow: document.documentElement.scrollWidth - innerWidth, nav, tiny, small };
+        const zoomy = touch
+          ? [...document.querySelectorAll("input:not([type=checkbox]):not([type=radio]),textarea,select")].filter((el) => visible(el) && parseFloat(getComputedStyle(el).fontSize) < 16).map((el) => el.getAttribute("aria-label") || el.id || el.tagName)
+          : [];
+        return { overflow: document.documentElement.scrollWidth - innerWidth, nav, tiny, small, zoomy };
       }, vp.touch);
 
       if (r.overflow > 1) fail(where, `横に ${r.overflow}px はみ出している`);
       const expect = vp.width < 768 ? "tabbar" : "side";
       if (r.nav.length !== 1 || r.nav[0] !== expect) fail(where, `ナビが「${r.nav.join("・") || "無し"}」（期待：${expect}）`);
       if (r.tiny.length) fail(where, `12px 未満の文字 ${r.tiny.length}件（例：${r.tiny.slice(0, 3).join(" / ")}）`);
+      if (r.zoomy.length) fail(where, `16px 未満の入力欄 ${r.zoomy.length}件（例：${r.zoomy.slice(0, 3).join(" / ")}）`);
       if (r.small.length) fail(where, `44px 未満の押せるもの ${r.small.length}件（例：${r.small.slice(0, 3).join(" / ")}）`);
 
       const axe = await new AxeBuilder({ page }).withTags(["wcag2a", "wcag2aa"]).analyze();
@@ -170,6 +179,142 @@ const r = await measureTab(true);
 notes.push(`下タブ（動きを減らす）：板が止まるまで ${r.settleMs?.toFixed(0)}ms／伸び 最大 ${r.maxStretch.toFixed(2)}倍／バー 最大 ${r.maxBar.toFixed(3)}倍`);
 if (r.settleMs === null || r.settleMs > 40) fail("下タブ（動きを減らす）", `板が止まるまで ${r.settleMs}ms（瞬間移動のはず）`);
 if (r.maxBar > 1.001 || r.maxStretch > 1.001) fail("下タブ（動きを減らす）", "ふくらみ・伸びが残っている");
+
+// ---- 9：段階3の操作 ----
+async function step(where, fn) {
+  try {
+    await fn();
+  } catch (e) {
+    fail(where, String(e.message).split("\n")[0].slice(0, 160));
+  }
+}
+async function axeNow(page, where) {
+  const axe = await new AxeBuilder({ page }).withTags(["wcag2a", "wcag2aa"]).analyze();
+  for (const v of axe.violations) fail(where, `axe「${v.id}」${v.nodes.length}か所（${v.help}）`);
+}
+const T = 4000;
+
+{
+  const { ctx, page } = await open(VIEWPORTS[1]);
+  const cdp = await ctx.newCDPSession(page);
+  const longPress = async (loc) => {
+    const b = await loc.boundingBox();
+    const p = { x: b.x + b.width / 2, y: b.y + b.height / 2 };
+    await cdp.send("Input.dispatchTouchEvent", { type: "touchStart", touchPoints: [p] });
+    await page.waitForTimeout(650);
+    await cdp.send("Input.dispatchTouchEvent", { type: "touchEnd", touchPoints: [] });
+  };
+
+  await step("スマホ：行を押して詳細シート", async () => {
+    await page.goto(base + "/tasks", { waitUntil: "networkidle" });
+    await page.locator("[data-open]").first().tap();
+    await page.getByRole("dialog", { name: "タスクの詳細" }).waitFor({ timeout: T });
+    if (!page.url().includes("id=")) throw new Error("URL に選んだタスク（id）が入っていない");
+    await page.waitForTimeout(500);
+    await axeNow(page, "スマホ：詳細シートを開いた状態");
+    await page.keyboard.press("Escape");
+    await page.getByRole("dialog").waitFor({ state: "detached", timeout: T });
+    if (page.url().includes("id=")) throw new Error("閉じても URL に id が残っている");
+  });
+
+  await step("スマホ：長押しで操作シート", async () => {
+    await page.goto(base + "/", { waitUntil: "networkidle" });
+    await longPress(page.locator("[data-open]").first());
+    const sheet = page.getByRole("dialog");
+    await sheet.getByText("このタスクへの操作").waitFor({ timeout: T });
+    await sheet.getByRole("button", { name: "明日に回す", exact: true }).tap();
+    await page.getByText("明日に回しました").waitFor({ timeout: T });
+  });
+
+  await step("スマホ：右下の主ボタンで追加", async () => {
+    const fab = page.locator("button.fixed[aria-label='タスクを追加']");
+    const b = await fab.boundingBox();
+    if (!b || b.y + b.height > 844 || b.x + b.width > 390) throw new Error("主ボタンが画面に収まっていない");
+    await fab.tap();
+    await page.getByRole("dialog", { name: "タスクを追加" }).waitFor({ timeout: T });
+    await page.keyboard.press("Escape");
+    await page.getByRole("dialog").waitFor({ state: "detached", timeout: T });
+  });
+
+  await step("スマホ：今日を締める（3つの手順）", async () => {
+    await page.getByRole("button", { name: "今日を締める" }).tap();
+    const d = page.getByRole("dialog", { name: "今日を締める" });
+    await d.waitFor({ timeout: T });
+    await page.waitForTimeout(500);
+    await axeNow(page, "スマホ：今日を締める（手順1）");
+    await d.getByRole("button", { name: "次へ", exact: true }).tap();
+    await d.getByRole("button", { name: "次へ", exact: true }).tap();
+    await d.getByRole("button", { name: "締める", exact: true }).tap();
+    await page.getByText(/今日を締めました/).waitFor({ timeout: T });
+  });
+
+  await step("スマホ：AIの成果物を開いて今日に入れる", async () => {
+    await page.goto(base + "/ai", { waitUntil: "networkidle" });
+    await page.getByRole("button", { name: "今日のタスクを優先順に並べて" }).tap();
+    await page.getByRole("button", { name: /今日の優先順/ }).tap({ timeout: 8000 });
+    const d = page.getByRole("dialog", { name: "AIの成果物" });
+    await d.waitFor({ timeout: T });
+    await d.getByRole("button", { name: /今日に入れる/ }).tap();
+    await page.getByText(/件を今日のタスクに入れました/).waitFor({ timeout: T });
+  });
+  await ctx.close();
+}
+
+{
+  const { ctx, page } = await open(VIEWPORTS[5]);
+  await step("PC：URL の id で右の詳細パネル", async () => {
+    await page.goto(base + "/tasks?id=2", { waitUntil: "networkidle" });
+    await page.getByRole("complementary", { name: "タスクの詳細" }).getByText("11月分の請求書を発行する").waitFor({ timeout: T });
+  });
+
+  await step("PC：↓ キーで次の行を選ぶ", async () => {
+    await page.goto(base + "/tasks", { waitUntil: "networkidle" });
+    await page.locator("[data-row] [data-open]").first().focus();
+    await page.keyboard.press("ArrowDown");
+    const second = await page.locator("[data-row]").nth(1).getAttribute("data-row");
+    await page.waitForFunction((id) => location.search.includes(`id=${id}`), second, { timeout: T });
+  });
+
+  await step("PC：… のメニュー", async () => {
+    await page.getByRole("button", { name: /の操作$/ }).first().click();
+    await page.getByRole("menu").getByRole("menuitem", { name: "削除" }).waitFor({ timeout: T });
+    await page.waitForTimeout(300);
+    await axeNow(page, "PC：… のメニューを開いた状態");
+    await page.keyboard.press("Escape");
+  });
+
+  await step("PC：⌘K で探して開く", async () => {
+    await page.goto(base + "/", { waitUntil: "networkidle" });
+    await page.keyboard.press("ControlOrMeta+k");
+    const box = page.getByRole("combobox", { name: "タスクを探す・操作を選ぶ" });
+    await box.waitFor({ timeout: T });
+    await page.waitForTimeout(400); // 開く動き（薄い→濃い）が終わってから色を測る
+    await axeNow(page, "PC：⌘K パレットを開いた状態");
+    await box.fill("請求");
+    await page.getByRole("option", { name: /請求書/ }).waitFor({ timeout: T });
+    await page.keyboard.press("Enter");
+    await page.waitForURL(/\/tasks\?id=2/, { timeout: T });
+    await page.getByRole("complementary", { name: "タスクの詳細" }).getByText("11月分の請求書を発行する").waitFor({ timeout: T });
+  });
+
+  await step("PC：キーボードの近道（N で追加・2 で移動）", async () => {
+    await page.goto(base + "/", { waitUntil: "networkidle" });
+    await page.keyboard.press("n");
+    await page.getByRole("dialog", { name: "タスクを追加" }).waitFor({ timeout: T });
+    await page.keyboard.press("Escape");
+    await page.getByRole("dialog").waitFor({ state: "detached", timeout: T });
+    await page.keyboard.press("2");
+    await page.waitForURL(/\/tasks/, { timeout: T });
+  });
+
+  await step("PC：AIの成果物パネル", async () => {
+    await page.goto(base + "/ai", { waitUntil: "networkidle" });
+    await page.getByRole("button", { name: "今週の振り返りを書いて" }).click();
+    await page.getByRole("complementary", { name: "AIの成果物" }).getByText("今週の振り返り").waitFor({ timeout: 8000 });
+    await axeNow(page, "PC：AIの返事が届いた状態");
+  });
+  await ctx.close();
+}
 
 await browser.close();
 

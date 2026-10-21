@@ -2,23 +2,29 @@
 @import "@workspace-kit/tokens/tokens.css";
 @import "@workspace-kit/tokens/tailwind.css";
 
-/* ---- 土台 ---- */
-html {
-  background: var(--wk-canvas);
-  color: var(--wk-fg);
-  font-family: var(--wk-font);
-  font-size: var(--wk-text-md);
-  line-height: 1.6;
-  -webkit-text-size-adjust: 100%;
-  -webkit-font-smoothing: antialiased;
+/* ---- 土台 ----
+ * @layer base に入れる（入れないと Tailwind の部品の指定 outline-none などより強くなり、部品側で打ち消せない）
+ */
+@layer base {
+  html {
+    background: var(--wk-canvas);
+    color: var(--wk-fg);
+    font-family: var(--wk-font);
+    font-size: var(--wk-text-md);
+    line-height: 1.6;
+    -webkit-text-size-adjust: 100%;
+    -webkit-font-smoothing: antialiased;
+  }
+  body { min-height: 100dvh; background: var(--wk-canvas); }
+  button, [role="button"], a { touch-action: manipulation; -webkit-tap-highlight-color: transparent; }
+  button:not(:disabled), [role="button"] { cursor: pointer; }
+  input, textarea, select { font-size: var(--wk-text-input); }
+  :focus-visible { outline: 2px solid var(--wk-accent); outline-offset: 2px; }
+  .num { font-variant-numeric: tabular-nums; }
+  h1, h2, h3 { text-wrap: balance; }
+  /* 日本語は文節で折り返す（「ヒーロ／ー画像」のような切れ方をさせない。対応していないブラウザは今まで通り） */
+  :lang(ja) { word-break: auto-phrase; }
 }
-body { min-height: 100dvh; background: var(--wk-canvas); }
-button, [role="button"], a { touch-action: manipulation; -webkit-tap-highlight-color: transparent; }
-button:not(:disabled), [role="button"] { cursor: pointer; }
-input, textarea, select { font-size: var(--wk-text-input); }
-:focus-visible { outline: 2px solid var(--wk-accent); outline-offset: 2px; }
-.num { font-variant-numeric: tabular-nums; }
-h1, h2, h3 { text-wrap: balance; }
 
 /* ---- 骨格（3段階）----
  * 767px 以下：下タブ（左の列なし）
@@ -70,4 +76,16 @@ h1, h2, h3 { text-wrap: balance; }
 @media (prefers-reduced-motion: reduce) {
   .wk-spin { animation-duration: 2s; }
   .wk-skeleton { animation: wk-skeleton-in 1ms 150ms forwards; }
+}
+
+/* AI の返事が届いている間のしるし（文字の後ろの棒・考え中の点） */
+@keyframes wk-blink { 50% { opacity: 0 } }
+.wk-caret {
+  display: inline-block; width: 7px; height: 1.05em; margin-left: 2px; vertical-align: -2px;
+  background: var(--wk-accent); animation: wk-blink 1s steps(2) infinite;
+}
+@keyframes wk-dots { 0% { content: "" } 25% { content: "・" } 50% { content: "・・" } 75% { content: "・・・" } }
+.wk-dots::after { content: "・・・"; display: inline-block; width: 3em; animation: wk-dots 1.2s steps(1) infinite; }
+@media (prefers-reduced-motion: reduce) {
+  .wk-caret, .wk-dots::after { animation: none; }
 }

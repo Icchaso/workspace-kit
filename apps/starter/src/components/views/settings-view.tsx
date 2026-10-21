@@ -1,40 +1,14 @@
 "use client";
 
 /** 設定：明るさ・行の高さ・この端末の操作方法・見本データの初期化（元に戻せないので確認を挟む） */
-import { useState, useSyncExternalStore } from "react";
+import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { ConfirmDialog } from "@/components/ui/confirm-dialog";
 import { Page, PageHeader } from "@/components/ui/feedback";
 import { Segmented } from "@/components/ui/segmented";
 import { notify } from "@/components/ui/toast";
+import { setDensity, setTheme, useCoarsePointer, useDensity, useTheme, type Density, type Theme } from "@/lib/prefs";
 import { useTasks } from "@/lib/tasks";
-
-type Theme = "system" | "light" | "dark";
-type Density = "comfy" | "compact";
-
-function readAttr(name: "theme" | "density") {
-  return document.documentElement.dataset[name] ?? "";
-}
-function writeAttr(name: "theme" | "density", value: string, key: string) {
-  const d = document.documentElement;
-  if (value) d.dataset[name] = value;
-  else delete d.dataset[name];
-  try {
-    if (value) localStorage.setItem(key, value);
-    else localStorage.removeItem(key);
-  } catch {}
-  listeners.forEach((l) => l());
-}
-const listeners = new Set<() => void>();
-const subscribe = (l: () => void) => {
-  listeners.add(l);
-  return () => listeners.delete(l);
-};
-const subscribeMedia = (q: string) => (cb: () => void) => {
-  const m = window.matchMedia(q);
-  m.addEventListener("change", cb);
-  return () => m.removeEventListener("change", cb);
-};
 
 function Row({ title, help, children }: { title: string; help: string; children: React.ReactNode }) {
   return (
@@ -49,9 +23,9 @@ function Row({ title, help, children }: { title: string; help: string; children:
 }
 
 export function SettingsView() {
-  const theme = (useSyncExternalStore(subscribe, () => readAttr("theme"), () => "") || "system") as Theme;
-  const density = (useSyncExternalStore(subscribe, () => readAttr("density"), () => "") || "comfy") as Density;
-  const coarse = useSyncExternalStore(subscribeMedia("(pointer: coarse)"), () => matchMedia("(pointer: coarse)").matches, () => false);
+  const theme = useTheme();
+  const density = useDensity();
+  const coarse = useCoarsePointer();
   const { reset } = useTasks();
   const [confirming, setConfirming] = useState(false);
 
@@ -64,7 +38,7 @@ export function SettingsView() {
           <Segmented<Theme>
             label="明るさ"
             value={theme}
-            onChange={(v) => writeAttr("theme", v === "system" ? "" : v, "wk.theme")}
+            onChange={setTheme}
             options={[
               { value: "system", label: "端末に合わせる" },
               { value: "light", label: "ライト" },
@@ -76,7 +50,7 @@ export function SettingsView() {
           <Segmented<Density>
             label="行の高さ"
             value={density}
-            onChange={(v) => writeAttr("density", v === "comfy" ? "" : v, "wk.density")}
+            onChange={setDensity}
             options={[
               { value: "comfy", label: "ゆったり" },
               { value: "compact", label: "詰める" },

@@ -11,11 +11,12 @@ export function CheckButton({ task, onToggle }: { task: Task; onToggle: () => vo
       type="button"
       aria-label={task.done ? `「${task.title}」を未完了に戻す` : `「${task.title}」を完了にする`}
       aria-pressed={task.done}
+      data-no-longpress
       onClick={(e) => {
         e.stopPropagation();
         onToggle();
       }}
-      className="group grid size-hit flex-none place-items-center rounded-full"
+      className="group relative z-10 grid size-hit flex-none place-items-center rounded-full"
     >
       <span
         className={cn(
@@ -53,13 +54,41 @@ export function PriorityTag({ task }: { task: Task }) {
   );
 }
 
-/** タスクのカード（今日の画面で使う大きめの形） */
-export function TaskCard({ task, onToggle }: { task: Task; onToggle: () => void }) {
+/**
+ * タスクのカード（今日の画面で使う大きめの形）。
+ * カード全体が「詳細を開く」ボタン（題名のボタンを全面に広げている）。チェックだけは別に押せる。
+ * 指の端末では長押しで操作シート（bind に useLongPress の bind を渡す）。
+ */
+export function TaskCard({
+  task,
+  onToggle,
+  onOpen,
+  bind,
+}: {
+  task: Task;
+  onToggle: () => void;
+  onOpen?: () => void;
+  bind?: React.HTMLAttributes<HTMLDivElement>;
+}) {
   return (
-    <div className="flex items-center gap-1.5 rounded-md border border-line bg-surface py-2 pr-3 pl-1.5">
+    <div
+      {...bind}
+      className="relative flex items-center gap-1.5 rounded-md border border-line bg-surface py-2 pr-3 pl-1.5 transition-[transform,background-color] duration-[var(--wk-dur-fast)] ease-out select-none has-[[data-open]:active]:scale-[0.985] has-[[data-open]:active]:duration-[var(--wk-dur-press)] data-[held]:scale-[0.96] data-[held]:bg-surface-2 [-webkit-touch-callout:none]"
+    >
       <CheckButton task={task} onToggle={onToggle} />
       <div className="grid min-w-0 flex-1 gap-1.5 py-1">
-        <span className={cn("text-base font-medium", task.done && "text-fg-3 line-through")}>{task.title}</span>
+        {onOpen ? (
+          <button
+            type="button"
+            data-open
+            onClick={onOpen}
+            className={cn("text-left text-base font-medium after:absolute after:inset-0 after:rounded-md focus-visible:outline-none focus-visible:after:outline-2 focus-visible:after:outline-accent", task.done && "text-fg-3 line-through")}
+          >
+            {task.title}
+          </button>
+        ) : (
+          <span className={cn("text-base font-medium", task.done && "text-fg-3 line-through")}>{task.title}</span>
+        )}
         <span className="flex flex-wrap items-center gap-1.5">
           <DueTag task={task} />
           <ProjectTag name={task.project} />
