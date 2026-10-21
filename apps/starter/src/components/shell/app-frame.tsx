@@ -11,10 +11,10 @@
  * キーボードの近道（文字を入力中・シートやダイアログが開いている間は効かない）
  *   ⌘K / Ctrl+K / 「/」 … 検索・操作
  *   N                    … 追加（config/shell.tsx の AddSheet があるとき）
- *   1〜4                 … ナビの1〜4番目へ移動
+ *   1〜9                 … ナビの1〜9番目へ移動
  */
 import { useRouter } from "next/navigation";
-import { createContext, useContext, useEffect, useState } from "react";
+import { createContext, useContext, useEffect, useRef, useState } from "react";
 import { NAV } from "@/config/nav";
 import { AddSheet, ShellProviders } from "@/config/shell";
 import { Toaster } from "@/components/kit/toast";
@@ -33,6 +33,10 @@ export function AppFrame({ children }: { children: React.ReactNode }) {
   const router = useRouter();
   const [adding, setAdding] = useState(false);
   const [searching, setSearching] = useState(false);
+  const searchingRef = useRef(searching);
+  useEffect(() => {
+    searchingRef.current = searching;
+  }, [searching]);
   const openAdd = () => setAdding(true);
   const openSearch = () => setSearching(true);
 
@@ -40,6 +44,8 @@ export function AppFrame({ children }: { children: React.ReactNode }) {
     const onKey = (e: KeyboardEvent) => {
       if (e.isComposing) return;
       if ((e.metaKey || e.ctrlKey) && e.key.toLowerCase() === "k") {
+        // シートやメニューが開いている間は奪わない（重なって開き、打った文字が後ろのシートに入るため）。パレット自身を閉じるのは可
+        if (!searchingRef.current && overlayOpen()) return;
         e.preventDefault();
         setSearching((s) => !s);
         return;

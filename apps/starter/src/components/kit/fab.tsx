@@ -14,7 +14,7 @@ export function Fab({ label, onClick, children, className }: { label: string; on
       title={label}
       onClick={onClick}
       className={cn(
-        "fixed right-4 z-30 grid size-14 place-items-center rounded-full bg-accent text-on-accent shadow-float transition-transform duration-[var(--wk-dur-fast)] ease-out active:scale-[0.94] active:duration-[var(--wk-dur-press)] rail:hidden",
+        "wk-fab fixed right-4 z-30 grid size-14 place-items-center rounded-full bg-accent text-on-accent shadow-float transition-transform duration-[var(--wk-dur-fast)] ease-out active:scale-[0.94] active:duration-[var(--wk-dur-press)] rail:hidden",
         className,
       )}
       style={{ bottom: "calc(var(--wk-tabbar-h) + var(--wk-tabbar-gap) + var(--wk-safe-b) + 14px)", right: "max(16px, env(safe-area-inset-right, 0px))" }}

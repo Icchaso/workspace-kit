@@ -26,7 +26,13 @@ function write(name: "theme" | "density" | "palette", value: string, key: string
   listeners.forEach((l) => l());
 }
 
-export const setTheme = (t: Theme) => write("theme", t === "system" ? "" : t, "wk.theme");
+/** 明るさを固定しているアプリ（<WorkspaceBoot forceTheme="…">）か */
+export const themeLocked = () => typeof document !== "undefined" && !!document.documentElement.dataset.themeLocked;
+
+export const setTheme = (t: Theme) => {
+  if (themeLocked()) return;
+  write("theme", t === "system" ? "" : t, "wk.theme");
+};
 export const setDensity = (d: Density) => write("density", d === "comfy" ? "" : d, "wk.density");
 
 export function useTheme(): Theme {

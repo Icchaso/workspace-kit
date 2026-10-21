@@ -1,7 +1,7 @@
 "use client";
 
 /**
- * スマホの下タブ（767px 以下だけ表示）。動きは iOS 26 版 Instagram の下タブを録画から測って合わせている。
+ * スマホの下タブ（767px 以下だけ表示）。動きは iOS 26 の標準的な下タブ（押した所へ光る丸が伸び縮みしながら移る）に合わせている。
  *
  *   指が触れた瞬間 … 押したタブのアイコンが選択表示になり、バー全体が 1.03 倍にふくらむ
  *   指を離した瞬間 … 画面を切り替える（中身はフェードも横すべりもしない＝即移動）
@@ -11,11 +11,13 @@
  *   項目が6つ以上（またはログイン中の人の欄がある）とき … 先頭4つ＋「もっと」。「もっと」は残りの項目とアカウント欄を下からのシートで出す
  *
  * 画面の切り替えは <Link> の先読み（App Shell）が効いているので、押してから待たない。
+ * 今の場所（usePathname）は <Suspense> の中で読む。[id] のような動く住所の画面でも事前の描画が止まらないように、
+ * 読めるまでは選択表示の無い同じバーを出す。
  */
 import Link from "next/link";
 import { usePathname, useRouter } from "next/navigation";
 import { animate, motion, useMotionValue, useReducedMotion, useTransform, useVelocity } from "motion/react";
-import { useCallback, useLayoutEffect, useRef, useState } from "react";
+import { Suspense, useCallback, useLayoutEffect, useRef, useState } from "react";
 import { Ellipsis } from "lucide-react";
 import { NAV, isActive } from "@/config/nav";
 import { useAccount } from "@/config/shell";
@@ -32,12 +34,25 @@ const MORE = { href: "#more", label: "もっと", short: "もっと", icon: Elli
 
 export function BottomTabBar() {
   const account = useAccount();
+  if (NAV.length === 0 && !account) return null;
+  return (
+    <Suspense fallback={<TabBar pathname={null} account={account} />}>
+      <TabBarAtPath account={account} />
+    </Suspense>
+  );
+}
+
+function TabBarAtPath({ account }: { account: ReturnType<typeof useAccount> }) {
+  return <TabBar pathname={usePathname()} account={account} />;
+}
+
+function TabBar({ pathname: at, account }: { pathname: string | null; account: ReturnType<typeof useAccount> }) {
+  const pathname = at ?? "";
   const needsMore = NAV.length > 5 || !!account;
   const tabs = NAV.slice(0, needsMore ? 4 : 5);
   const rest = NAV.slice(tabs.length);
   const items = needsMore ? [...tabs, MORE] : tabs;
   const [moreOpen, setMoreOpen] = useState(false);
-  const pathname = usePathname();
   const router = useRouter();
   const reduce = useReducedMotion();
   const barRef = useRef<HTMLElement>(null);
@@ -45,8 +60,9 @@ export function BottomTabBar() {
   const slot = width / items.length;
 
   // 押した瞬間に選択表示にするための「仮の選択」。画面が移り終わったら実際の場所に従う
-  const tabIndex = tabs.findIndex((i) => isActive(pathname, i.href));
-  const routeIndex = tabIndex >= 0 ? tabIndex : needsMore && rest.some((i) => isActive(pathname, i.href)) ? tabs.length : 0;
+  // どのナビにも無い画面（と、場所がまだ分からない間）は -1＝どれも選ばない
+  const tabIndex = at === null ? -1 : tabs.findIndex((i) => isActive(pathname, i.href));
+  const routeIndex = tabIndex >= 0 ? tabIndex : at !== null && needsMore && rest.some((i) => isActive(pathname, i.href)) ? tabs.length : -1;
   const [pressed, setPressed] = useState<{ index: number; from: string } | null>(null);
   // 場所が変わったら（移り終わった・戻る/進む）仮の選択を捨てる
   const [seenPath, setSeenPath] = useState(pathname);
@@ -80,7 +96,7 @@ export function BottomTabBar() {
 
   const moveTo = useCallback(
     (index: number) => {
-      if (!slot) return;
+      if (!slot || index < 0) return;
       const to = index * slot;
       // 最初の配置と「動きを減らす」は瞬間移動
       if (!placed.current || reduce) {
@@ -180,7 +196,7 @@ export function BottomTabBar() {
     >
       <motion.div
         aria-hidden
-        className="absolute inset-0 rounded-full border border-[var(--wk-glass-line)] bg-[var(--wk-glass)] shadow-float backdrop-blur-xl backdrop-saturate-[1.8]"
+        className="wk-glass-bar absolute inset-0 rounded-full border border-[var(--wk-glass-line)] bg-[var(--wk-glass)] shadow-float backdrop-blur-xl backdrop-saturate-[1.8]"
         style={{ scale: barScale }}
       />
       <motion.div
@@ -192,8 +208,11 @@ export function BottomTabBar() {
           left: INSET,
           width: Math.max(0, slot - INSET * 2),
           x,
-          // 動きを減らす設定では伸び縮みを付けない（瞬間移動の一瞬に速さが跳ねて伸びるため）
-          ...(reduce ? {} : { scaleX, scaleY, opacity: lensOpacity }),
+          // 動きを減らす設定では伸び縮みを付けない（瞬間移動の一瞬に速さが跳ねて伸びるため）。
+          // 設定の有無で style の項目を変えるとサーバーとの水和が食い違うので、項目は常に同じにして値だけ変える
+          scaleX: reduce ? 1 : scaleX,
+          scaleY: reduce ? 1 : scaleY,
+          opacity: active < 0 ? 0 : reduce ? 1 : lensOpacity,
         }}
       />
       {items.map((item, i) => {
@@ -259,8 +278,10 @@ export function BottomTabBar() {
           rest={rest}
           pathname={pathname}
           account={account}
-          onPick={(run) => {
+          onPick={(run, navigates) => {
             setMoreOpen(false);
+            // 画面が移らない操作（ログアウト前の確認・明るさの切り替えなど）は、板を今いる場所へ戻す
+            if (!navigates) setPressed(null);
             run();
           }}
         />
@@ -280,7 +301,7 @@ function MoreList({
   rest: typeof NAV;
   pathname: string;
   account: ReturnType<typeof useAccount>;
-  onPick: (run: () => void) => void;
+  onPick: (run: () => void, navigates: boolean) => void;
 }) {
   const router = useRouter();
   const row = "flex min-h-row w-full items-center gap-3 rounded-md px-3 text-left";
@@ -298,7 +319,7 @@ function MoreList({
                   aria-current={on ? "page" : undefined}
                   onClick={(e) => {
                     e.preventDefault();
-                    onPick(() => router.push(item.href));
+                    onPick(() => router.push(item.href), true);
                   }}
                   className={cn(row, on ? "bg-accent-soft font-medium text-accent-text" : "text-fg hover:bg-surface-2")}
                 >
@@ -314,7 +335,7 @@ function MoreList({
         <div className="grid gap-0.5 border-t border-line pt-3">
           <p className="truncate px-3 pb-1 text-sm text-fg-3">{account.name}</p>
           {account.actions.map((a) => (
-            <button key={a.id} type="button" onClick={() => onPick(a.run)} className={cn(row, "text-fg hover:bg-surface-2")}>
+            <button key={a.id} type="button" onClick={() => onPick(a.run, false)} className={cn(row, "text-fg hover:bg-surface-2")}>
               <a.icon aria-hidden size={20} className="flex-none" />
               {a.label}
             </button>

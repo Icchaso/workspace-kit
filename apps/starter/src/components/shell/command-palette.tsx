@@ -11,7 +11,7 @@ import { useRouter } from "next/navigation";
 import { useId, useState } from "react";
 import { NAV } from "@/config/nav";
 import { PALETTES } from "@workspace-kit/themes/catalog";
-import { setDensity, setPalette, setTheme } from "@/lib/prefs";
+import { setDensity, setPalette, setTheme, themeLocked } from "@/lib/prefs";
 import { APP, AddSheet, useAccount, useExtraCommands } from "@/config/shell";
 import { cn } from "@/lib/cn";
 
@@ -54,7 +54,7 @@ function Body({ onRun, onAdd }: { onRun: (run: () => void) => void; onAdd?: () =
     ...(AddSheet && onAdd ? [{ id: "add", group: "操作", label: APP.addLabel, hint: "N", icon: Plus, keywords: "新規 つくる 追加", run: onAdd }] : []),
     ...NAV.map((n, i) => ({ id: `go-${n.href}`, group: "移動", label: `${n.label}を開く`, hint: String(i + 1), icon: n.icon, run: () => router.push(n.href) })),
     // 明るさを固定しているアプリ（WorkspaceBoot の forceTheme）では、明るさの切り替えを出さない
-    ...(typeof document !== "undefined" && document.documentElement.dataset.themeLocked ? [] : [
+    ...(themeLocked() ? [] : [
     { id: "light", group: "見た目", label: "明るさ：ライト", icon: Sun, keywords: "テーマ 白", run: () => setTheme("light") },
     { id: "dark", group: "見た目", label: "明るさ：ダーク", icon: Moon, keywords: "テーマ 黒 夜", run: () => setTheme("dark") },
     { id: "system", group: "見た目", label: "明るさ：端末に合わせる", icon: Monitor, keywords: "テーマ 自動", run: () => setTheme("system") },
@@ -62,7 +62,8 @@ function Body({ onRun, onAdd }: { onRun: (run: () => void) => void; onAdd?: () =
     { id: "compact", group: "見た目", label: "行の高さ：詰める", icon: Rows3, keywords: "密度", run: () => setDensity("compact") },
     { id: "comfy", group: "見た目", label: "行の高さ：ゆったり", icon: Rows3, keywords: "密度", run: () => setDensity("comfy") },
     ...(account?.actions.map((a) => ({ id: `account-${a.id}`, group: "アカウント", label: a.label, hint: account.name, icon: a.icon, run: a.run })) ?? []),
-    ...PALETTES.map((p) => ({ id: `palette-${p.id}`, group: "テーマ", label: `テーマ：${p.label}`, icon: Palette, keywords: `色 ${p.desc}`, run: () => setPalette(p.id) })),
+    // 明るさを固定しているときは、常に暗い専用のテーマ（ナイトなど）を出さない
+    ...PALETTES.filter((p) => !(p.darkOnly && themeLocked())).map((p) => ({ id: `palette-${p.id}`, group: "テーマ", label: `テーマ：${p.label}`, icon: Palette, keywords: `色 ${p.desc}`, run: () => setPalette(p.id) })),
   ];
 
   const hit = (s: string) => s.toLowerCase().includes(needle);

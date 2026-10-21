@@ -52,13 +52,15 @@
 .wk-nav-wide { display: none; }
 
 /* 上に貼り付く見出し（すりガラス） */
+/* -webkit- 付きは書かない。両方書くとビルド（lightningcss）が -webkit- 付きだけを残し、Chrome ではぼかしが消える。
+   接頭辞なしだけを書けば、Safari 用の -webkit- 付きはビルドが足す */
 .wk-glass-top {
   background: color-mix(in oklab, var(--wk-canvas) 82%, transparent);
   backdrop-filter: blur(14px) saturate(1.3);
-  -webkit-backdrop-filter: blur(14px) saturate(1.3);
 }
 @media (prefers-reduced-transparency: reduce) {
-  .wk-glass-top { background: var(--wk-canvas); backdrop-filter: none; -webkit-backdrop-filter: none; }
+  .wk-glass-top { background: var(--wk-canvas); backdrop-filter: none; }
+  .wk-glass-bar { background: var(--wk-surface); backdrop-filter: none; }
 }
 
 /* 読み込みの骨：150ms 待ってから出す（速いときにチラつかせない） */
@@ -88,4 +90,24 @@
 .wk-dots::after { content: "・・・"; display: inline-block; width: 3em; animation: wk-dots 1.2s steps(1) infinite; }
 @media (prefers-reduced-motion: reduce) {
   .wk-caret, .wk-dots::after { animation: none; }
+}
+
+/* お知らせ（sonner）の高さ。下タブが出る幅（767px 以下）では下タブの上に出す。
+   sonner のスマホ用の指定は 600px 以下しか効かないので、ここで 767px まで上書きする。
+   右下の主ボタン（.wk-fab）がある画面では、その上に出す（主ボタンを隠して押せなくしない） */
+@media (max-width: 47.99rem) {
+  [data-sonner-toaster][data-y-position="bottom"] {
+    bottom: calc(var(--wk-tabbar-h) + var(--wk-tabbar-gap) * 2 + var(--wk-safe-b)) !important;
+  }
+  :root:has(.wk-fab) [data-sonner-toaster][data-y-position="bottom"] {
+    bottom: calc(var(--wk-tabbar-h) + var(--wk-tabbar-gap) + var(--wk-safe-b) + 14px + 3.5rem + 10px) !important;
+  }
+}
+
+/* 一覧の行の「…」（.wk-row-more）。マウスの端末では、行に乗せた・選んだ・キーボードで中に入ったときだけ出す（全行に並ぶとざわつく）。
+   指の端末は常に出す（乗せる操作が無いため） */
+@media (pointer: fine) {
+  [data-row] .wk-row-more { opacity: 0; transition: opacity var(--wk-dur-fast) var(--wk-ease-out); }
+  [data-row]:is(:hover, :focus-within, [data-on]) .wk-row-more,
+  .wk-row-more[data-popup-open] { opacity: 1; }
 }

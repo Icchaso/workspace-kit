@@ -57,7 +57,7 @@
   --wk-text-lg: 18px;
   --wk-text-xl: 24px;
 
-  /* 動き（いっちゃんの既存ツールと animate スキルの値にそろえる） */
+  /* 動き（時間と曲線。速い・普通・ゆっくりの3段と、出る・消える・バネの曲線） */
   --wk-ease-out: cubic-bezier(0.23, 1, 0.32, 1);
   --wk-ease-in-out: cubic-bezier(0.77, 0, 0.175, 1);
   --wk-ease-drawer: cubic-bezier(0.32, 0.72, 0, 1);

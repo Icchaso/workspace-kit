@@ -3,10 +3,12 @@
 /**
  * シート。スマホ（767px 以下）は下から出て、つまみを下に引くと閉じる。PC・タブレットは右から浮いた引き出しで出る。
  * 作業を止めるもの（追加・編集）は背景を暗くする。閉じたら、開く前に触っていた場所へ戻る。
+ * 開いたら中の最初の入力欄（無ければ最初のボタン）へフォーカスを移す。出ていたお知らせは消す（シートの入力欄に重なるため）。
  */
 import { Drawer } from "vaul";
 import { X } from "lucide-react";
-import { useSyncExternalStore } from "react";
+import { toast } from "sonner";
+import { useEffect, useSyncExternalStore } from "react";
 import { cn } from "@/lib/cn";
 
 const query = "(max-width: 47.99rem)";
@@ -33,11 +35,24 @@ export function Sheet({
   children: React.ReactNode;
 }) {
   const phone = useIsPhone();
+  useEffect(() => {
+    if (open) toast.dismiss();
+  }, [open]);
   return (
-    <Drawer.Root open={open} onOpenChange={onOpenChange} direction={phone ? "bottom" : "right"} repositionInputs={false}>
+    <Drawer.Root open={open} onOpenChange={onOpenChange} direction={phone ? "bottom" : "right"} repositionInputs={false} autoFocus>
       <Drawer.Portal>
         <Drawer.Overlay className="fixed inset-0 z-50 bg-scrim" />
         <Drawer.Content
+          onOpenAutoFocus={(e) => {
+            // 既定は最初に押せる物（PC では右上の ×）。入力欄があればそこへ移す（開いてすぐ書ける）
+            const field = (e.currentTarget as HTMLElement | null)?.querySelector<HTMLElement>(
+              "input:not([type=hidden]):not(:disabled), textarea:not(:disabled), select:not(:disabled)",
+            );
+            if (field) {
+              e.preventDefault();
+              field.focus({ preventScroll: true });
+            }
+          }}
           className={cn(
             "fixed z-50 flex flex-col bg-surface shadow-float outline-none",
             phone
