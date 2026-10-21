@@ -62,7 +62,7 @@ function Side({ onSearch, onAdd, pathname: at }: Props & { pathname: string | nu
         width: "var(--wk-nav-w)",
         // 横向きの iPhone では切り欠きの分だけ内側に寄せる
         paddingLeft: "max(0.75rem, env(safe-area-inset-left, 0px))",
-        transition: "width var(--wk-dur-base) var(--wk-ease-out)",
+        // 幅は動かさない（width を動かすと本文の配置計算が毎コマ走り、窓幅を変えたときも本文が遅れてついてくる）
       }}
     >
       <div className="mb-3 flex items-center gap-2.5 px-1.5 max-side:justify-center max-side:px-0 [:root[data-sidebar=collapsed]_&]:justify-center [:root[data-sidebar=collapsed]_&]:px-0">
@@ -71,7 +71,7 @@ function Side({ onSearch, onAdd, pathname: at }: Props & { pathname: string | nu
       </div>
 
       {onSearch && (
-        <button type="button" onClick={onSearch} title="検索・操作（⌘K）" className={cn(itemClass, "mb-2 border border-line bg-surface text-fg-2 hover:text-fg")}>
+        <button type="button" onClick={onSearch} title="検索・操作（⌘K）" className={cn(itemClass, "mb-2 border border-line bg-surface text-fg-2 hover:text-fg active:bg-surface-2")}>
           <Search aria-hidden size={18} className="flex-none" />
           <span className="wk-nav-label">検索・操作</span>
           <kbd className="wk-nav-label ml-auto rounded border border-line px-1.5 font-sans text-xs text-fg-3">⌘K</kbd>
@@ -108,7 +108,7 @@ function Side({ onSearch, onAdd, pathname: at }: Props & { pathname: string | nu
       </div>
 
       {onAdd && (
-        <button type="button" onClick={onAdd} title={APP.addLabel} className={cn(itemClass, "text-fg-2 hover:bg-surface-2 hover:text-fg")}>
+        <button type="button" onClick={onAdd} title={APP.addLabel} className={cn(itemClass, "text-fg-2 hover:bg-surface-2 hover:text-fg active:bg-surface-2")}>
           <Plus aria-hidden size={20} className="flex-none" />
           <span className="wk-nav-label">{APP.addLabel}</span>
         </button>
@@ -119,7 +119,7 @@ function Side({ onSearch, onAdd, pathname: at }: Props & { pathname: string | nu
             <span className="min-w-0 truncate">{account.name}</span>
           </p>
           {account.actions.map((a) => (
-            <button key={a.id} type="button" onClick={a.run} title={a.label} className={cn(itemClass, "text-fg-2 hover:bg-surface-2 hover:text-fg")}>
+            <button key={a.id} type="button" onClick={a.run} title={a.label} className={cn(itemClass, "text-fg-2 hover:bg-surface-2 hover:text-fg active:bg-surface-2")}>
               <a.icon aria-hidden size={20} className="flex-none" />
               <span className="wk-nav-label">{a.label}</span>
             </button>

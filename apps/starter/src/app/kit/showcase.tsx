@@ -93,7 +93,7 @@ export function KitShowcase() {
               onClick={() => setPalette(p.id)}
               title={p.desc}
               className={cn(
-                "flex h-hit flex-none items-center gap-2 rounded-full border px-3 text-sm transition-colors duration-[var(--wk-dur-fast)]",
+                "flex h-hit flex-none items-center gap-2 rounded-full border px-3 text-sm transition-[color,background-color,border-color,scale] ease-out active:scale-(--wk-press) active:duration-[var(--wk-dur-press)]",
                 palette === p.id ? "border-fg bg-fg text-canvas" : "border-line bg-surface text-fg-2 hover:text-fg",
               )}
             >

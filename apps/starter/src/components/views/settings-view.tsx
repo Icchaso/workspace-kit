@@ -51,7 +51,7 @@ export function SettingsView() {
               aria-pressed={palette === p.id}
               onClick={() => setPalette(p.id)}
               className={cn(
-                "flex min-h-row items-center gap-3 rounded-md border bg-surface px-3 py-2.5 text-left transition-colors duration-[var(--wk-dur-fast)] hover:bg-surface-2",
+                "flex min-h-row items-center gap-3 rounded-md border bg-surface px-3 py-2.5 text-left transition-[background-color,border-color,scale] ease-out hover:bg-surface-2 active:scale-(--wk-press-card) active:duration-[var(--wk-dur-press)]",
                 palette === p.id ? "border-accent ring-1 ring-accent" : "border-line",
               )}
             >

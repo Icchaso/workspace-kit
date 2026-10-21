@@ -23,7 +23,7 @@ export function Segmented<T extends string>({
           aria-pressed={value === o.value}
           onClick={() => onChange(o.value)}
           className={cn(
-            "min-h-[30px] rounded-full px-3 text-sm text-fg-2 transition-colors duration-[var(--wk-dur-fast)] pointer-coarse:min-h-hit",
+            "min-h-[30px] rounded-full px-3 text-sm text-fg-2 transition-[color,background-color,box-shadow,scale] duration-[var(--wk-dur-fast)] ease-out active:scale-(--wk-press) active:duration-[var(--wk-dur-press)] pointer-coarse:min-h-hit",
             value === o.value && "bg-surface text-fg shadow-sm",
           )}
         >
@@ -42,7 +42,7 @@ export function Chip({ pressed, onClick, children }: { pressed: boolean; onClick
       aria-pressed={pressed}
       onClick={onClick}
       className={cn(
-        "inline-flex h-hit items-center gap-1.5 rounded-full border px-3 text-sm transition-colors duration-[var(--wk-dur-fast)]",
+        "inline-flex h-hit items-center gap-1.5 rounded-full border px-3 text-sm transition-[color,background-color,border-color,scale] duration-[var(--wk-dur-fast)] ease-out active:scale-(--wk-press) active:duration-[var(--wk-dur-press)]",
         pressed ? "border-fg bg-fg text-canvas" : "border-line bg-surface text-fg-2 hover:text-fg",
       )}
     >

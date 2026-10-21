@@ -11,7 +11,7 @@ import { cn } from "@/lib/cn";
  */
 export const buttonVariants = cva(
   "inline-flex h-hit items-center justify-center gap-1.5 whitespace-nowrap rounded-md px-3.5 text-sm font-medium select-none " +
-    "transition-[background-color,border-color,color,transform] duration-[var(--wk-dur-fast)] ease-out active:scale-[0.97] active:duration-[var(--wk-dur-press)] " +
+    "transition-[background-color,border-color,color,scale] duration-[var(--wk-dur-fast)] ease-out active:scale-(--wk-press) active:duration-[var(--wk-dur-press)] " +
     "aria-busy:cursor-progress aria-busy:opacity-85 disabled:cursor-not-allowed disabled:opacity-50",
   {
     variants: {

@@ -45,6 +45,9 @@
   --ease-out: var(--wk-ease-out);
   --ease-in-out: var(--wk-ease-in-out);
   --ease-drawer: var(--wk-ease-drawer);
+  /* transition-colors などで時間と曲線を書き忘れても、キットの値になる（Tailwind の既定 150ms・ease-in-out にしない） */
+  --default-transition-duration: var(--wk-dur-fast);
+  --default-transition-timing-function: var(--wk-ease-out);
 
   --spacing-hit: var(--wk-hit);
   --spacing-row: var(--wk-row);

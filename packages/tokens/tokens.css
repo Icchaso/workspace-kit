@@ -40,6 +40,7 @@
   --wk-shadow: 0 12px 32px rgb(20 20 18 / 0.14), 0 2px 6px rgb(20 20 18 / 0.08);
   --wk-glass: color-mix(in oklab, var(--wk-surface) 72%, transparent);
   --wk-glass-line: color-mix(in oklab, var(--wk-fg) 8%, transparent);
+  --wk-glass-hi: color-mix(in oklab, white 60%, transparent); /* ガラスの上端に光が当たる細い線 */
 
   /* 角丸（入れ子は「親の角丸 − 余白」） */
   --wk-r-sm: 6px;
@@ -67,6 +68,13 @@
   --wk-dur-fast: 160ms;    /* 色・ホバー */
   --wk-dur-base: 240ms;    /* 出し入れ */
   --wk-dur-sheet: 420ms;   /* シート・引き出し */
+  --wk-dur-exit: 120ms;    /* メニュー・ダイアログが消えるとき（出るときより速く） */
+  /* 押し縮みと出現の倍率（動きを減らす設定では全部 1 になり、大きさは変わらない） */
+  --wk-press: 0.97;        /* ボタン・チップ・切り替え */
+  --wk-press-round: 0.95;  /* 小さな丸いボタン（右下の主ボタン・送る・チェック） */
+  --wk-press-card: 0.985;  /* カード・一覧の大きな面 */
+  --wk-hold: 0.96;         /* 長押しの最中（離すと操作シートが開く） */
+  --wk-pop: 0.97;          /* メニュー・確認ダイアログが出るときの最初の大きさ */
 
   /* 押せる大きさ・行の高さ（マウス） */
   --wk-hit: 36px;
@@ -104,6 +112,7 @@
     --wk-shadow-sm: 0 1px 2px rgb(0 0 0 / 0.4);
     --wk-shadow: 0 16px 40px rgb(0 0 0 / 0.5), 0 2px 6px rgb(0 0 0 / 0.4);
     --wk-glass-line: color-mix(in oklab, var(--wk-fg) 12%, transparent);
+    --wk-glass-hi: color-mix(in oklab, white 9%, transparent);
     color-scheme: dark;
   }
 }
@@ -117,12 +126,15 @@
   --wk-shadow-sm: 0 1px 2px rgb(0 0 0 / 0.4);
   --wk-shadow: 0 16px 40px rgb(0 0 0 / 0.5), 0 2px 6px rgb(0 0 0 / 0.4);
   --wk-glass-line: color-mix(in oklab, var(--wk-fg) 12%, transparent);
+  --wk-glass-hi: color-mix(in oklab, white 9%, transparent);
   color-scheme: dark;
 }
 
-/* 動きを減らす設定：動きはほぼ0に（状態の変化は残す） */
+/* 動きを減らす設定：移動と拡大縮小は止め、色と透明度の変化は短く残す（パッと切り替わって何が起きたか分からなくならないように）。
+   シートは横すべりの代わりにフェードで出入りする（base.css） */
 @media (prefers-reduced-motion: reduce) {
   :root {
-    --wk-dur-press: 1ms; --wk-dur-fast: 1ms; --wk-dur-base: 1ms; --wk-dur-sheet: 1ms;
+    --wk-dur-press: 1ms; --wk-dur-base: var(--wk-dur-fast); --wk-dur-sheet: var(--wk-dur-fast);
+    --wk-press: 1; --wk-press-round: 1; --wk-press-card: 1; --wk-hold: 1; --wk-pop: 1;
   }
 }

@@ -21,7 +21,10 @@ import { useCoarsePointer, useWide } from "@/lib/prefs";
 import { useTasks } from "@/lib/tasks";
 import { cn } from "@/lib/cn";
 
-type Msg = { id: number; who: "u" | "a" | "art"; text?: string; live?: boolean; art?: Artifact };
+type Msg = { id: number; who: "u" | "a" | "art"; text?: string; live?: boolean; art?: Artifact; /** 履歴から開いた（新しく足された物ではないので、出る動きを付けない） */ old?: boolean };
+// 新しい吹き出しは少し下からふわっと出す（どこに足されたか目で追える）。動きを減らす設定では透明度だけ
+const ENTER = "transition-[opacity,translate,background-color,border-color] duration-[var(--wk-dur-base)] ease-out starting:opacity-0 motion-safe:starting:translate-y-1.5";
+
 type Saved = { id: string; title: string; when: string; messages: { who: "u" | "a"; text: string }[] };
 
 /**
@@ -85,7 +88,8 @@ export function AiView() {
     const tick = () => {
       i = Math.min(a.text.length, i + 2);
       setMsgs((m) => m.map((x) => (x.id === id + 1 ? { ...x, text: a.text.slice(0, i) } : x)));
-      scrollToEnd(true);
+      // 送り位置の確認は 6 回に1回（約 0.13 秒ごと）と改行のときだけ。毎回だと 1 秒に 45 回、配置の計算をやり直させる
+      if (i % 12 === 0 || a.text[i - 1] === "\n") scrollToEnd(true);
       timer.current = i < a.text.length ? setTimeout(tick, 22) : null;
       if (i >= a.text.length) finish();
     };
@@ -141,7 +145,7 @@ export function AiView() {
 
   const openSaved = (h: Saved) => {
     if (busy) return;
-    setMsgs(h.messages.map((m) => ({ id: (seq.current += 1), who: m.who, text: m.text })));
+    setMsgs(h.messages.map((m) => ({ id: (seq.current += 1), who: m.who, text: m.text, old: true })));
     setArt(null);
     setHistoryOpen(false);
     scrollToEnd();
@@ -182,11 +186,11 @@ export function AiView() {
             )}
             {msgs.map((m) =>
               m.who === "u" ? (
-                <p key={m.id} className="max-w-[min(560px,88%)] justify-self-end rounded-[18px_18px_6px_18px] bg-surface-2 px-3.5 py-2.5 leading-relaxed whitespace-pre-wrap">
+                <p key={m.id} className={cn("max-w-[min(560px,88%)] justify-self-end rounded-[18px_18px_6px_18px] bg-surface-2 px-3.5 py-2.5 leading-relaxed whitespace-pre-wrap", !m.old && ENTER)}>
                   {m.text}
                 </p>
               ) : m.who === "a" ? (
-                <div key={m.id} aria-busy={m.live || undefined} className="max-w-[min(600px,96%)] justify-self-start leading-[1.8]">
+                <div key={m.id} aria-busy={m.live || undefined} className={cn("max-w-[min(600px,96%)] justify-self-start leading-[1.8]", !m.old && ENTER)}>
                   <div className="mb-0.5 flex items-center gap-1.5 text-xs text-fg-3">
                     <Sparkles aria-hidden size={14} />
                     アシスタント
@@ -197,7 +201,8 @@ export function AiView() {
                       <span aria-hidden className="wk-dots" />
                     </span>
                   ) : (
-                    <p className="whitespace-pre-wrap">
+                    // 届いている途中の文字は読み上げに渡さない（届き切ったら全文を1回だけ読む）
+                    <p aria-hidden={m.live || undefined} className="whitespace-pre-wrap">
                       {m.text}
                       {m.live && <span aria-hidden className="wk-caret" />}
                     </p>
@@ -209,7 +214,8 @@ export function AiView() {
                   type="button"
                   onClick={() => openArt(m.art!)}
                   className={cn(
-                    "flex w-[min(440px,100%)] items-center gap-3 justify-self-start rounded-md border bg-surface px-3.5 py-3 text-left transition-colors duration-[var(--wk-dur-fast)] hover:bg-surface-2",
+                    "flex w-[min(440px,100%)] items-center gap-3 justify-self-start rounded-md border bg-surface px-3.5 py-3 text-left hover:bg-surface-2 active:bg-surface-2",
+                    ENTER,
                     wide && art === m.art ? "border-accent" : "border-line",
                   )}
                 >
@@ -235,7 +241,7 @@ export function AiView() {
                     key={s}
                     type="button"
                     onClick={() => ask(s)}
-                    className="h-hit flex-none rounded-full border border-line bg-surface px-3.5 text-sm text-fg-2 transition-colors duration-[var(--wk-dur-fast)] hover:border-accent hover:text-accent-text"
+                    className="h-hit flex-none rounded-full border border-line bg-surface px-3.5 text-sm text-fg-2 transition-[color,border-color,scale] ease-out hover:border-accent hover:text-accent-text active:scale-(--wk-press) active:duration-[var(--wk-dur-press)]"
                   >
                     {s}
                   </button>
@@ -279,7 +285,7 @@ export function AiView() {
                 aria-disabled={busy || undefined}
                 // 空のうちは控えめな色（押すと「書いてください」と案内する）。書いたら主色になる
                 className={cn(
-                  "grid size-hit flex-none place-items-center rounded-full transition-[transform,opacity,background-color,color] duration-[var(--wk-dur-fast)] active:scale-[0.94] aria-disabled:opacity-50",
+                  "grid size-hit flex-none place-items-center rounded-full transition-[scale,opacity,background-color,color] ease-out active:scale-(--wk-press-round) active:duration-[var(--wk-dur-press)] aria-disabled:opacity-50",
                   draft.trim() ? "bg-accent text-on-accent" : "bg-surface-2 text-fg-3",
                 )}
               >
@@ -306,12 +312,12 @@ export function AiView() {
 
       <Sheet open={historyOpen} onOpenChange={setHistoryOpen} title="会話の履歴" description="見本なので、この画面を離れると消えます">
         <div className="grid gap-1 pb-2">
-          <button type="button" onClick={newChat} className="flex min-h-row items-center gap-3 rounded-md px-3 text-left font-medium text-accent-text hover:bg-surface-2">
+          <button type="button" onClick={newChat} className="flex min-h-row items-center gap-3 rounded-md px-3 text-left font-medium text-accent-text transition-colors hover:bg-surface-2 active:bg-surface-2">
             <MessageSquarePlus aria-hidden size={18} />
             新しい会話を始める
           </button>
           {saved.map((h) => (
-            <button key={h.id} type="button" onClick={() => openSaved(h)} className="flex min-h-row items-center gap-3 rounded-md px-3 text-left hover:bg-surface-2">
+            <button key={h.id} type="button" onClick={() => openSaved(h)} className="flex min-h-row items-center gap-3 rounded-md px-3 text-left transition-colors hover:bg-surface-2 active:bg-surface-2">
               <History aria-hidden size={18} className="flex-none text-fg-3" />
               <span className="min-w-0 flex-1 truncate text-sm">{h.title}</span>
               <span className="flex-none text-xs text-fg-3">{h.when}</span>

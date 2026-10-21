@@ -9,7 +9,8 @@
  */
 import { CheckCheck, CircleCheck, Plus, Search } from "lucide-react";
 import { useSearchParams } from "next/navigation";
-import { Fragment, useRef, useState, useSyncExternalStore } from "react";
+import { motion, useReducedMotion } from "motion/react";
+import { Fragment, useEffect, useRef, useState, useSyncExternalStore } from "react";
 import { useShell } from "@/components/shell/app-frame";
 import { Button } from "@/components/kit/button";
 import { EmptyState, Page, PageHeader, Skeleton } from "@/components/kit/feedback";
@@ -45,6 +46,9 @@ const byPriority = (a: Task, b: Task) => PRI[a.priority] - PRI[b.priority] || DU
 const byDue = (a: Task, b: Task) => DUE_ORDER.indexOf(a.due) - DUE_ORDER.indexOf(b.due) || PRI[a.priority] - PRI[b.priority] || a.id - b.id;
 
 /** 塊に分ける。塊の中は、期限ごとなら優先度の高い順、それ以外は期限の近い順 */
+// 行が詰まるときのすべり（今日の画面と同じ 0.24 秒・--wk-ease-out）
+const SLIDE = { duration: 0.24, ease: [0.23, 1, 0.32, 1] } as const;
+
 function groupRows(rows: Task[], g: Group): { key: string; label: string; items: Task[] }[] {
   const keyOf = (t: Task) => (g === "due" ? t.due : g === "project" ? t.project : t.priority);
   const order: string[] = g === "due" ? DUE_ORDER : g === "project" ? [...PROJECTS, ...new Set(rows.map((t) => t.project).filter((x) => !PROJECTS.includes(x)))] : ["高", "中", "低"];
@@ -148,6 +152,7 @@ export function TasksFallback() {
 export function TasksView() {
   const { tasks } = useTasks();
   const cmd = useTaskCommands();
+  const reduce = useReducedMotion();
   const params = useSearchParams();
   const wide = useWide();
   const coarse = useCoarsePointer();
@@ -158,7 +163,34 @@ export function TasksView() {
   const f = params.get("f");
   const filter: Filter = FILTERS.includes(f as Filter) ? (f as Filter) : "open";
   const [group, setGroup] = useGroup();
-  const sections = groupRows(tasks.filter(match(filter)), group);
+  // 完了にして今の絞り込みから外れる行は、すぐには消さず、チェックと打ち消し線を付けたまま残す。
+  // 最後のチェックから 1 秒何もしなければ、残っていた行をまとめて外し、下の行はすべって詰まる。
+  // （1行ずつすぐ消すと、続けてチェックしている指の下で行が入れ替わり、別のタスクを押してしまう）
+  const [leaving, setLeaving] = useState<number[]>([]);
+  // すべらせるのは「まとめて外した直後」だけ。絞り込みの切り替え・追加・↑↓では位置を測り直さない
+  const [swept, setSwept] = useState(0);
+  // 絞り込みを切り替えたら、外す予定の行は持ち越さない（条件に合わない行が残って見えないように）
+  const [leavingFor, setLeavingFor] = useState(filter);
+  if (leavingFor !== filter) {
+    setLeavingFor(filter);
+    setLeaving([]);
+  }
+  const sweep = useRef<ReturnType<typeof setTimeout> | null>(null);
+  const toggle = (t: Task) => {
+    const stays = match(filter)({ ...t, done: !t.done });
+    setLeaving((l) => (stays ? l.filter((x) => x !== t.id) : [...l, t.id]));
+    if (sweep.current) clearTimeout(sweep.current);
+    sweep.current = setTimeout(() => {
+      setLeaving([]);
+      setSwept((n) => n + 1);
+    }, 1000);
+    cmd.toggle(t);
+  };
+  useEffect(() => () => {
+    if (sweep.current) clearTimeout(sweep.current);
+  }, []);
+  const slide = reduce ? false : ("position" as const);
+  const sections = groupRows(tasks.filter((t) => match(filter)(t) || leaving.includes(t.id)), group);
   // ↑↓ キーで動く順＝画面に並んでいる順
   const rows = sections.flatMap((x) => x.items);
   const c = counts(tasks);
@@ -222,18 +254,24 @@ export function TasksView() {
                 {sections.map((sec, gi) => (
                   <Fragment key={sec.key}>
                     {/* 塊の見出し：何の塊か・何件か */}
-                    <h3
+                    <motion.h3
+                      layout={slide}
+                      layoutDependency={swept}
+                      transition={SLIDE}
                       id={`g-${gi}`}
                       className="flex h-8 items-center gap-2 border-y border-line bg-canvas px-3 first:border-t-0 text-xs font-semibold text-fg-2 side:pl-[calc(var(--wk-hit)+1rem)]"
                     >
                       {sec.label}
                       <span className="num font-normal text-fg-3">{sec.items.length}</span>
-                    </h3>
+                    </motion.h3>
                     <ul aria-labelledby={`g-${gi}`}>
                       {sec.items.map((t) => {
                         const on = wide && selected?.id === t.id;
                         return (
-                          <li
+                          <motion.li
+                            layout={slide}
+                            layoutDependency={swept}
+                            transition={SLIDE}
                             key={t.id}
                             data-row={t.id}
                             data-on={on || undefined}
@@ -246,7 +284,7 @@ export function TasksView() {
                           >
                             {on && <span aria-hidden className="absolute inset-y-1.5 left-0 w-[3px] rounded-r-full bg-accent" />}
                             <span className="row-span-2 side:row-span-1">
-                              <CheckButton task={t} onToggle={() => cmd.toggle(t)} />
+                              <CheckButton task={t} onToggle={() => toggle(t)} />
                             </span>
                             {/* 行全体を押せるように、題名のボタンを行いっぱいに広げる */}
                             <button
@@ -279,7 +317,7 @@ export function TasksView() {
                             <span className="col-start-3 row-span-2 row-start-1 side:col-start-6 side:row-span-1">
                               <TaskMoreButton task={t} onSheet={(x) => setActing({ id: x.id, open: true })} onOpenDetail={coarse || !wide ? select : undefined} />
                             </span>
-                          </li>
+                          </motion.li>
                         );
                       })}
                     </ul>

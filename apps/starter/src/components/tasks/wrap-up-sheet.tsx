@@ -17,6 +17,8 @@ import { useTasks } from "@/lib/tasks";
 import { cn } from "@/lib/cn";
 
 const STEPS = ["残ったタスク", "ひとこと", "確認"];
+// 手順が変わったと分かるよう、新しい手順の中身はふわっと出す（動きを減らす設定では位置は動かさず、透明度だけ）
+const STEP_IN = "transition-[opacity,translate] duration-[var(--wk-dur-base)] ease-out starting:opacity-0 motion-safe:starting:translate-y-1";
 
 export function WrapUpSheet({ open, onOpenChange }: { open: boolean; onOpenChange: (open: boolean) => void }) {
   return (
@@ -42,7 +44,7 @@ function WrapUpForm({ onDone }: { onDone: () => void }) {
       <Steps steps={STEPS} current={step} onJump={setStep} />
 
       {step === 0 && (
-        <fieldset className="grid gap-2">
+        <fieldset className={cn("grid gap-2", STEP_IN)}>
           <legend className="mb-2 text-sm text-fg-2">明日に回すタスクに印を付けてください</legend>
           {left.length ? (
             left.map((t) => {
@@ -52,7 +54,7 @@ function WrapUpForm({ onDone }: { onDone: () => void }) {
                   key={t.id}
                   className={cn(
                     "flex min-h-row cursor-pointer items-center gap-3 rounded-md border px-3 transition-colors duration-[var(--wk-dur-fast)]",
-                    on ? "border-accent bg-accent-soft" : "border-line bg-surface",
+                    on ? "border-accent bg-accent-soft" : "border-line bg-surface active:bg-surface-2",
                   )}
                 >
                   <input type="checkbox" checked={on} onChange={() => flip(t.id)} className="size-5 flex-none accent-[var(--wk-accent)]" />
@@ -68,7 +70,7 @@ function WrapUpForm({ onDone }: { onDone: () => void }) {
       )}
 
       {step === 1 && (
-        <div className="grid gap-1.5">
+        <div className={cn("grid gap-1.5", STEP_IN)}>
           <label htmlFor="wrap-memo" className="text-sm text-fg-2">
             今日のひとこと（書かなくても締められます）
           </label>
@@ -84,7 +86,7 @@ function WrapUpForm({ onDone }: { onDone: () => void }) {
       )}
 
       {step === 2 && (
-        <dl className="grid grid-cols-[7em_1fr] gap-x-3 gap-y-2.5 rounded-md bg-surface-2 px-4 py-3.5 text-sm">
+        <dl className={cn("grid grid-cols-[7em_1fr] gap-x-3 gap-y-2.5 rounded-md bg-surface-2 px-4 py-3.5 text-sm", STEP_IN)}>
           <dt className="text-fg-3">終えたタスク</dt>
           <dd className="num">{doneToday}件</dd>
           <dt className="text-fg-3">明日に回す</dt>

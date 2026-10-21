@@ -9,6 +9,7 @@
  *   - 「今日を締める」は3つの手順で終える
  */
 import { Clock, MoonStar, Plus } from "lucide-react";
+import { motion, useReducedMotion } from "motion/react";
 import { useState, useSyncExternalStore } from "react";
 import { useShell } from "@/components/shell/app-frame";
 import { Button } from "@/components/kit/button";
@@ -53,6 +54,7 @@ export function TodayView() {
   const [wrapping, setWrapping] = useState(false);
   const now = useNow();
 
+  const reduce = useReducedMotion();
   const today = tasks.filter((t) => t.due === "today" || t.due === "overdue");
   const done = today.filter((t) => t.done).length;
   const c = counts(tasks);
@@ -92,7 +94,7 @@ export function TodayView() {
             strokeLinecap="round"
             strokeDasharray={C}
             strokeDashoffset={C * (1 - pct)}
-            className="stroke-accent transition-[stroke-dashoffset] duration-[var(--wk-dur-sheet)] ease-out"
+            className="stroke-accent transition-[stroke-dashoffset] duration-[var(--wk-dur-base)] ease-out"
           />
         </svg>
         <div className="min-w-0 flex-1">
@@ -149,16 +151,18 @@ export function TodayView() {
             </span>
           </div>
           <div className="grid gap-2">
+            {/* 終えたカードは下へ移る。パッと入れ替えず、どこへ行ったか目で追えるようにすべらせる（終えた数が変わったときだけ。動きを減らす設定では入れ替えるだけ） */}
             {list.map((t) => (
-              <TaskCard
-                key={t.id}
-                task={t}
-                onToggle={() => cmd.toggle(t)}
-                onOpen={() => {
-                  if (!press.consumed()) openDetail(t);
-                }}
-                bind={press.bind(t)}
-              />
+              <motion.div key={t.id} layout={reduce ? false : "position"} layoutDependency={done} transition={{ duration: 0.24, ease: [0.23, 1, 0.32, 1] }}>
+                <TaskCard
+                  task={t}
+                  onToggle={() => cmd.toggle(t)}
+                  onOpen={() => {
+                    if (!press.consumed()) openDetail(t);
+                  }}
+                  bind={press.bind(t)}
+                />
+              </motion.div>
             ))}
           </div>
         </section>

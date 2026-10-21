@@ -33,7 +33,14 @@ export function Skeleton({ className }: { className?: string }) {
 /** その場に出すエラー。何が起きたか＋どうすればいいかを1文で */
 export function InlineError({ children, className }: { children: React.ReactNode; className?: string }) {
   return (
-    <p role="alert" className={cn("flex items-start gap-1.5 text-sm text-danger", className)}>
+    <p
+      role="alert"
+      // 出た瞬間に目が向くよう、少し上からふわっと出す（揺らしはしない）
+      className={cn(
+        "flex items-start gap-1.5 text-sm text-danger transition-[opacity,translate] duration-[var(--wk-dur-fast)] ease-out starting:opacity-0 motion-safe:starting:-translate-y-1",
+        className,
+      )}
+    >
       <CircleAlert aria-hidden size={16} className="mt-0.5 flex-none" />
       <span>{children}</span>
     </p>

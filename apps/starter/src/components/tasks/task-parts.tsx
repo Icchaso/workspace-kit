@@ -20,7 +20,7 @@ export function CheckButton({ task, onToggle }: { task: Task; onToggle: () => vo
     >
       <span
         className={cn(
-          "grid size-5 place-items-center rounded-full border-[1.8px] transition-[background-color,border-color,transform] duration-[var(--wk-dur-base)] ease-out group-active:scale-85",
+          "grid size-5 place-items-center rounded-full border-[1.8px] transition-[background-color,border-color,scale] duration-[var(--wk-dur-fast)] ease-out group-active:scale-(--wk-press-round) group-active:duration-[var(--wk-dur-press)]",
           task.done ? "border-accent bg-accent" : "border-fg-3",
         )}
       >
@@ -28,7 +28,7 @@ export function CheckButton({ task, onToggle }: { task: Task; onToggle: () => vo
           aria-hidden
           size={13}
           strokeWidth={3}
-          className={cn("text-on-accent transition-[opacity,scale] duration-[var(--wk-dur-base)] ease-out", task.done ? "scale-100 opacity-100" : "scale-40 opacity-0")}
+          className={cn("text-on-accent transition-[opacity,scale] duration-[var(--wk-dur-fast)] ease-out motion-reduce:scale-100", task.done ? "scale-100 opacity-100" : "scale-80 opacity-0")}
         />
       </span>
     </button>
@@ -73,7 +73,7 @@ export function TaskCard({
   return (
     <div
       {...bind}
-      className="relative flex items-center gap-1.5 rounded-md border border-line bg-surface py-2 pr-3 pl-1.5 transition-[transform,background-color] duration-[var(--wk-dur-fast)] ease-out select-none has-[[data-open]:active]:scale-[0.985] has-[[data-open]:active]:duration-[var(--wk-dur-press)] data-[held]:scale-[0.96] data-[held]:bg-surface-2 [-webkit-touch-callout:none]"
+      className="relative flex items-center gap-1.5 rounded-md border border-line bg-surface py-2 pr-3 pl-1.5 transition-[scale,background-color] duration-[var(--wk-dur-fast)] ease-out select-none has-[[data-open]:active]:scale-(--wk-press-card) has-[[data-open]:active]:duration-[var(--wk-dur-press)] data-[held]:scale-(--wk-hold) data-[held]:bg-surface-2 [-webkit-touch-callout:none]"
     >
       <CheckButton task={task} onToggle={onToggle} />
       <div className="grid min-w-0 flex-1 gap-1.5 py-1">

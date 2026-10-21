@@ -25,7 +25,7 @@ export function Steps({ steps, current, onJump }: { steps: string[]; current: nu
             >
               <span
                 className={cn(
-                  "num grid size-6 flex-none place-items-center rounded-full text-xs font-semibold transition-colors duration-[var(--wk-dur-base)]",
+                  "num grid size-6 flex-none place-items-center rounded-full text-xs font-semibold transition-colors",
                   done ? "bg-accent text-on-accent" : now ? "bg-fg text-canvas" : "border border-line text-fg-3",
                 )}
               >
@@ -33,7 +33,7 @@ export function Steps({ steps, current, onJump }: { steps: string[]; current: nu
               </span>
               <span className={cn("text-xs whitespace-nowrap", now ? "font-medium text-fg" : "text-fg-3", !now && "max-rail:sr-only")}>{label}</span>
             </button>
-            {i < steps.length - 1 && <span aria-hidden className={cn("h-px min-w-3 flex-1", done ? "bg-accent" : "bg-line")} />}
+            {i < steps.length - 1 && <span aria-hidden className={cn("h-px min-w-3 flex-1 transition-colors", done ? "bg-accent" : "bg-line")} />}
           </li>
         );
       })}

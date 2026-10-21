@@ -97,7 +97,7 @@ export function TaskMoreButton({ task, onSheet, onOpenDetail }: { task: Task; on
   const coarse = useCoarsePointer();
   const actions = useActionList(task, onOpenDetail);
   const triggerClass =
-    "wk-row-more relative z-10 grid size-hit flex-none place-items-center rounded-md text-fg-3 transition-colors duration-[var(--wk-dur-fast)] hover:bg-surface-2 hover:text-fg data-[popup-open]:bg-surface-2 data-[popup-open]:text-fg";
+    "wk-row-more relative z-10 grid size-hit flex-none place-items-center rounded-md text-fg-3 transition-colors duration-[var(--wk-dur-fast)] hover:bg-surface-2 hover:text-fg active:bg-surface-2 data-[popup-open]:bg-surface-2 data-[popup-open]:text-fg";
   const label = `「${task.title}」の操作`;
 
   if (coarse) {
@@ -114,13 +114,13 @@ export function TaskMoreButton({ task, onSheet, onOpenDetail }: { task: Task; on
       </Menu.Trigger>
       <Menu.Portal>
         <Menu.Positioner sideOffset={4} align="end" className="z-50 outline-none">
-          <Menu.Popup className="min-w-44 origin-[var(--transform-origin)] rounded-md border border-line bg-surface p-1 shadow-float outline-none transition-[opacity,scale] duration-[var(--wk-dur-fast)] ease-out data-[ending-style]:scale-95 data-[ending-style]:opacity-0 data-[starting-style]:scale-95 data-[starting-style]:opacity-0">
+          <Menu.Popup className="min-w-44 origin-[var(--transform-origin)] rounded-md border border-line bg-surface p-1 shadow-float outline-none transition-[opacity,scale] duration-[var(--wk-dur-fast)] ease-out data-[ending-style]:scale-(--wk-pop) data-[ending-style]:opacity-0 data-[ending-style]:duration-[var(--wk-dur-exit)] data-[starting-style]:scale-(--wk-pop) data-[starting-style]:opacity-0">
             {actions.map((a) => (
               <Menu.Item
                 key={a.key}
                 onClick={a.run}
                 className={cn(
-                  "flex h-hit cursor-default items-center gap-2.5 rounded-sm px-2.5 text-sm outline-none select-none data-[highlighted]:bg-surface-2",
+                  "flex h-hit cursor-default items-center gap-2.5 rounded-sm px-2.5 text-sm outline-none select-none data-[highlighted]:bg-surface-2 data-[highlighted]:shadow-[inset_2px_0_0_var(--wk-accent)]",
                   a.danger ? "text-danger" : "text-fg",
                 )}
               >

@@ -20,7 +20,7 @@
       "name": "workspace-kit-ui",
       "type": "registry:ui",
       "title": "Workspace Kit：部品",
-      "description": "ボタン（押した瞬間の待ち表示つき）・下から出るシート・お知らせと取り消し・確認ダイアログ・切り替え・空の状態・数字が回るカードなど",
+      "description": "ボタン（押した瞬間の待ち表示つき）・下から出るシート・お知らせと取り消し・確認ダイアログ・切り替え・空の状態・数字が回るカード・表→カードの一覧など",
       "dependencies": [
         "@base-ui/react@1.9.0",
         "class-variance-authority@0.7.1",
@@ -49,6 +49,11 @@
           "path": "components/kit/count-up.tsx",
           "type": "registry:file",
           "target": "components/kit/count-up.tsx"
+        },
+        {
+          "path": "components/kit/data-list.tsx",
+          "type": "registry:file",
+          "target": "components/kit/data-list.tsx"
         },
         {
           "path": "components/kit/fab.tsx",

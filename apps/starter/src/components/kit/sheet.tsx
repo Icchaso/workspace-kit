@@ -71,7 +71,7 @@ export function Sheet({
               )}
             </div>
             {!phone && (
-              <Drawer.Close className="-mt-1 -mr-2 grid size-hit place-items-center rounded-md text-fg-3 hover:bg-surface-2 hover:text-fg" aria-label="閉じる">
+              <Drawer.Close className="-mt-1 -mr-2 grid size-hit place-items-center rounded-md text-fg-3 transition-colors hover:bg-surface-2 hover:text-fg active:bg-surface-2" aria-label="閉じる">
                 <X aria-hidden size={18} />
               </Drawer.Close>
             )}

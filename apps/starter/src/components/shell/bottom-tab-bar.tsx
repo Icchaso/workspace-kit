@@ -196,7 +196,7 @@ function TabBar({ pathname: at, account }: { pathname: string | null; account: R
     >
       <motion.div
         aria-hidden
-        className="wk-glass-bar absolute inset-0 rounded-full border border-[var(--wk-glass-line)] bg-[var(--wk-glass)] shadow-float backdrop-blur-xl backdrop-saturate-[1.8]"
+        className="wk-glass-bar absolute inset-0 rounded-full border border-[var(--wk-glass-line)] bg-[var(--wk-glass)] shadow-[inset_0_1px_0_var(--wk-glass-hi),var(--wk-shadow)] backdrop-blur-[18px] backdrop-saturate-[1.8]"
         style={{ scale: barScale }}
       />
       <motion.div
@@ -225,7 +225,7 @@ function TabBar({ pathname: at, account }: { pathname: string | null; account: R
         );
         const inner = (
           <>
-            <Icon aria-hidden size={22} strokeWidth={on ? 2.4 : 1.8} className="transition-[stroke-width] duration-[var(--wk-dur-fast)]" />
+            <Icon aria-hidden size={22} strokeWidth={on ? 2.4 : 1.8} />
             <span className={cn("leading-none", on && "font-medium")}>{item.short}</span>
           </>
         );
@@ -304,7 +304,7 @@ function MoreList({
   onPick: (run: () => void, navigates: boolean) => void;
 }) {
   const router = useRouter();
-  const row = "flex min-h-row w-full items-center gap-3 rounded-md px-3 text-left";
+  const row = "flex min-h-row w-full items-center gap-3 rounded-md px-3 text-left transition-colors active:bg-surface-2";
   return (
     <div className="grid gap-4">
       {rest.length > 0 && (

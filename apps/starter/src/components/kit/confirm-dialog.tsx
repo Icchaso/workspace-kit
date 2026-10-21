@@ -25,8 +25,8 @@ export function ConfirmDialog({
   return (
     <AlertDialog.Root open={open} onOpenChange={onOpenChange}>
       <AlertDialog.Portal>
-        <AlertDialog.Backdrop className="fixed inset-0 z-50 bg-scrim transition-opacity duration-[var(--wk-dur-base)] data-[ending-style]:opacity-0 data-[starting-style]:opacity-0" />
-        <AlertDialog.Popup className="fixed top-1/2 left-1/2 z-50 grid w-[min(400px,calc(100vw-32px))] -translate-x-1/2 -translate-y-1/2 gap-3 rounded-lg bg-surface p-5 shadow-float transition-[opacity,scale] duration-[var(--wk-dur-base)] ease-out data-[ending-style]:scale-95 data-[ending-style]:opacity-0 data-[starting-style]:scale-95 data-[starting-style]:opacity-0">
+        <AlertDialog.Backdrop className="fixed inset-0 z-50 bg-scrim transition-opacity duration-[var(--wk-dur-base)] ease-out data-[ending-style]:opacity-0 data-[ending-style]:duration-[var(--wk-dur-fast)] data-[starting-style]:opacity-0" />
+        <AlertDialog.Popup className="fixed top-1/2 left-1/2 z-50 grid w-[min(400px,calc(100vw-32px))] -translate-x-1/2 -translate-y-1/2 gap-3 rounded-lg bg-surface p-5 shadow-float transition-[opacity,scale] duration-[var(--wk-dur-base)] ease-out data-[ending-style]:scale-(--wk-pop) data-[ending-style]:opacity-0 data-[ending-style]:duration-[var(--wk-dur-exit)] data-[starting-style]:scale-(--wk-pop) data-[starting-style]:opacity-0">
           <AlertDialog.Title className="text-lg font-semibold">{title}</AlertDialog.Title>
           <AlertDialog.Description className="text-sm text-fg-2">{body}</AlertDialog.Description>
           <div className="mt-2 flex justify-end gap-2">

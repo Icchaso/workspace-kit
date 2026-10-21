@@ -38,7 +38,8 @@
   :root { --wk-nav-w: var(--wk-sidebar-w); }
   :root[data-sidebar="collapsed"] { --wk-nav-w: var(--wk-rail-w); }
 }
-.wk-content { padding-left: var(--wk-nav-w); transition: padding-left var(--wk-dur-base) var(--wk-ease-out); }
+/* 幅の切り替えは動かさない（padding や width を動かすと、本文の長い一覧まで毎コマ組み直しになる） */
+.wk-content { padding-left: var(--wk-nav-w); }
 @media (max-width: 47.99rem) {
   .wk-content { padding-bottom: var(--wk-tabbar-space); }
 }
@@ -110,4 +111,33 @@
   [data-row] .wk-row-more { opacity: 0; transition: opacity var(--wk-dur-fast) var(--wk-ease-out); }
   [data-row]:is(:hover, :focus-within, [data-on]) .wk-row-more,
   .wk-row-more[data-popup-open] { opacity: 1; }
+  /* 矢印キーで選ぶ行はすぐ出す（1日に何十回もする操作に動きを付けない） */
+  [data-row][data-on] .wk-row-more { transition: none; }
+}
+
+/* シート（vaul）の時間と曲線をキットの値にそろえる。vaul は 0.5 秒で固定され、動きを減らす設定も見ない */
+[data-vaul-drawer], [data-vaul-overlay] {
+  animation-duration: var(--wk-dur-sheet) !important;
+  animation-timing-function: var(--wk-ease-drawer) !important;
+}
+/* 閉じるときは速く（出るときより短く。続けて次のシートを開くときにもたつかない） */
+[data-vaul-drawer][data-state="closed"], [data-vaul-overlay][data-state="closed"] { animation-duration: var(--wk-dur-base) !important; }
+/* 指を離して元の位置へ戻る動き。vaul は自分の CSS を後から差し込み、離したときは style に直接 0.5 秒を書くので !important で上書きする */
+[data-vaul-drawer] { transition-duration: var(--wk-dur-sheet) !important; transition-timing-function: var(--wk-ease-drawer) !important; }
+/* PC の右から浮いた引き出しでは、vaul が右に足す延長部分（引きすぎたときの隙間埋め）を出さない。
+   画面の端との 12px のすき間に白い帯が見えてしまう */
+[data-vaul-drawer][data-vaul-drawer-direction="right"]::after { content: none !important; } /* vaul の指定と強さが同じで、vaul は後から差し込まれるので !important が要る */
+@keyframes wk-fade-in { from { opacity: 0 } }
+@keyframes wk-fade-out { to { opacity: 0 } }
+@media (prefers-reduced-motion: reduce) {
+  /* 動きを減らす設定：すべらせず、その場でフェードして出入りする */
+  [data-vaul-drawer][data-state="open"] { animation-name: wk-fade-in !important; }
+  [data-vaul-drawer][data-state="closed"] { animation-name: wk-fade-out !important; }
+  [data-vaul-drawer], [data-vaul-overlay] { animation-timing-function: var(--wk-ease-out) !important; }
+}
+
+/* お知らせ（sonner）の出入りもキットの曲線と時間にする（既定は 0.4 秒・ease） */
+[data-sonner-toast] {
+  transition-duration: var(--wk-dur-base) !important;
+  transition-timing-function: var(--wk-ease-out) !important;
 }

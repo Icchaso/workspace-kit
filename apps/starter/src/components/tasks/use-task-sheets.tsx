@@ -27,7 +27,8 @@ export function useTaskSheets() {
         task={find(actions?.id)}
         open={!!actions?.open}
         onOpenChange={(open) => setActions((a) => a && { ...a, open })}
-        onOpenDetail={(t) => setTimeout(() => openDetail(t), reduce ? 0 : 280)}
+        // シートが閉じ切る時間（閉じるときは --wk-dur-base：240ms、動きを減らす設定では 160ms）より少しあとに開く
+        onOpenDetail={(t) => setTimeout(() => openDetail(t), reduce ? 180 : 260)}
       />
     </>
   );
