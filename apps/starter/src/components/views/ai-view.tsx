@@ -24,12 +24,15 @@ import { cn } from "@/lib/cn";
 type Msg = { id: number; who: "u" | "a" | "art"; text?: string; live?: boolean; art?: Artifact };
 type Saved = { id: string; title: string; when: string; messages: { who: "u" | "a"; text: string }[] };
 
-/** 画面のいちばん下まで送る。soft のときは、すでに下の方を見ているときだけ（読み返し中は邪魔しない） */
+/**
+ * 最後のやりとりが見えるところまで送る。もう見えていれば動かさない（短い会話で、最初の吹き出しが上の見出しの下に潜らないように）。
+ * soft のときは、すでに下の方を見ているときだけ（読み返し中は邪魔しない）
+ */
 function scrollToEnd(soft = false) {
   requestAnimationFrame(() => {
     const el = document.documentElement;
     if (soft && el.scrollHeight - (window.scrollY + window.innerHeight) > 200) return;
-    window.scrollTo({ top: el.scrollHeight });
+    document.querySelector<HTMLElement>('[role="log"] > :last-child')?.scrollIntoView({ block: "nearest" });
   });
 }
 
@@ -165,7 +168,12 @@ export function AiView() {
 
       <div className="grid gap-6 side:grid-cols-[minmax(0,1fr)_360px] side:items-start">
         <div className="flex min-h-[calc(100dvh-150px)] min-w-0 flex-col max-rail:min-h-[calc(100dvh-var(--wk-tabbar-space)-96px)]">
-          <div role="log" aria-label="会話" className="grid flex-1 content-start gap-4 pt-2 pb-4">
+          {/* 吹き出しの上下の余白：上は見出し、下は入力欄（スマホは＋下タブ）の高さ。見えているかの判定に使う */}
+          <div
+            role="log"
+            aria-label="会話"
+            className="grid flex-1 content-start gap-4 pt-2 pb-4 [&>*]:scroll-mt-28 [&>*]:scroll-mb-[calc(var(--wk-tabbar-space)+8.5rem)] rail:[&>*]:scroll-mb-40"
+          >
             {msgs.length === 0 && (
               <div className="grid gap-2 py-2">
                 <Sparkles aria-hidden size={22} className="text-accent" />
