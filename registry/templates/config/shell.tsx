@@ -8,8 +8,9 @@
  * - ShellProviders … 骨組みの外側で包みたい物（データの入れ物など）。無ければ children をそのまま返す
  * - AddSheet      … 「追加」ボタン・N キー・⌘K の「追加」で開くシート。追加が無いアプリは null のまま
  * - useExtraCommands … ⌘K パレットに足す候補（打った文字で絞り込む）。無ければ空の配列を返す
+ * - useAccount   … ナビの一番下に出す「ログイン中の人」と操作（ログアウトなど）。無ければ null。スマホでは下タブの「もっと」の中に出る
  */
-import type { PaletteItem } from "@/components/shell/command-palette";
+import type { AccountInfo, PaletteItem } from "@/components/shell/command-palette";
 
 export const APP = {
   name: "My App",
@@ -28,4 +29,9 @@ export const AddSheet: React.ComponentType<{ open: boolean; onOpenChange: (open:
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 export function useExtraCommands(needle: string): PaletteItem[] {
   return [];
+}
+
+/** ログインのあるアプリは、ここでログイン中の人の名前（メールなど）と操作を返す */
+export function useAccount(): AccountInfo | null {
+  return null;
 }

@@ -24,6 +24,7 @@
  *   NO_NAV=/login     … ナビが無いのが正しい画面（ログイン・見本サイトなど。前方一致。既定：/kit）
  *   DEMO=1            … 雛形の見本アプリ（タスク管理）の操作も確かめる
  *   PALETTE=sky       … テーマを指定して見る（既定：グラファイト）
+ *   COOKIES='a=1;b=2' … 開く前に入れておく Cookie（ログインが要る画面を、手元の試験用の利用者で見るとき。本物のログインの値は使わない）
  *   QUICK=1           … 390px と 1440px だけ撮り、動きと操作の検査を飛ばす（テーマの色の検査用）
  */
 import { mkdirSync, writeFileSync } from "node:fs";
@@ -38,6 +39,7 @@ const ROUTES = (process.env.ROUTES ?? (DEMO ? "/,/tasks,/ai,/settings,/kit" : "/
 const NO_NAV = (process.env.NO_NAV ?? "/kit").split(",").filter(Boolean);
 const PALETTE = process.env.PALETTE ?? "";
 const QUICK = !!process.env.QUICK;
+const COOKIES = (process.env.COOKIES ?? "").split(";").map((c) => c.trim()).filter(Boolean).map((c) => [c.slice(0, c.indexOf("=")), c.slice(c.indexOf("=") + 1)]);
 const ALL_VIEWPORTS = [
   { name: "phone-375", width: 375, height: 812, touch: true },
   { name: "phone-390", width: 390, height: 844, touch: true },
@@ -65,6 +67,7 @@ async function open(vp, { dark = false, reduced = false } = {}) {
     colorScheme: dark ? "dark" : "light",
     reducedMotion: reduced ? "reduce" : "no-preference",
   });
+  if (COOKIES.length) await ctx.addCookies(COOKIES.map(([name, value]) => ({ name, value, url: base })));
   if (PALETTE) await ctx.addInitScript((p) => localStorage.setItem("wk.palette", p), PALETTE);
   const page = await ctx.newPage();
   page.on("console", (m) => m.type() === "error" && consoleErrors.push(`[${vp.name}] ${m.text()}`));
@@ -72,7 +75,7 @@ async function open(vp, { dark = false, reduced = false } = {}) {
   return { ctx, page };
 }
 
-const slug = (r) => (r === "/" ? "today" : r.replace(/\//g, "")) + (PALETTE ? `-${PALETTE}` : "");
+const slug = (r) => (r === "/" ? "today" : r.replace(/^\//, "").replace(/\//g, "-")) + (PALETTE ? `-${PALETTE}` : "");
 
 // ---- 1〜5：幅 × 明るさ × 画面 ----
 for (const vp of VIEWPORTS) {
@@ -123,7 +126,7 @@ for (const vp of VIEWPORTS) {
       if (r.small.length) fail(where, `44px 未満の押せるもの ${r.small.length}件（例：${r.small.slice(0, 3).join(" / ")}）`);
 
       const axe = await new AxeBuilder({ page }).withTags(["wcag2a", "wcag2aa"]).analyze();
-      for (const v of axe.violations) fail(where, `axe「${v.id}」${v.nodes.length}か所（${v.help}）`);
+      for (const v of axe.violations) fail(where, `axe「${v.id}」${v.nodes.length}か所（${v.help}）例：${v.nodes[0]?.target.join(" ") ?? "?"}`);
     }
     await ctx.close();
   }
@@ -215,7 +218,7 @@ async function step(where, fn) {
 }
 async function axeNow(page, where) {
   const axe = await new AxeBuilder({ page }).withTags(["wcag2a", "wcag2aa"]).analyze();
-  for (const v of axe.violations) fail(where, `axe「${v.id}」${v.nodes.length}か所（${v.help}）`);
+  for (const v of axe.violations) fail(where, `axe「${v.id}」${v.nodes.length}か所（${v.help}）例：${v.nodes[0]?.target.join(" ") ?? "?"}`);
 }
 const T = 4000;
 

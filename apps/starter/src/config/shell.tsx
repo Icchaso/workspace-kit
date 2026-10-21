@@ -8,11 +8,12 @@
  * - ShellProviders … 骨組みの外側で包みたい物（データの入れ物など）。無ければ children をそのまま返す
  * - AddSheet      … 「追加」ボタン・N キー・⌘K の「追加」で開くシート。追加が無いアプリは null にする
  * - useExtraCommands … ⌘K パレットに足す候補（打った文字で絞り込む）。無ければ空の配列を返す
+ * - useAccount   … ナビの一番下に出す「ログイン中の人」と操作（ログアウトなど）。無ければ null。スマホでは下タブの「もっと」の中に出る
  */
 import { ListChecks } from "lucide-react";
 import { useRouter } from "next/navigation";
 import { AddTaskSheet } from "@/components/tasks/add-task-sheet";
-import type { PaletteItem } from "@/components/shell/command-palette";
+import type { AccountInfo, PaletteItem } from "@/components/shell/command-palette";
 import { TaskProvider, useTasks } from "@/lib/tasks";
 
 export const APP = {
@@ -44,4 +45,9 @@ export function useExtraCommands(needle: string): PaletteItem[] {
       icon: ListChecks,
       run: () => router.push(`/tasks?id=${t.id}${t.done ? "&f=done" : ""}`),
     }));
+}
+
+/** ログインのあるアプリは、ここでログイン中の人の名前（メールなど）と操作を返す */
+export function useAccount(): AccountInfo | null {
+  return null;
 }

@@ -43,7 +43,7 @@ pnpm build
 | 直す場所 | 何を |
 |---|---|
 | `src/config/shell.tsx` の `APP` | 名前・頭文字・追加ボタンの文言・⌘K の案内文 |
-| `src/config/nav.ts` の `NAV` | 画面の項目と順番（下タブに出るのは先頭5つ。`short` は全角4文字まで） |
+| `src/config/nav.ts` の `NAV` | 画面の項目と順番（下タブに出るのは先頭5つ。6つ以上なら先頭4つ＋「もっと」。`short` は全角4文字まで） |
 | `src/app/layout.tsx` | `metadata` の題名と説明、`<WorkspaceBoot defaultPalette="sky" />` で既定のテーマ（グラファイトなら指定なし） |
 | `src/app/(app)/` | 画面を足すときはここにフォルダを作る。ナビに出すなら `NAV` にも足す |
 | 見本のタスク | `src/lib/tasks.tsx` が見本データ（このブラウザの中だけに保存）。本物のデータ（データベース）につなぐのは次の段階として別に相談する |

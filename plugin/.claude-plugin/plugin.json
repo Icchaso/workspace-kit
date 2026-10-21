@@ -1,6 +1,6 @@
 {
   "name": "workspace-kit",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "description": "業務ツールの画面を、PC でもスマホでも整った UI/UX にする土台一式。新しく作る・今のツールに入れる・テーマを変える・スマホで崩れていないか数値で確かめる、を1つのスキルで",
   "author": { "name": "ICHI DESIGN" },
   "homepage": "https://workspace-kit.vercel.app/kit",

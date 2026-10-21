@@ -8,6 +8,7 @@
  *   選択の丸い板   … 約 180ms で次のタブへ滑る。速く動いている間だけ横に伸びて少し淡くなる。揺れ（行き過ぎ）は無し
  *   押さえたまま横になぞる … 板が指についてくる。離したところのタブへ移る
  *   動きを減らす設定 … 板は瞬間移動、ふくらみ無し
+ *   項目が6つ以上（またはログイン中の人の欄がある）とき … 先頭4つ＋「もっと」。「もっと」は残りの項目とアカウント欄を下からのシートで出す
  *
  * 画面の切り替えは <Link> の先読み（App Shell）が効いているので、押してから待たない。
  */
@@ -15,7 +16,10 @@ import Link from "next/link";
 import { usePathname, useRouter } from "next/navigation";
 import { animate, motion, useMotionValue, useReducedMotion, useTransform, useVelocity } from "motion/react";
 import { useCallback, useLayoutEffect, useRef, useState } from "react";
-import { NAV, isActive, type NavItem } from "@/config/nav";
+import { Ellipsis } from "lucide-react";
+import { NAV, isActive } from "@/config/nav";
+import { useAccount } from "@/config/shell";
+import { Sheet } from "@/components/kit/sheet";
 import { cn } from "@/lib/cn";
 
 const SLIDE = { type: "spring", visualDuration: 0.18, bounce: 0 } as const;
@@ -24,7 +28,15 @@ const RELEASE = { type: "spring", visualDuration: 0.22, bounce: 0 } as const;
 const INSET = 4; // 板とバーの縁のすき間
 const DRAG_START = 6; // これ以上動いたら「なぞり」とみなす(px)
 
-export function BottomTabBar({ items = NAV.slice(0, 5) }: { items?: NavItem[] }) {
+const MORE = { href: "#more", label: "もっと", short: "もっと", icon: Ellipsis };
+
+export function BottomTabBar() {
+  const account = useAccount();
+  const needsMore = NAV.length > 5 || !!account;
+  const tabs = NAV.slice(0, needsMore ? 4 : 5);
+  const rest = NAV.slice(tabs.length);
+  const items = needsMore ? [...tabs, MORE] : tabs;
+  const [moreOpen, setMoreOpen] = useState(false);
   const pathname = usePathname();
   const router = useRouter();
   const reduce = useReducedMotion();
@@ -33,7 +45,8 @@ export function BottomTabBar({ items = NAV.slice(0, 5) }: { items?: NavItem[] })
   const slot = width / items.length;
 
   // 押した瞬間に選択表示にするための「仮の選択」。画面が移り終わったら実際の場所に従う
-  const routeIndex = Math.max(0, items.findIndex((i) => isActive(pathname, i.href)));
+  const tabIndex = tabs.findIndex((i) => isActive(pathname, i.href));
+  const routeIndex = tabIndex >= 0 ? tabIndex : needsMore && rest.some((i) => isActive(pathname, i.href)) ? tabs.length : 0;
   const [pressed, setPressed] = useState<{ index: number; from: string } | null>(null);
   // 場所が変わったら（移り終わった・戻る/進む）仮の選択を捨てる
   const [seenPath, setSeenPath] = useState(pathname);
@@ -97,6 +110,12 @@ export function BottomTabBar({ items = NAV.slice(0, 5) }: { items?: NavItem[] })
 
   const go = (index: number) => {
     const href = items[index].href;
+    if (href === MORE.href) {
+      setPressed({ index, from: pathname });
+      moveTo(index);
+      setMoreOpen(true);
+      return;
+    }
     setPressed({ index, from: pathname });
     moveTo(index);
     if (!isActive(pathname, href)) router.push(href);
@@ -144,6 +163,7 @@ export function BottomTabBar({ items = NAV.slice(0, 5) }: { items?: NavItem[] })
   };
 
   return (
+    <>
     <nav
       ref={barRef}
       aria-label="メインメニュー"
@@ -179,6 +199,35 @@ export function BottomTabBar({ items = NAV.slice(0, 5) }: { items?: NavItem[] })
       {items.map((item, i) => {
         const on = i === active;
         const Icon = item.icon;
+        const cls = cn(
+          "relative z-10 flex min-w-11 flex-1 flex-col items-center justify-center gap-0.5 rounded-full text-xs",
+          "transition-colors duration-[var(--wk-dur-fast)]",
+          on ? "text-fg" : "text-fg-3",
+        );
+        const inner = (
+          <>
+            <Icon aria-hidden size={22} strokeWidth={on ? 2.4 : 1.8} className="transition-[stroke-width] duration-[var(--wk-dur-fast)]" />
+            <span className={cn("leading-none", on && "font-medium")}>{item.short}</span>
+          </>
+        );
+        if (item.href === MORE.href) {
+          return (
+            <button
+              key={item.href}
+              type="button"
+              aria-haspopup="dialog"
+              aria-expanded={moreOpen}
+              aria-current={i === routeIndex && tabIndex < 0 ? "page" : undefined}
+              // 指やマウスは上の pointer の処理で開く。キーボード（Enter・Space）のときだけここで開く
+              onClick={(e) => {
+                if (e.detail === 0) go(i);
+              }}
+              className={cls}
+            >
+              {inner}
+            </button>
+          );
+        }
         return (
           <Link
             key={item.href}
@@ -189,17 +238,89 @@ export function BottomTabBar({ items = NAV.slice(0, 5) }: { items?: NavItem[] })
               if (e.detail !== 0) e.preventDefault();
             }}
             draggable={false}
-            className={cn(
-              "relative z-10 flex min-w-11 flex-1 flex-col items-center justify-center gap-0.5 rounded-full text-xs",
-              "transition-colors duration-[var(--wk-dur-fast)]",
-              on ? "text-fg" : "text-fg-3",
-            )}
+            className={cls}
           >
-            <Icon aria-hidden size={22} strokeWidth={on ? 2.4 : 1.8} className="transition-[stroke-width] duration-[var(--wk-dur-fast)]" />
-            <span className={cn("leading-none", on && "font-medium")}>{item.short}</span>
+            {inner}
           </Link>
         );
       })}
     </nav>
+    {needsMore && (
+      <Sheet
+        open={moreOpen}
+        onOpenChange={(open) => {
+          setMoreOpen(open);
+          // 何も選ばずに閉じたら、板を今いる場所へ戻す
+          if (!open) setPressed(null);
+        }}
+        title="メニュー"
+      >
+        <MoreList
+          rest={rest}
+          pathname={pathname}
+          account={account}
+          onPick={(run) => {
+            setMoreOpen(false);
+            run();
+          }}
+        />
+      </Sheet>
+    )}
+    </>
+  );
+}
+
+/** 「もっと」の中身：下タブに入らなかった項目と、ログイン中の人の欄 */
+function MoreList({
+  rest,
+  pathname,
+  account,
+  onPick,
+}: {
+  rest: typeof NAV;
+  pathname: string;
+  account: ReturnType<typeof useAccount>;
+  onPick: (run: () => void) => void;
+}) {
+  const router = useRouter();
+  const row = "flex min-h-row w-full items-center gap-3 rounded-md px-3 text-left";
+  return (
+    <div className="grid gap-4">
+      {rest.length > 0 && (
+        <ul className="grid gap-0.5">
+          {rest.map((item) => {
+            const on = isActive(pathname, item.href);
+            const Icon = item.icon;
+            return (
+              <li key={item.href}>
+                <Link
+                  href={item.href}
+                  aria-current={on ? "page" : undefined}
+                  onClick={(e) => {
+                    e.preventDefault();
+                    onPick(() => router.push(item.href));
+                  }}
+                  className={cn(row, on ? "bg-accent-soft font-medium text-accent-text" : "text-fg hover:bg-surface-2")}
+                >
+                  <Icon aria-hidden size={20} className="flex-none text-current" />
+                  {item.label}
+                </Link>
+              </li>
+            );
+          })}
+        </ul>
+      )}
+      {account && (
+        <div className="grid gap-0.5 border-t border-line pt-3">
+          <p className="truncate px-3 pb-1 text-sm text-fg-3">{account.name}</p>
+          {account.actions.map((a) => (
+            <button key={a.id} type="button" onClick={() => onPick(a.run)} className={cn(row, "text-fg hover:bg-surface-2")}>
+              <a.icon aria-hidden size={20} className="flex-none" />
+              {a.label}
+            </button>
+          ))}
+        </div>
+      )}
+    </div>
   );
 }

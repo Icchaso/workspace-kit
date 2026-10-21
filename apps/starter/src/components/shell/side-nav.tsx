@@ -10,7 +10,7 @@ import { usePathname } from "next/navigation";
 import { PanelLeftClose, PanelLeftOpen, Plus, Search } from "lucide-react";
 import { useState } from "react";
 import { NAV, isActive } from "@/config/nav";
-import { APP } from "@/config/shell";
+import { APP, useAccount } from "@/config/shell";
 import { cn } from "@/lib/cn";
 
 function setCollapsed(collapsed: boolean) {
@@ -28,6 +28,7 @@ const itemClass =
 
 export function SideNav({ onSearch, onAdd }: { onSearch?: () => void; onAdd?: () => void }) {
   const pathname = usePathname();
+  const account = useAccount();
   const [pressed, setPressed] = useState<{ href: string; from: string } | null>(null);
   const [seenPath, setSeenPath] = useState(pathname);
   if (seenPath !== pathname) {
@@ -81,6 +82,19 @@ export function SideNav({ onSearch, onAdd }: { onSearch?: () => void; onAdd?: ()
           <Plus aria-hidden size={20} className="flex-none" />
           <span className="wk-nav-label">{APP.addLabel}</span>
         </button>
+      )}
+      {account && (
+        <div className="mt-1 grid gap-1 border-t border-line pt-2">
+          <p className="wk-nav-wide px-3 text-xs text-fg-3" title={account.name}>
+            <span className="min-w-0 truncate">{account.name}</span>
+          </p>
+          {account.actions.map((a) => (
+            <button key={a.id} type="button" onClick={a.run} title={a.label} className={cn(itemClass, "text-fg-2 hover:bg-surface-2 hover:text-fg")}>
+              <a.icon aria-hidden size={20} className="flex-none" />
+              <span className="wk-nav-label">{a.label}</span>
+            </button>
+          ))}
+        </div>
       )}
       {/* 畳む・広げる（1280px 以上のときだけ） */}
       <button

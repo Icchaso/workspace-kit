@@ -17,6 +17,7 @@
 | `components.json` | ルート | 無ければ作る（new.md と同じ中身。`css` は相手の globals.css の場所に合わせる） |
 
 入れる前の画像を撮っておく：SKILL.md の「検査」を `ROUTES=<主な画面>` で流し、`screenshots/wk-before/` に保存する（落ちた項目の数も控える）。
+- ログインが要るツールは、本物のパスワードを使わない。手元だけの試験用の利用者でログインしたクッキーを `COOKIES='名前=値;名前=値'` で検査台本に渡す（Supabase なら試験用のプロジェクトか、手元のにせの認証サーバー。本番の顧客データの画面を撮って人に見せない）
 
 ## 2. 計画を見せて承認を取る
 次の形で1枚にまとめて見せる。承認が出るまで手を付けない。
@@ -36,17 +37,41 @@ pnpm dlx shadcn@4.21.3 add https://workspace-kit.vercel.app/r/workspace-kit-css.
 `globals.css` の `@import "tailwindcss";` のすぐ後に `@import "./workspace-kit.css";` を足す。
 - `globals.css` に残っている「層の外の `body { font-family / background / color }`」と、`@theme` の `--font-sans` の上書きは外す（create-next-app の初期の CSS にも入っている）。残すと Workspace Kit の字体と色が負け、テーマを変えても地の色が変わらない
 - shadcn の変数（`--background`・`--primary` など）を使っている場合は、消さずに Workspace Kit の値へつなぎ替える（例：`--background: var(--wk-canvas); --foreground: var(--wk-fg); --primary: var(--wk-accent); --primary-foreground: var(--wk-on-accent); --border: var(--wk-line); --muted-foreground: var(--wk-fg-3);`）。既存の部品はそのまま新しい色になる
-- 相手のブランド色は `--wk-accent`・`--wk-on-accent`・`--wk-accent-soft`・`--wk-accent-text` の4つだけを上書きする（ライトとダークの両方。文字と背景の差 4.5:1 以上を確かめる）
+- 相手のブランド色は `--wk-accent`・`--wk-on-accent`・`--wk-accent-soft`・`--wk-accent-text` の4つだけを上書きする（ライトとダークの両方。文字と背景の差 4.5:1 以上を確かめる）。近い色のテーマがあれば、それを `defaultPalette` にするほうが早い（緑ならクリニック）
+- **色の橋**：既存の画面が Tailwind の色の名前（`text-gray-500`・`bg-green-600`・`text-red-600` など）を直接使っているときは、何百か所を書き換える前に、`globals.css` の `@theme inline` でその名前の行き先をトークンにつなぎ替える。テーマを変えると既存の画面も一緒に変わり、コントラストもトークン側でそろう。種類を見分ける印に使っている色（青・紫のバッジなど）は残す
+```css
+@theme inline {
+  --color-gray-50: var(--wk-canvas);   --color-gray-100: var(--wk-surface-2);
+  --color-gray-200: var(--wk-line);    --color-gray-300: var(--wk-line);
+  --color-gray-400: var(--wk-fg-3);    --color-gray-500: var(--wk-fg-3);
+  --color-gray-600: var(--wk-fg-2);    --color-gray-700: var(--wk-fg-2);
+  --color-gray-800: var(--wk-fg);      --color-gray-900: var(--wk-fg);
+  --color-green-50: var(--wk-accent-soft); --color-green-600: var(--wk-accent); --color-green-700: var(--wk-accent-text);
+  --color-red-50: var(--wk-danger-soft);   --color-red-600: var(--wk-danger);
+  --color-yellow-100: var(--wk-warn-soft); --color-yellow-700: var(--wk-warn);
+  --color-white: var(--wk-surface);
+}
+```
+- `text-[10px]`・`text-[11px]` は `text-xs`（12px）に、色コードの直書き（`text-[#E57373]` など）は近い意味のトークンにする
+- **指の端末の底上げ**：PC 向けの大きさ（`py-2`・`text-sm`）で作られた画面が多いときは、画面ごとに直す前に `globals.css` の層の外に次を足す。マウスの PC の見た目は変わらない
+```css
+@media (pointer: coarse) {
+  #main :is(a[href], button, select, [role="button"]):not(:where(p a, li > p a, span a)) { min-height: var(--wk-hit); min-width: var(--wk-hit); }
+  #main :is(a[href], button):is(:not([class*="flex"]):not([class*="block"]):not([class*="grid"])) { display: inline-flex; align-items: center; }
+  #main :is(input:not([type="checkbox"]):not([type="radio"]), select, textarea) { font-size: max(16px, 1em); min-height: var(--wk-hit); }
+  #main label:has(> input:is([type="checkbox"], [type="radio"])) { min-height: var(--wk-hit); }
+}
+```
 
 ### 3-2. 骨格
 ```bash
 pnpm dlx shadcn@4.21.3 add https://workspace-kit.vercel.app/r/workspace-kit-shell.json --yes
 ```
 つなぐ場所は4つ：
-1. ルートの `app/layout.tsx`：`<html lang="ja" suppressHydrationWarning>`、`<head>` に `<WorkspaceBoot />`（`@/components/shell/boot-script` から）。日本語の字体は `next/font/google` の `IBM_Plex_Sans_JP`（`weight: ["400","500","600"]`, `preload: false`, `display: "swap"`, `variable: "--wk-font-jp"`）を `<html className>` に付ける
-2. ナビを出す画面をまとめたレイアウト（例：`app/(app)/layout.tsx`）で `<AppFrame>{children}</AppFrame>` で包む。ログインなどナビの要らない画面はこのグループの外に置く
-3. `config/nav.ts` の `NAV` を相手の画面に書き換える（下タブは先頭5つ・`short` は全角4文字まで・アイコンは lucide-react）
-4. `config/shell.tsx` の `APP`（名前・頭文字）。「追加」の操作があるなら `AddSheet` にそのシートを、⌘K で探させたい物があれば `useExtraCommands` に足す。データの入れ物（Provider）があれば `ShellProviders` で包む
+1. ルートの `app/layout.tsx`：`<html lang="ja" suppressHydrationWarning>`、`<head>` に `<WorkspaceBoot />`（`@/components/shell/boot-script` から）。既存の画面にダーク表示の用意が無いときは `<WorkspaceBoot forceTheme="light" />` で明るさを固定する（⌘K の明るさの切り替えも隠れる。ダーク対応は画面ごとに後から）。日本語の字体は `next/font/google` の `IBM_Plex_Sans_JP`（`weight: ["400","500","600"]`, `preload: false`, `display: "swap"`, `variable: "--wk-font-jp"`）を `<html className>` に付ける
+2. ナビを出す画面をまとめたレイアウト（例：`app/(app)/layout.tsx`）で `<AppFrame>{children}</AppFrame>` で包む。ログインなどナビの要らない画面はこのグループの外に置く。サーバー側でログインを確かめている入れ物（`AppShell` など）があれば、その確認は残して中身だけ `AppFrame` に差し替える。二重に包んでいる画面が無いか grep する
+3. `config/nav.ts` の `NAV` を相手の画面に書き換える（`short` は全角4文字まで・アイコンは lucide-react）。項目が6つ以上か、`useAccount` を使うときは、スマホの下タブは先頭4つ＋「もっと」になり、残りはその中のシートに並ぶ。よく使う順に並べる
+4. `config/shell.tsx` の `APP`（名前・頭文字）。ログイン中の人の名前とログアウトは `useAccount()` に返す（PC はサイドバーの下、スマホは「もっと」の中、⌘K にも出る）。メールなどサーバーで分かる値は、入れ物から Context で渡す。「追加」の操作があるなら `AddSheet` にそのシートを、⌘K で探させたい物があれば `useExtraCommands` に足す。データの入れ物（Provider）があれば `ShellProviders` で包む
 
 今のヘッダー・サイドバー・下のナビは外す（残すとナビが2つになる。検査台本がナビの数を数えて落とす）。
 `useSearchParams` を使う画面は `<Suspense>` で包む（Next.js 16 で事前の描画が止まるため）。
