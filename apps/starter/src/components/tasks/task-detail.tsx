@@ -45,7 +45,7 @@ export function TaskDetail({ task, onRemoved }: { task: Task | null; onRemoved?:
             未完了に戻す
           </Button>
         ) : (
-          <Button variant="primary" onClick={() => cmd.toggle(task)}>
+          <Button variant="soft" onClick={() => cmd.toggle(task)}>
             <Check aria-hidden size={16} />
             完了にする
           </Button>

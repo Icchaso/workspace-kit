@@ -11,9 +11,9 @@ import { Segmented } from "@/components/kit/segmented";
 import { cn } from "@/lib/cn";
 
 const VIEWS = [
-  { value: "/", label: "今日（B 現場）" },
-  { value: "/tasks", label: "タスク（A 指令室）" },
-  { value: "/ai", label: "AI（C 相棒）" },
+  { value: "/", label: "B 現場" },
+  { value: "/tasks", label: "A 指令室" },
+  { value: "/ai", label: "C 相棒" },
 ] as const;
 type View = (typeof VIEWS)[number]["value"];
 type Scheme = "light" | "dark";
@@ -74,7 +74,7 @@ export function KitShowcase() {
     <div className="mx-auto grid max-w-[1320px] gap-8 px-4 pt-[calc(24px+env(safe-area-inset-top,0px))] pb-16 rail:px-8">
       <header className="grid gap-2">
         <p className="text-sm font-medium text-accent-text">Workspace Kit</p>
-        <h1 className="text-[28px] leading-tight font-semibold rail:text-[34px]">入れるだけで、PC でもスマホでも整う。</h1>
+        <h1 className="text-[28px] leading-tight font-semibold rail:text-[34px]">入れるだけで、<span className="whitespace-nowrap">PC でも</span><span className="whitespace-nowrap">スマホでも</span>整う。</h1>
         <p className="max-w-[60ch] text-fg-2">
           自分の業務ツールに入れると、ナビ・ボタン・シート・色・文字・動きがそろいます。下の見本は本物のアプリです。テーマと画面の型を切り替えて、スマホ幅と PC 幅の見え方を並べて確かめられます。
         </p>

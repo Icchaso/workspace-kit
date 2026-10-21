@@ -23,6 +23,7 @@ import { SCHEDULE, toMin } from "@/lib/schedule";
 import { counts, useTasks } from "@/lib/tasks";
 import { useLongPress } from "@/lib/use-long-press";
 import { cn } from "@/lib/cn";
+import { APP } from "@/config/shell";
 
 const WD = ["日", "月", "火", "水", "木", "金", "土"];
 // 日付と時刻は見ている人の端末で出す（サーバーで作るとずれるため、画面側でだけ計算する）。30秒ごとに読み直す
@@ -70,7 +71,7 @@ export function TodayView() {
         actions={
           <Button variant="primary" onClick={openAdd} className="max-rail:hidden">
             <Plus aria-hidden size={18} />
-            タスクを追加
+            {APP.addLabel}
           </Button>
         }
       />
@@ -163,7 +164,7 @@ export function TodayView() {
         </section>
       </div>
 
-      <Fab label="タスクを追加" onClick={openAdd}>
+      <Fab label={APP.addLabel} onClick={openAdd}>
         <Plus aria-hidden size={26} />
       </Fab>
       <WrapUpSheet open={wrapping} onOpenChange={setWrapping} />

@@ -8,6 +8,7 @@ import { Chip } from "@/components/kit/segmented";
 import { InlineError } from "@/components/kit/feedback";
 import { notify } from "@/components/kit/toast";
 import { PROJECTS, useTasks, type Due, type Priority } from "@/lib/tasks";
+import { APP } from "@/config/shell";
 
 const DUES: { value: Due; label: string }[] = [
   { value: "today", label: "今日" },
@@ -18,7 +19,7 @@ const DUES: { value: Due; label: string }[] = [
 
 export function AddTaskSheet({ open, onOpenChange }: { open: boolean; onOpenChange: (o: boolean) => void }) {
   return (
-    <Sheet open={open} onOpenChange={onOpenChange} title="タスクを追加">
+    <Sheet open={open} onOpenChange={onOpenChange} title={APP.addLabel}>
       {/* 閉じるたびに入力を空に戻すため、開いている間だけ中身を作る */}
       {open && <AddTaskForm onDone={() => onOpenChange(false)} />}
     </Sheet>

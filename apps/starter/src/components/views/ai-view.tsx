@@ -269,7 +269,11 @@ export function AiView() {
                 type="submit"
                 aria-label="送る"
                 aria-disabled={busy || undefined}
-                className="grid size-hit flex-none place-items-center rounded-full bg-accent text-on-accent transition-[transform,opacity] duration-[var(--wk-dur-fast)] active:scale-[0.94] aria-disabled:opacity-50"
+                // 空のうちは控えめな色（押すと「書いてください」と案内する）。書いたら主色になる
+                className={cn(
+                  "grid size-hit flex-none place-items-center rounded-full transition-[transform,opacity,background-color,color] duration-[var(--wk-dur-fast)] active:scale-[0.94] aria-disabled:opacity-50",
+                  draft.trim() ? "bg-accent text-on-accent" : "bg-surface-2 text-fg-3",
+                )}
               >
                 <ArrowUp aria-hidden size={18} />
               </button>

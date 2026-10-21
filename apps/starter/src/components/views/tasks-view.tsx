@@ -20,6 +20,7 @@ import { useCoarsePointer, useWide } from "@/lib/prefs";
 import { counts, useTasks, type Task } from "@/lib/tasks";
 import { useLongPress } from "@/lib/use-long-press";
 import { cn } from "@/lib/cn";
+import { APP } from "@/config/shell";
 
 type Filter = "open" | "today" | "overdue" | "done";
 const FILTERS: Filter[] = ["open", "today", "overdue", "done"];
@@ -60,7 +61,7 @@ function Header() {
           </Button>
           <Button variant="primary" onClick={openAdd}>
             <Plus aria-hidden size={18} />
-            <span className="max-rail:sr-only">タスクを追加</span>
+            <span className="max-rail:sr-only">{APP.addLabel}</span>
             <span className="rail:hidden" aria-hidden>
               追加
             </span>
@@ -165,6 +166,7 @@ export function TasksView() {
                     <li
                       key={t.id}
                       data-row={t.id}
+                      data-on={on || undefined}
                       {...press.bind(t)}
                       className={cn(
                         "relative grid min-h-row grid-cols-[var(--wk-hit)_minmax(0,1fr)_var(--wk-hit)] items-center gap-x-2 border-b border-line px-2 py-2 transition-colors duration-[var(--wk-dur-fast)] select-none last:border-b-0 [-webkit-touch-callout:none]",
@@ -244,7 +246,7 @@ function AddButton() {
   return (
     <Button onClick={openAdd}>
       <Plus aria-hidden size={18} />
-      タスクを追加
+      {APP.addLabel}
     </Button>
   );
 }

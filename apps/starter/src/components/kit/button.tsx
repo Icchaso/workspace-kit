@@ -18,6 +18,8 @@ export const buttonVariants = cva(
       variant: {
         primary: "bg-accent text-on-accent hover:bg-[color-mix(in_oklab,var(--wk-accent)_88%,var(--wk-fg))]",
         secondary: "border border-line bg-surface text-fg hover:bg-surface-2",
+        // 主ボタンは1画面に1つ。同じ画面の2つ目の「進める」操作はこちら（主色の淡い地）
+        soft: "bg-accent-soft text-accent-text hover:bg-[color-mix(in_oklab,var(--wk-accent-soft)_85%,var(--wk-accent))]",
         ghost: "text-fg-2 hover:bg-surface-2 hover:text-fg",
         danger: "text-danger hover:bg-danger-soft",
       },

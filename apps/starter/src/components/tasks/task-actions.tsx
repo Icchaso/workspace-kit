@@ -97,7 +97,7 @@ export function TaskMoreButton({ task, onSheet, onOpenDetail }: { task: Task; on
   const coarse = useCoarsePointer();
   const actions = useActionList(task, onOpenDetail);
   const triggerClass =
-    "relative z-10 grid size-hit flex-none place-items-center rounded-md text-fg-3 transition-colors duration-[var(--wk-dur-fast)] hover:bg-surface-2 hover:text-fg data-[popup-open]:bg-surface-2 data-[popup-open]:text-fg";
+    "wk-row-more relative z-10 grid size-hit flex-none place-items-center rounded-md text-fg-3 transition-colors duration-[var(--wk-dur-fast)] hover:bg-surface-2 hover:text-fg data-[popup-open]:bg-surface-2 data-[popup-open]:text-fg";
   const label = `「${task.title}」の操作`;
 
   if (coarse) {
