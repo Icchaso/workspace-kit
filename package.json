@@ -1,7 +1,7 @@
 {
   "name": "workspace-kit",
   "private": true,
-  "version": "0.3.0",
+  "version": "0.4.0",
   "description": "PCでもスマホでも最初から整ったUI/UXで動く、ツールの土台一式",
   "scripts": {
     "dev": "pnpm --filter starter dev",

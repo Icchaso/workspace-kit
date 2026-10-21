@@ -1,6 +1,6 @@
 ---
 name: workspace-kit
-description: Workspace Kit で業務ツールの画面を PC でもスマホでも整える。「Workspace Kit で新しくツールを作りたい」「今のツールを Workspace Kit で整えて」「テーマを〇〇にして」「スマホで崩れてないか見て」と言われたとき、または Next.js＋Tailwind のアプリでナビ・ボタン・シート・色・文字・動きを整えたいときに使う。
+description: Workspace Kit で業務ツールの画面を PC でもスマホでも整える。「Workspace Kit で新しくツールを作りたい」「今のツールを Workspace Kit で整えて」「テーマを〇〇にして」「スマホで崩れてないか見て」「動きと手触りを仕上げて」と言われたとき、または Next.js＋Tailwind のアプリでナビ・ボタン・シート・色・文字・動きを整えたいときに使う。
 ---
 
 # Workspace Kit
@@ -27,6 +27,7 @@ description: Workspace Kit で業務ツールの画面を PC でもスマホで�
    - 新しく作る → [references/new.md](references/new.md)
    - 今のツールに入れる（後付け） → [references/retrofit.md](references/retrofit.md)
    - テーマを変える → [references/themes.md](references/themes.md)
+   - 動きと手触りを仕上げる → [references/polish.md](references/polish.md)（新しく作った後・後付けの最後にも1回流す）
    - スマホで崩れていないか見る → 下の「検査」
 3. 画面を作る・直すときの数値と作法は [references/rules.md](references/rules.md) に従う（ここに書いた数値は見本と検査台本と同じ）
 
