@@ -10,12 +10,12 @@
     background: var(--wk-canvas);
     color: var(--wk-fg);
     font-family: var(--wk-font);
-    font-size: var(--wk-text-md);
     line-height: 1.6;
     -webkit-text-size-adjust: 100%;
     -webkit-font-smoothing: antialiased;
   }
-  body { min-height: 100dvh; background: var(--wk-canvas); }
+  /* 本文は 15px。html は既定の 16px のまま（rem＝Tailwind の大きさの単位を 16px に保つ。後付けした画面の大きさが変わらず、text-2xl が text-xl より小さくなる逆転も起きない） */
+  body { min-height: 100dvh; background: var(--wk-canvas); font-size: var(--wk-text-md); }
   button, [role="button"], a { touch-action: manipulation; -webkit-tap-highlight-color: transparent; }
   button:not(:disabled), [role="button"] { cursor: pointer; }
   input, textarea, select { font-size: var(--wk-text-input); }

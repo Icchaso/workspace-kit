@@ -39,6 +39,8 @@
   --text-base: var(--wk-text-md);
   --text-lg: var(--wk-text-lg);
   --text-xl: var(--wk-text-xl);
+  --text-2xl: var(--wk-text-2xl);
+  --text-3xl: var(--wk-text-3xl);
 
   --ease-out: var(--wk-ease-out);
   --ease-in-out: var(--wk-ease-in-out);

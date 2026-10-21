@@ -56,6 +56,8 @@
   --wk-text-input: 16px; /* 入力欄（iPhone の自動ズームを防ぐ） */
   --wk-text-lg: 18px;
   --wk-text-xl: 24px;
+  --wk-text-2xl: 28px;  /* 画面の見出しより大きい物（見本サイトの題など） */
+  --wk-text-3xl: 34px;
 
   /* 動き（時間と曲線。速い・普通・ゆっくりの3段と、出る・消える・バネの曲線） */
   --wk-ease-out: cubic-bezier(0.23, 1, 0.32, 1);

@@ -74,7 +74,7 @@ export function KitShowcase() {
     <div className="mx-auto grid max-w-[1320px] gap-8 px-4 pt-[calc(24px+env(safe-area-inset-top,0px))] pb-16 rail:px-8">
       <header className="grid gap-2">
         <p className="text-sm font-medium text-accent-text">Workspace Kit</p>
-        <h1 className="text-[28px] leading-tight font-semibold rail:text-[34px]">入れるだけで、<span className="whitespace-nowrap">PC でも</span><span className="whitespace-nowrap">スマホでも</span>整う。</h1>
+        <h1 className="text-2xl leading-tight font-semibold rail:text-3xl">入れるだけで、<span className="whitespace-nowrap">PC でも</span><span className="whitespace-nowrap">スマホでも</span>整う。</h1>
         <p className="max-w-[60ch] text-fg-2">
           自分の業務ツールに入れると、ナビ・ボタン・シート・色・文字・動きがそろいます。下の見本は本物のアプリです。テーマと画面の型を切り替えて、スマホ幅と PC 幅の見え方を並べて確かめられます。
         </p>
