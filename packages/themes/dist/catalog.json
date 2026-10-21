@@ -104,15 +104,15 @@
  {
   "id": "sky",
   "label": "スカイ",
-  "desc": "明るい青と大きめの文字。はじめての人にも分かりやすい",
+  "desc": "空色の地と明るい青。はじめての人にも分かりやすい",
   "from": "ant",
   "status": "curated",
   "darkOnly": false,
   "swatch": [
-   "#f5f7f9",
-   "#181b1e",
-   "#036df4",
-   "#e3eeff"
+   "#eff8ff",
+   "#121c23",
+   "#007bba",
+   "#ddf0ff"
   ],
   "fonts": {
    "body": "Plus Jakarta Sans",
@@ -127,7 +127,7 @@
   },
   "contrast": {
    "light": {
-    "min": 4.66,
+    "min": 4.64,
     "fails": []
    },
    "dark": {
@@ -144,10 +144,10 @@
   "status": "curated",
   "darkOnly": false,
   "swatch": [
-   "#f5f7f9",
-   "#181b1e",
-   "#0c5cab",
-   "#e1eeff"
+   "#f3f7ff",
+   "#161b24",
+   "#1e3a8a",
+   "#e4edff"
   ],
   "fonts": {
    "body": "IBM Plex Sans",
@@ -166,7 +166,7 @@
     "fails": []
    },
    "dark": {
-    "min": 5.39,
+    "min": 5.4,
     "fails": []
    }
   }
@@ -384,15 +384,15 @@
  {
   "id": "teal",
   "label": "ディープティール",
-  "desc": "深い青緑とオレンジの差し色。現場・物流・作業記録向け",
+  "desc": "深い青緑と生成りの地。現場・物流・作業記録向け",
   "from": "stitch",
   "status": "curated",
   "darkOnly": false,
   "swatch": [
    "#faf7eb",
    "#1d1b10",
-   "#072c2c",
-   "#e5efef"
+   "#0f766e",
+   "#dcf2ef"
   ],
   "fonts": {
    "body": "Noto Sans JP",
@@ -407,7 +407,7 @@
   },
   "contrast": {
    "light": {
-    "min": 4.73,
+    "min": 4.7,
     "fails": []
    },
    "dark": {

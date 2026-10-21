@@ -42,13 +42,13 @@ export const PALETTES = [
  {
   "id": "sky",
   "label": "スカイ",
-  "desc": "明るい青と大きめの文字。はじめての人にも分かりやすい",
+  "desc": "空色の地と明るい青。はじめての人にも分かりやすい",
   "darkOnly": false,
   "swatch": [
-   "#f5f7f9",
-   "#181b1e",
-   "#036df4",
-   "#e3eeff"
+   "#eff8ff",
+   "#121c23",
+   "#007bba",
+   "#ddf0ff"
   ],
   "href": "https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600&family=Noto+Sans+JP:wght@400;500;600&display=swap"
  },
@@ -58,10 +58,10 @@ export const PALETTES = [
   "desc": "濃い紺と細めの線。数字の多い業務・会計向け",
   "darkOnly": false,
   "swatch": [
-   "#f5f7f9",
-   "#181b1e",
-   "#0c5cab",
-   "#e1eeff"
+   "#f3f7ff",
+   "#161b24",
+   "#1e3a8a",
+   "#e4edff"
   ],
   "href": "https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Sans+JP:wght@400;500;600&display=swap"
  },
@@ -146,13 +146,13 @@ export const PALETTES = [
  {
   "id": "teal",
   "label": "ディープティール",
-  "desc": "深い青緑とオレンジの差し色。現場・物流・作業記録向け",
+  "desc": "深い青緑と生成りの地。現場・物流・作業記録向け",
   "darkOnly": false,
   "swatch": [
    "#faf7eb",
    "#1d1b10",
-   "#072c2c",
-   "#e5efef"
+   "#0f766e",
+   "#dcf2ef"
   ],
   "href": "https://fonts.googleapis.com/css2?family=Oswald:wght@400;500;600&family=Noto+Sans+JP:wght@400;500;600&display=swap"
  }

@@ -6,7 +6,7 @@
       "label": "グラファイト",
       "desc": "落ち着いた灰色と青。毎日使う管理画面の基準",
       "from": null,
-      "colors": { "primary": "#2563eb", "surface": "#f7f7f5", "success": "#18794e", "warning": "#b26a00", "danger": "#b42323" },
+      "colors": { "primary": "#2563eb", "surface": "#f6f6f4", "success": "#18794e", "warning": "#b26a00", "danger": "#b42323" },
       "fonts": { "body": "IBM Plex Sans" },
       "rounded": { "sm": 6, "md": 10, "lg": 14 }
     },
@@ -29,15 +29,15 @@
       "fonts": { "body": "IBM Plex Sans" },
       "rounded": { "sm": 6, "md": 10, "lg": 14 }
     },
-    { "id": "sky", "label": "スカイ", "desc": "明るい青と大きめの文字。はじめての人にも分かりやすい", "from": "ant", "rounded": { "sm": 6, "md": 8, "lg": 12 } },
-    { "id": "navy", "label": "ネイビー", "desc": "濃い紺と細めの線。数字の多い業務・会計向け", "from": "enterprise" },
+    { "id": "sky", "label": "スカイ", "desc": "空色の地と明るい青。はじめての人にも分かりやすい", "from": "ant", "colors": { "primary": "#0284c7", "surface": "#eaf4fb" }, "rounded": { "sm": 6, "md": 8, "lg": 12 } },
+    { "id": "navy", "label": "ネイビー", "desc": "濃い紺と細めの線。数字の多い業務・会計向け", "from": "enterprise", "colors": { "primary": "#1e3a8a", "surface": "#e6ecf7" } },
     { "id": "lavender", "label": "ラベンダー", "desc": "落ち着いた紫。予約・相談など人と向き合う画面向け", "from": "material", "rounded": { "sm": 8, "md": 12, "lg": 18 } },
     { "id": "ink", "label": "インク", "desc": "黒と白だけ。中身を主役にしたい道具向け", "from": "minimal", "rounded": { "sm": 4, "md": 6, "lg": 10 } },
     { "id": "cafe", "label": "カフェ", "desc": "こげ茶とクリーム。お店・飲食・小売の管理向け", "from": "cafe", "rounded": { "sm": 8, "md": 12, "lg": 16 } },
     { "id": "leaf", "label": "リーフ", "desc": "元気な緑と丸い文字。学習・習慣づけのツール向け", "from": "lingo", "fonts": { "jp": "M PLUS Rounded 1c" }, "rounded": { "sm": 10, "md": 14, "lg": 20 } },
     { "id": "terracotta", "label": "テラコッタ", "desc": "素焼きの赤茶と明朝の見出し。住まい・暮らしの紹介向け", "from": "terracotta", "rounded": { "sm": 6, "md": 10, "lg": 14 } },
     { "id": "pop", "label": "ポップ", "desc": "黄色の主ボタンと太い枠。社内のちょっとした道具向け", "from": "neobrutalism", "rounded": { "sm": 4, "md": 6, "lg": 8 } },
-    { "id": "teal", "label": "ディープティール", "desc": "深い青緑とオレンジの差し色。現場・物流・作業記録向け", "from": "stitch", "rounded": { "sm": 4, "md": 8, "lg": 12 } }
+    { "id": "teal", "label": "ディープティール", "desc": "深い青緑と生成りの地。現場・物流・作業記録向け", "from": "stitch", "colors": { "primary": "#0f766e" }, "rounded": { "sm": 4, "md": 8, "lg": 12 } }
   ],
   "_除外": "ブランド名・作品名をそのまま名前にしているテーマは、配る前に名前を変えるか除外する（all.css にも入れない）",
   "excludeBrandNamed": ["claude", "codex", "pacman", "sega", "tetris", "roku", "shadcn", "ant", "material", "lingo", "impeccable"]
