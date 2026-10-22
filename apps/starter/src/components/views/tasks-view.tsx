@@ -180,10 +180,16 @@ export function TasksView() {
     const stays = match(filter)({ ...t, done: !t.done });
     setLeaving((l) => (stays ? l.filter((x) => x !== t.id) : [...l, t.id]));
     if (sweep.current) clearTimeout(sweep.current);
-    sweep.current = setTimeout(() => {
+    // 行の「…」メニューやシートを開いている間は外さない
+    const run = () => {
+      if (document.querySelector("[data-row] [data-popup-open], [data-vaul-drawer][data-state='open']")) {
+        sweep.current = setTimeout(run, 500);
+        return;
+      }
       setLeaving([]);
       setSwept((n) => n + 1);
-    }, 1000);
+    };
+    sweep.current = setTimeout(run, 1000);
     cmd.toggle(t);
   };
   useEffect(() => () => {

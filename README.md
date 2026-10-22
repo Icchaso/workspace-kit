@@ -74,7 +74,7 @@ Workspace Kit で新しくツールを作りたい
 ### Claude Code を使わずに部品だけ入れる（エンジニア向け）
 shadcn CLI で入れられます。版を固定した URL を使います（後で同じ命令を流しても同じ中身が入る）。
 ```bash
-pnpm dlx shadcn@4.21.3 add https://workspace-kit.vercel.app/r/v0.4.0/workspace-kit-shell.json
+pnpm dlx shadcn@4.21.3 add https://workspace-kit.vercel.app/r/v0.4.1/workspace-kit-shell.json
 ```
 | 名前 | 中身 |
 |---|---|
