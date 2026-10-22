@@ -24,6 +24,7 @@
 | アプリの既定のテーマを変える | ルートの `app/layout.tsx` の `<WorkspaceBoot defaultPalette="sky" />`（グラファイトは指定なし） |
 | 使う人が自分で選ぶ | 設定画面の「テーマ」か ⌘K で「テーマ：〇〇」。その端末だけに覚える（`lib/prefs.ts` の `setPalette`） |
 | ブランド色だけ変える | `globals.css` の `@import "./workspace-kit.css";` の後で `--wk-accent`・`--wk-on-accent`・`--wk-accent-soft`・`--wk-accent-text` を上書き（ライトとダークの両方）。差 4.5:1 以上を検査台本の axe で確かめる |
+| 主色の濃淡で塗り分ける（図・バッジ・段階） | `bg-accent-100`・`text-accent-700` など（`--wk-accent-50` … `--wk-accent-950`。テーマを変えると一緒に変わる）。文字に使うときは地との差 4.5:1 以上を検査台本で確かめる（段の色は自動で直していない） |
 
 - テーマの字体は Google Fonts から読み込む（`components/shell/theme-fonts.tsx`）。届くまでは端末の日本語の字体で表示される
 - 名前で頼まれたら上の表の「名前」か「id」で探す。無い名前（例：「赤っぽいの」）なら近いものを2〜3個、雰囲気の欄と一緒に出して選んでもらう

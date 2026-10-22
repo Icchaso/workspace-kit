@@ -1,6 +1,6 @@
 /*
  * Workspace Kit トークンを Tailwind v4 のクラス名で使えるようにする対応表。
- * 例：bg-canvas / bg-surface / text-fg-2 / border-line / bg-accent / text-on-accent / rounded-md / h-hit
+ * 例：bg-canvas / bg-surface / text-fg-2 / border-line / bg-accent / text-on-accent / bg-accent-100 / rounded-md / h-hit
  * globals.css で `@import "tailwindcss";` の後に読み込む。
  */
 @theme inline {
@@ -16,6 +16,17 @@
   --color-on-accent: var(--wk-on-accent);
   --color-accent-soft: var(--wk-accent-soft);
   --color-accent-text: var(--wk-accent-text);
+  --color-accent-50: var(--wk-accent-50);
+  --color-accent-100: var(--wk-accent-100);
+  --color-accent-200: var(--wk-accent-200);
+  --color-accent-300: var(--wk-accent-300);
+  --color-accent-400: var(--wk-accent-400);
+  --color-accent-500: var(--wk-accent-500);
+  --color-accent-600: var(--wk-accent-600);
+  --color-accent-700: var(--wk-accent-700);
+  --color-accent-800: var(--wk-accent-800);
+  --color-accent-900: var(--wk-accent-900);
+  --color-accent-950: var(--wk-accent-950);
   --color-ok: var(--wk-ok);
   --color-ok-soft: var(--wk-ok-soft);
   --color-warn: var(--wk-warn);

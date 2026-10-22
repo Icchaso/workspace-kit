@@ -28,6 +28,11 @@
   --wk-on-accent: #ffffff;
   --wk-accent-soft: #e7eefc;
   --wk-accent-text: #1d4fc4;
+  /* 主色の11段階（50＝ほぼ白 … 950＝ほぼ黒）。図・バッジ・塗り分けに使う。ライト／ダークで変わらない。
+     packages/themes/convert.mjs が主色から OKLCH で作った値（テーマごとに入れ替わる） */
+  --wk-accent-50: #f3f7ff; --wk-accent-100: #e4edff; --wk-accent-200: #c8dbff; --wk-accent-300: #a5c4ff;
+  --wk-accent-400: #78a6ff; --wk-accent-500: #4a85ff; --wk-accent-600: #2866ee; --wk-accent-700: #1951cb;
+  --wk-accent-800: #0f3ea4; --wk-accent-900: #0b2f80; --wk-accent-950: #051e57;
 
   /* 状態の色（ブランド色とは別に固定） */
   --wk-ok: #18794e;      --wk-ok-soft: #e3f3ea;
@@ -41,6 +46,10 @@
   --wk-glass: color-mix(in oklab, var(--wk-surface) 72%, transparent);
   --wk-glass-line: color-mix(in oklab, var(--wk-fg) 8%, transparent);
   --wk-glass-hi: color-mix(in oklab, white 60%, transparent); /* ガラスの上端に光が当たる細い線 */
+
+  /* 余白の基本の2段（テーマの元の spacing。自前の画面の gap・padding に使える） */
+  --wk-space-sm: 8px;
+  --wk-space-md: 16px;
 
   /* 角丸（入れ子は「親の角丸 − 余白」） */
   --wk-r-sm: 6px;

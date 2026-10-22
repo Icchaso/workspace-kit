@@ -74,7 +74,7 @@ Workspace Kit で新しくツールを作りたい
 ### Claude Code を使わずに部品だけ入れる（エンジニア向け）
 shadcn CLI で入れられます。版を固定した URL を使います（後で同じ命令を流しても同じ中身が入る）。
 ```bash
-pnpm dlx shadcn@4.21.3 add https://workspace-kit.vercel.app/r/v0.4.0/workspace-kit-shell.json
+pnpm dlx shadcn@4.21.3 add https://workspace-kit.vercel.app/r/v0.5.0/workspace-kit-shell.json
 ```
 | 名前 | 中身 |
 |---|---|
@@ -128,7 +128,7 @@ pnpm dlx shadcn@4.21.3 add https://workspace-kit.vercel.app/r/v0.4.0/workspace-k
 - 文字：本文 15px、入力欄 16px（iPhone で入力欄を押した時の自動の拡大を防ぐ）。12px より小さい文字は使わない
 - 上下のバーだけ半透明でぼかし、本文は不透明（iOS 26 の Liquid Glass と同じ役割分担）。端末の「透明度を下げる」「視差効果を減らす（動きを減らす）」に従う
 - 下タブの選択の板は約 0.18 秒で次のタブへ滑る。行き過ぎて揺れる動きは使わない
-- 色は直接書かず、名前の付いた色（トークン。`bg-surface`・`text-fg-2`・`bg-accent` など）を通す。テーマを変えると全部の画面が一緒に変わる
+- 色は直接書かず、名前の付いた色（トークン。`bg-surface`・`text-fg-2`・`bg-accent` など）を通す。テーマを変えると全部の画面が一緒に変わる。主色の濃淡は `bg-accent-50` … `bg-accent-950` の11段階
 
 画像は検査台本と同じ見本アプリから撮っています。実物は https://workspace-kit.vercel.app （スマホでも開けます）。
 
@@ -137,7 +137,7 @@ pnpm dlx shadcn@4.21.3 add https://workspace-kit.vercel.app/r/v0.4.0/workspace-k
 |---|---|
 | `apps/starter/` | 雛形（見本のタスク管理アプリ）と見本サイト（`/kit`）。配る部品の正本 |
 | `packages/tokens/` | トークン（色・文字・余白・角丸・影・動き・押せる大きさ）と土台の CSS |
-| `packages/themes/` | テーマ変換（awesome-design-skills の67種 → 日本語の字体の組み合わせ＋コントラスト調整）。`pnpm --filter @workspace-kit/themes build` |
+| `packages/themes/` | テーマ変換（awesome-design-skills の67種 → 日本語の字体の組み合わせ＋コントラスト調整）。`pnpm --filter @workspace-kit/themes build`。結果の表は `packages/themes/RESULTS.md` |
 | `registry/templates/` | 後付け用の `config/` の最小の見本 |
 | `scripts/build-registry.mjs` | 配る部品（`apps/starter/public/r/*.json`）とプラグインの写しを作る。雛形のビルドのたびに自動で動く |
 | `scripts/check-ui.mjs` | 画面の検査台本（6つの幅 × ライト/ダーク。はみ出し・ナビ・文字・押せる大きさ・コントラスト・動き） |

@@ -12,6 +12,19 @@
    "#2563eb",
    "#e4edff"
   ],
+  "scale": {
+   "50": "#f3f7ff",
+   "100": "#e4edff",
+   "200": "#c8dbff",
+   "300": "#a5c4ff",
+   "400": "#78a6ff",
+   "500": "#4a85ff",
+   "600": "#2866ee",
+   "700": "#1951cb",
+   "800": "#0f3ea4",
+   "900": "#0b2f80",
+   "950": "#051e57"
+  },
   "fonts": {
    "body": "IBM Plex Sans",
    "head": "IBM Plex Sans",
@@ -23,14 +36,23 @@
    "md": 10,
    "lg": 14
   },
+  "spacing": {
+   "sm": 8,
+   "md": 16
+  },
   "contrast": {
    "light": {
     "min": 4.73,
-    "fails": []
+    "fails": [],
+    "adjusted": [
+     "fg-3",
+     "accent-text"
+    ]
    },
    "dark": {
     "min": 5.39,
-    "fails": []
+    "fails": [],
+    "adjusted": []
    }
   }
  },
@@ -47,6 +69,19 @@
    "#008464",
    "#daf4e9"
   ],
+  "scale": {
+   "50": "#effaf5",
+   "100": "#def2ea",
+   "200": "#bee5d5",
+   "300": "#96d4bc",
+   "400": "#67bb9d",
+   "500": "#35a180",
+   "600": "#068767",
+   "700": "#006f54",
+   "800": "#005741",
+   "900": "#004331",
+   "950": "#002c1f"
+  },
   "fonts": {
    "body": "Zen Maru Gothic",
    "head": "Zen Maru Gothic",
@@ -58,14 +93,24 @@
    "md": 14,
    "lg": 20
   },
+  "spacing": {
+   "sm": 8,
+   "md": 16
+  },
   "contrast": {
    "light": {
     "min": 4.69,
-    "fails": []
+    "fails": [],
+    "adjusted": [
+     "fg-3",
+     "accent",
+     "accent-text"
+    ]
    },
    "dark": {
     "min": 5.39,
-    "fails": []
+    "fails": [],
+    "adjusted": []
    }
   }
  },
@@ -82,6 +127,19 @@
    "#5cc8ff",
    "#053043"
   ],
+  "scale": {
+   "50": "#eef9ff",
+   "100": "#dcf0fd",
+   "200": "#b9e1f9",
+   "300": "#8ecef1",
+   "400": "#5cb3e0",
+   "500": "#1e98cc",
+   "600": "#007dac",
+   "700": "#00668d",
+   "800": "#00506f",
+   "900": "#003d57",
+   "950": "#00283a"
+  },
   "fonts": {
    "body": "IBM Plex Sans",
    "head": "IBM Plex Sans",
@@ -93,11 +151,16 @@
    "md": 10,
    "lg": 14
   },
+  "spacing": {
+   "sm": 8,
+   "md": 16
+  },
   "contrast": {
    "light": null,
    "dark": {
     "min": 5.4,
-    "fails": []
+    "fails": [],
+    "adjusted": []
    }
   }
  },
@@ -114,6 +177,19 @@
    "#007bba",
    "#ddf0ff"
   ],
+  "scale": {
+   "50": "#f0f8ff",
+   "100": "#ddf0ff",
+   "200": "#bae0ff",
+   "300": "#8fccfa",
+   "400": "#5eb0eb",
+   "500": "#2694d8",
+   "600": "#007ab9",
+   "700": "#006398",
+   "800": "#004e78",
+   "900": "#003c5e",
+   "950": "#00273f"
+  },
   "fonts": {
    "body": "Plus Jakarta Sans",
    "head": "Plus Jakarta Sans",
@@ -125,14 +201,24 @@
    "md": 8,
    "lg": 12
   },
+  "spacing": {
+   "sm": 4,
+   "md": 8
+  },
   "contrast": {
    "light": {
     "min": 4.64,
-    "fails": []
+    "fails": [],
+    "adjusted": [
+     "fg-3",
+     "accent",
+     "accent-text"
+    ]
    },
    "dark": {
     "min": 5.39,
-    "fails": []
+    "fails": [],
+    "adjusted": []
    }
   }
  },
@@ -149,6 +235,19 @@
    "#1e3a8a",
    "#e4edff"
   ],
+  "scale": {
+   "50": "#f3f7ff",
+   "100": "#e4edff",
+   "200": "#cadbff",
+   "300": "#a8c3ff",
+   "400": "#84a6f2",
+   "500": "#6488e0",
+   "600": "#4c6ec3",
+   "700": "#3b59a4",
+   "800": "#2c4584",
+   "900": "#213567",
+   "950": "#142245"
+  },
   "fonts": {
    "body": "IBM Plex Sans",
    "head": "IBM Plex Sans",
@@ -160,14 +259,22 @@
    "md": 8,
    "lg": 12
   },
+  "spacing": {
+   "sm": 8,
+   "md": 16
+  },
   "contrast": {
    "light": {
     "min": 4.73,
-    "fails": []
+    "fails": [],
+    "adjusted": [
+     "fg-3"
+    ]
    },
    "dark": {
     "min": 5.4,
-    "fails": []
+    "fails": [],
+    "adjusted": []
    }
   }
  },
@@ -184,6 +291,19 @@
    "#6442d6",
    "#ebebff"
   ],
+  "scale": {
+   "50": "#f6f6ff",
+   "100": "#ebebff",
+   "200": "#d7d6ff",
+   "300": "#bfbbff",
+   "400": "#a298ff",
+   "500": "#8870ff",
+   "600": "#7052e6",
+   "700": "#5c3ec4",
+   "800": "#482e9e",
+   "900": "#37237b",
+   "950": "#231554"
+  },
   "fonts": {
    "body": "Inter",
    "head": "Roboto",
@@ -195,14 +315,22 @@
    "md": 12,
    "lg": 18
   },
+  "spacing": {
+   "sm": 4,
+   "md": 8
+  },
   "contrast": {
    "light": {
     "min": 4.74,
-    "fails": []
+    "fails": [],
+    "adjusted": [
+     "fg-3"
+    ]
    },
    "dark": {
     "min": 5.39,
-    "fails": []
+    "fails": [],
+    "adjusted": []
    }
   }
  },
@@ -219,6 +347,19 @@
    "#0c0c09",
    "#ededeb"
   ],
+  "scale": {
+   "50": "#f7f7f6",
+   "100": "#ededec",
+   "200": "#dbdbd9",
+   "300": "#c4c4c1",
+   "400": "#a8a8a4",
+   "500": "#8c8c88",
+   "600": "#73736f",
+   "700": "#5e5e5a",
+   "800": "#494946",
+   "900": "#383836",
+   "950": "#242422"
+  },
   "fonts": {
    "body": "Open Sans",
    "head": "Inter",
@@ -230,14 +371,22 @@
    "md": 6,
    "lg": 10
   },
+  "spacing": {
+   "sm": 4,
+   "md": 8
+  },
   "contrast": {
    "light": {
     "min": 4.73,
-    "fails": []
+    "fails": [],
+    "adjusted": [
+     "fg-3"
+    ]
    },
    "dark": {
     "min": 5.39,
-    "fails": []
+    "fails": [],
+    "adjusted": []
    }
   }
  },
@@ -254,6 +403,19 @@
    "#5d4432",
    "#f4ebe5"
   ],
+  "scale": {
+   "50": "#faf6f3",
+   "100": "#f2ebe7",
+   "200": "#e5d8cf",
+   "300": "#d3c0b2",
+   "400": "#bba291",
+   "500": "#a28672",
+   "600": "#886d5a",
+   "700": "#705847",
+   "800": "#584436",
+   "900": "#443429",
+   "950": "#2d2119"
+  },
   "fonts": {
    "body": "Poppins",
    "head": "Poppins",
@@ -265,14 +427,22 @@
    "md": 12,
    "lg": 16
   },
+  "spacing": {
+   "sm": 4,
+   "md": 8
+  },
   "contrast": {
    "light": {
     "min": 4.74,
-    "fails": []
+    "fails": [],
+    "adjusted": [
+     "fg-3"
+    ]
    },
    "dark": {
     "min": 5.39,
-    "fails": []
+    "fails": [],
+    "adjusted": []
    }
   }
  },
@@ -289,6 +459,19 @@
    "#58cc02",
    "#dff5d7"
   ],
+  "scale": {
+   "50": "#eefcea",
+   "100": "#ddf5d5",
+   "200": "#bceaac",
+   "300": "#93da78",
+   "400": "#64c238",
+   "500": "#46a500",
+   "600": "#388800",
+   "700": "#2c6f00",
+   "800": "#215700",
+   "900": "#184300",
+   "950": "#0d2c00"
+  },
   "fonts": {
    "body": "Nunito",
    "head": "Nunito",
@@ -300,14 +483,23 @@
    "md": 14,
    "lg": 20
   },
+  "spacing": {
+   "sm": 4,
+   "md": 8
+  },
   "contrast": {
    "light": {
     "min": 4.68,
-    "fails": []
+    "fails": [],
+    "adjusted": [
+     "fg-3",
+     "accent-text"
+    ]
    },
    "dark": {
     "min": 5.39,
-    "fails": []
+    "fails": [],
+    "adjusted": []
    }
   }
  },
@@ -324,6 +516,19 @@
    "#c56a3c",
    "#ffe7dc"
   ],
+  "scale": {
+   "50": "#fff4ef",
+   "100": "#fee7dd",
+   "200": "#fbd0bd",
+   "300": "#f3b396",
+   "400": "#e1916b",
+   "500": "#cc7042",
+   "600": "#af5627",
+   "700": "#934317",
+   "800": "#75330d",
+   "900": "#5b2709",
+   "950": "#3d1804"
+  },
   "fonts": {
    "body": "Noto Sans JP",
    "head": "DM Serif Display",
@@ -335,14 +540,23 @@
    "md": 10,
    "lg": 14
   },
+  "spacing": {
+   "sm": 4,
+   "md": 8
+  },
   "contrast": {
    "light": {
     "min": 4.7,
-    "fails": []
+    "fails": [],
+    "adjusted": [
+     "fg-3",
+     "accent-text"
+    ]
    },
    "dark": {
     "min": 5.39,
-    "fails": []
+    "fails": [],
+    "adjusted": []
    }
   }
  },
@@ -359,6 +573,19 @@
    "#fdc800",
    "#f9eccb"
   ],
+  "scale": {
+   "50": "#fcf6e7",
+   "100": "#f7ecd0",
+   "200": "#eed9a3",
+   "300": "#e1c169",
+   "400": "#cda204",
+   "500": "#ac8700",
+   "600": "#8d6f00",
+   "700": "#745a00",
+   "800": "#5b4600",
+   "900": "#463600",
+   "950": "#2e2200"
+  },
   "fonts": {
    "body": "Inter",
    "head": "Inter",
@@ -370,14 +597,23 @@
    "md": 6,
    "lg": 8
   },
+  "spacing": {
+   "sm": 4,
+   "md": 8
+  },
   "contrast": {
    "light": {
     "min": 4.72,
-    "fails": []
+    "fails": [],
+    "adjusted": [
+     "fg-3",
+     "accent-text"
+    ]
    },
    "dark": {
     "min": 5.39,
-    "fails": []
+    "fails": [],
+    "adjusted": []
    }
   }
  },
@@ -394,6 +630,19 @@
    "#0f766e",
    "#dcf2ef"
   ],
+  "scale": {
+   "50": "#f0f9f8",
+   "100": "#e0f1ef",
+   "200": "#c1e3de",
+   "300": "#9bd0ca",
+   "400": "#70b7af",
+   "500": "#449d94",
+   "600": "#25837b",
+   "700": "#126c65",
+   "800": "#06554f",
+   "900": "#06413c",
+   "950": "#032b27"
+  },
   "fonts": {
    "body": "Noto Sans JP",
    "head": "Oswald",
@@ -405,14 +654,22 @@
    "md": 8,
    "lg": 12
   },
+  "spacing": {
+   "sm": 8,
+   "md": 16
+  },
   "contrast": {
    "light": {
     "min": 4.7,
-    "fails": []
+    "fails": [],
+    "adjusted": [
+     "fg-3"
+    ]
    },
    "dark": {
     "min": 5.39,
-    "fails": []
+    "fails": [],
+    "adjusted": []
    }
   }
  },
@@ -429,6 +686,19 @@
    "#ff5701",
    "#ffe7df"
   ],
+  "scale": {
+   "50": "#fff4f1",
+   "100": "#ffe7df",
+   "200": "#ffcebe",
+   "300": "#ffad91",
+   "400": "#ff7c4e",
+   "500": "#ec5000",
+   "600": "#c44100",
+   "700": "#a13300",
+   "800": "#7f2700",
+   "900": "#641d00",
+   "950": "#431000"
+  },
   "fonts": {
    "body": "Noto Sans JP",
    "head": "Playfair Display",
@@ -440,14 +710,81 @@
    "md": 8,
    "lg": 12
   },
+  "spacing": {
+   "sm": 8,
+   "md": 16
+  },
   "contrast": {
    "light": {
     "min": 4.62,
-    "fails": []
+    "fails": [],
+    "adjusted": [
+     "fg-3",
+     "accent-text"
+    ]
    },
    "dark": {
     "min": 5.39,
-    "fails": []
+    "fails": [],
+    "adjusted": []
+   }
+  }
+ },
+ {
+  "id": "ant",
+  "label": "Ant",
+  "desc": "Structured, enterprise-focused design system emphasizing clarity, consistency, and efficiency for data-dense web applications.",
+  "from": "ant",
+  "status": "excluded-brand",
+  "darkOnly": false,
+  "swatch": [
+   "#f5f7f9",
+   "#181b1e",
+   "#036df4",
+   "#e3eeff"
+  ],
+  "scale": {
+   "50": "#f2f7ff",
+   "100": "#e3eeff",
+   "200": "#c6dcff",
+   "300": "#a1c6ff",
+   "400": "#70a8ff",
+   "500": "#3a87ff",
+   "600": "#0069ed",
+   "700": "#0055c4",
+   "800": "#00429c",
+   "900": "#00337a",
+   "950": "#002053"
+  },
+  "fonts": {
+   "body": "Plus Jakarta Sans",
+   "head": "Plus Jakarta Sans",
+   "jp": "Noto Sans JP",
+   "href": "https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600&family=Noto+Sans+JP:wght@400;500;600&display=swap"
+  },
+  "radius": {
+   "sm": 4,
+   "md": 8,
+   "lg": 12
+  },
+  "spacing": {
+   "sm": 4,
+   "md": 8
+  },
+  "contrast": {
+   "light": {
+    "min": 4.66,
+    "fails": [],
+    "adjusted": [
+     "fg-3",
+     "accent",
+     "accent-text"
+    ]
+   },
+   "dark": {
+    "min": 5.39,
+    "fails": [],
+    "adjusted": []
    }
   }
  },
@@ -464,6 +801,19 @@
    "#3b82f6",
    "#e3eeff"
   ],
+  "scale": {
+   "50": "#f2f7ff",
+   "100": "#e3eeff",
+   "200": "#c6dcff",
+   "300": "#a2c6ff",
+   "400": "#72a7ff",
+   "500": "#4087fc",
+   "600": "#256cde",
+   "700": "#1657bd",
+   "800": "#0b4398",
+   "900": "#083376",
+   "950": "#042150"
+  },
   "fonts": {
    "body": "Noto Sans JP",
    "head": "Limelight",
@@ -475,14 +825,23 @@
    "md": 8,
    "lg": 12
   },
+  "spacing": {
+   "sm": 4,
+   "md": 8
+  },
   "contrast": {
    "light": {
     "min": 4.63,
-    "fails": []
+    "fails": [],
+    "adjusted": [
+     "fg-3",
+     "accent-text"
+    ]
    },
    "dark": {
     "min": 5.39,
-    "fails": []
+    "fails": [],
+    "adjusted": []
    }
   }
  },
@@ -499,6 +858,19 @@
    "#a855f7",
    "#f1e8ff"
   ],
+  "scale": {
+   "50": "#f9f5ff",
+   "100": "#f1e8ff",
+   "200": "#e4d1ff",
+   "300": "#d3b2ff",
+   "400": "#c088ff",
+   "500": "#ac59fc",
+   "600": "#923bde",
+   "700": "#7928bc",
+   "800": "#601b98",
+   "900": "#4a1476",
+   "950": "#310b50"
+  },
   "fonts": {
    "body": "Nunito",
    "head": "Oswald",
@@ -510,14 +882,22 @@
    "md": 8,
    "lg": 12
   },
+  "spacing": {
+   "sm": 4,
+   "md": 8
+  },
   "contrast": {
    "light": {
     "min": 4.61,
-    "fails": []
+    "fails": [],
+    "adjusted": [
+     "fg-3"
+    ]
    },
    "dark": {
     "min": 5.39,
-    "fails": []
+    "fails": [],
+    "adjusted": []
    }
   }
  },
@@ -534,6 +914,19 @@
    "#fad4c0",
    "#f5eae5"
   ],
+  "scale": {
+   "50": "#faf6f3",
+   "100": "#f3ebe6",
+   "200": "#e7d7cf",
+   "300": "#d7beb2",
+   "400": "#bfa090",
+   "500": "#a68471",
+   "600": "#8c6b59",
+   "700": "#745646",
+   "800": "#5b4335",
+   "900": "#463329",
+   "950": "#2e2019"
+  },
   "fonts": {
    "body": "Inter",
    "head": "Inter",
@@ -545,14 +938,23 @@
    "md": 8,
    "lg": 12
   },
+  "spacing": {
+   "sm": 4,
+   "md": 8
+  },
   "contrast": {
    "light": {
     "min": 4.73,
-    "fails": []
+    "fails": [],
+    "adjusted": [
+     "fg-3",
+     "accent-text"
+    ]
    },
    "dark": {
     "min": 5.4,
-    "fails": []
+    "fails": [],
+    "adjusted": []
    }
   }
  },
@@ -569,6 +971,19 @@
    "#0077bc",
    "#deefff"
   ],
+  "scale": {
+   "50": "#f0f8ff",
+   "100": "#deefff",
+   "200": "#bce0ff",
+   "300": "#92cbfb",
+   "400": "#63afed",
+   "500": "#3293da",
+   "600": "#0479be",
+   "700": "#00629c",
+   "800": "#004d7c",
+   "900": "#003b61",
+   "950": "#002641"
+  },
   "fonts": {
    "body": "Noto Sans JP",
    "head": "Archivo Black",
@@ -580,14 +995,23 @@
    "md": 8,
    "lg": 12
   },
+  "spacing": {
+   "sm": 4,
+   "md": 8
+  },
   "contrast": {
    "light": {
     "min": 4.67,
-    "fails": []
+    "fails": [],
+    "adjusted": [
+     "fg-3",
+     "accent-text"
+    ]
    },
    "dark": {
     "min": 5.39,
-    "fails": []
+    "fails": [],
+    "adjusted": []
    }
   }
  },
@@ -604,6 +1028,19 @@
    "#dd614c",
    "#ffe7e2"
   ],
+  "scale": {
+   "50": "#fff4f2",
+   "100": "#ffe7e2",
+   "200": "#ffcdc3",
+   "300": "#ffac9b",
+   "400": "#f18571",
+   "500": "#dc604b",
+   "600": "#be4532",
+   "700": "#a03322",
+   "800": "#802517",
+   "900": "#631c11",
+   "950": "#431008"
+  },
   "fonts": {
    "body": "Darker Grotesque",
    "head": "Darker Grotesque",
@@ -615,14 +1052,23 @@
    "md": 8,
    "lg": 12
   },
+  "spacing": {
+   "sm": 4,
+   "md": 8
+  },
   "contrast": {
    "light": {
     "min": 4.62,
-    "fails": []
+    "fails": [],
+    "adjusted": [
+     "fg-3",
+     "accent-text"
+    ]
    },
    "dark": {
     "min": 5.39,
-    "fails": []
+    "fails": [],
+    "adjusted": []
    }
   }
  },
@@ -639,6 +1085,19 @@
    "#5d4432",
    "#f4ebe5"
   ],
+  "scale": {
+   "50": "#faf6f3",
+   "100": "#f2ebe7",
+   "200": "#e5d8cf",
+   "300": "#d3c0b2",
+   "400": "#bba291",
+   "500": "#a28672",
+   "600": "#886d5a",
+   "700": "#705847",
+   "800": "#584436",
+   "900": "#443429",
+   "950": "#2d2119"
+  },
   "fonts": {
    "body": "Poppins",
    "head": "Poppins",
@@ -650,14 +1109,78 @@
    "md": 8,
    "lg": 12
   },
+  "spacing": {
+   "sm": 4,
+   "md": 8
+  },
   "contrast": {
    "light": {
     "min": 4.74,
-    "fails": []
+    "fails": [],
+    "adjusted": [
+     "fg-3"
+    ]
    },
    "dark": {
     "min": 5.39,
-    "fails": []
+    "fails": [],
+    "adjusted": []
+   }
+  }
+ },
+ {
+  "id": "claude",
+  "label": "Claude",
+  "desc": "Research-journal aesthetic on warm stone with near-black ink, restrained earthy accents, and editorially strict contrast.",
+  "from": "claude",
+  "status": "excluded-brand",
+  "darkOnly": false,
+  "swatch": [
+   "#f7f7f4",
+   "#1b1b17",
+   "#141413",
+   "#ededec"
+  ],
+  "scale": {
+   "50": "#f7f7f6",
+   "100": "#ededec",
+   "200": "#dbdbda",
+   "300": "#c4c4c3",
+   "400": "#a8a8a6",
+   "500": "#8c8c8b",
+   "600": "#737372",
+   "700": "#5e5e5c",
+   "800": "#494948",
+   "900": "#383837",
+   "950": "#242423"
+  },
+  "fonts": {
+   "body": "Inter",
+   "head": "Inter",
+   "jp": "Noto Sans JP",
+   "href": "https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Noto+Sans+JP:wght@400;500;600&display=swap"
+  },
+  "radius": {
+   "sm": 4,
+   "md": 8,
+   "lg": 12
+  },
+  "spacing": {
+   "sm": 4,
+   "md": 8
+  },
+  "contrast": {
+   "light": {
+    "min": 4.73,
+    "fails": [],
+    "adjusted": [
+     "fg-3"
+    ]
+   },
+   "dark": {
+    "min": 5.39,
+    "fails": [],
+    "adjusted": []
    }
   }
  },
@@ -674,6 +1197,19 @@
    "#3b82f6",
    "#e3eeff"
   ],
+  "scale": {
+   "50": "#f2f7ff",
+   "100": "#e3eeff",
+   "200": "#c6dcff",
+   "300": "#a2c6ff",
+   "400": "#72a7ff",
+   "500": "#4087fc",
+   "600": "#256cde",
+   "700": "#1657bd",
+   "800": "#0b4398",
+   "900": "#083376",
+   "950": "#042150"
+  },
   "fonts": {
    "body": "Montserrat",
    "head": "Poppins",
@@ -685,14 +1221,23 @@
    "md": 8,
    "lg": 12
   },
+  "spacing": {
+   "sm": 4,
+   "md": 8
+  },
   "contrast": {
    "light": {
     "min": 4.63,
-    "fails": []
+    "fails": [],
+    "adjusted": [
+     "fg-3",
+     "accent-text"
+    ]
    },
    "dark": {
     "min": 5.39,
-    "fails": []
+    "fails": [],
+    "adjusted": []
    }
   }
  },
@@ -709,6 +1254,19 @@
    "#3b82f6",
    "#e3eeff"
   ],
+  "scale": {
+   "50": "#f2f7ff",
+   "100": "#e3eeff",
+   "200": "#c6dcff",
+   "300": "#a2c6ff",
+   "400": "#72a7ff",
+   "500": "#4087fc",
+   "600": "#256cde",
+   "700": "#1657bd",
+   "800": "#0b4398",
+   "900": "#083376",
+   "950": "#042150"
+  },
   "fonts": {
    "body": "Roboto",
    "head": "Poppins",
@@ -720,14 +1278,79 @@
    "md": 8,
    "lg": 12
   },
+  "spacing": {
+   "sm": 8,
+   "md": 16
+  },
   "contrast": {
    "light": {
     "min": 4.63,
-    "fails": []
+    "fails": [],
+    "adjusted": [
+     "fg-3",
+     "accent-text"
+    ]
    },
    "dark": {
     "min": 5.39,
-    "fails": []
+    "fails": [],
+    "adjusted": []
+   }
+  }
+ },
+ {
+  "id": "codex",
+  "label": "Codex",
+  "desc": "Radically minimal blank-canvas interface where black carries structure and typography drives hierarchy.",
+  "from": "codex",
+  "status": "excluded-brand",
+  "darkOnly": false,
+  "swatch": [
+   "#f9f6f7",
+   "#1e191a",
+   "#000000",
+   "#ededed"
+  ],
+  "scale": {
+   "50": "#f7f7f7",
+   "100": "#ededed",
+   "200": "#dbdbdb",
+   "300": "#c4c4c4",
+   "400": "#a8a8a8",
+   "500": "#8c8c8c",
+   "600": "#737373",
+   "700": "#5d5d5d",
+   "800": "#494949",
+   "900": "#383838",
+   "950": "#242424"
+  },
+  "fonts": {
+   "body": "Open Sans",
+   "head": "Open Sans",
+   "jp": "Noto Sans JP",
+   "href": "https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;500;600&family=Noto+Sans+JP:wght@400;500;600&display=swap"
+  },
+  "radius": {
+   "sm": 4,
+   "md": 8,
+   "lg": 12
+  },
+  "spacing": {
+   "sm": 4,
+   "md": 8
+  },
+  "contrast": {
+   "light": {
+    "min": 4.74,
+    "fails": [],
+    "adjusted": [
+     "fg-3"
+    ]
+   },
+   "dark": {
+    "min": 5.39,
+    "fails": [],
+    "adjusted": []
    }
   }
  },
@@ -744,6 +1367,19 @@
    "#3b82f6",
    "#e3eeff"
   ],
+  "scale": {
+   "50": "#f2f7ff",
+   "100": "#e3eeff",
+   "200": "#c6dcff",
+   "300": "#a2c6ff",
+   "400": "#72a7ff",
+   "500": "#4087fc",
+   "600": "#256cde",
+   "700": "#1657bd",
+   "800": "#0b4398",
+   "900": "#083376",
+   "950": "#042150"
+  },
   "fonts": {
    "body": "Inter",
    "head": "Inter",
@@ -755,14 +1391,23 @@
    "md": 8,
    "lg": 12
   },
+  "spacing": {
+   "sm": 8,
+   "md": 16
+  },
   "contrast": {
    "light": {
     "min": 4.63,
-    "fails": []
+    "fails": [],
+    "adjusted": [
+     "fg-3",
+     "accent-text"
+    ]
    },
    "dark": {
     "min": 5.39,
-    "fails": []
+    "fails": [],
+    "adjusted": []
    }
   }
  },
@@ -779,6 +1424,19 @@
    "#c800df",
    "#fce3ff"
   ],
+  "scale": {
+   "50": "#fef3ff",
+   "100": "#fce3ff",
+   "200": "#f9c7ff",
+   "300": "#f3a0ff",
+   "400": "#eb65fe",
+   "500": "#d626ed",
+   "600": "#b400c9",
+   "700": "#9400a6",
+   "800": "#750083",
+   "900": "#5b0067",
+   "950": "#3d0045"
+  },
   "fonts": {
    "body": "Jost",
    "head": "Jost",
@@ -790,14 +1448,22 @@
    "md": 8,
    "lg": 12
   },
+  "spacing": {
+   "sm": 8,
+   "md": 16
+  },
   "contrast": {
    "light": {
     "min": 4.64,
-    "fails": []
+    "fails": [],
+    "adjusted": [
+     "fg-3"
+    ]
    },
    "dark": {
     "min": 5.39,
-    "fails": []
+    "fails": [],
+    "adjusted": []
    }
   }
  },
@@ -814,6 +1480,19 @@
    "#3b82f6",
    "#e3eeff"
   ],
+  "scale": {
+   "50": "#f2f7ff",
+   "100": "#e3eeff",
+   "200": "#c6dcff",
+   "300": "#a2c6ff",
+   "400": "#72a7ff",
+   "500": "#4087fc",
+   "600": "#256cde",
+   "700": "#1657bd",
+   "800": "#0b4398",
+   "900": "#083376",
+   "950": "#042150"
+  },
   "fonts": {
    "body": "Open Sans",
    "head": "Poppins",
@@ -825,14 +1504,23 @@
    "md": 8,
    "lg": 12
   },
+  "spacing": {
+   "sm": 8,
+   "md": 16
+  },
   "contrast": {
    "light": {
     "min": 4.63,
-    "fails": []
+    "fails": [],
+    "adjusted": [
+     "fg-3",
+     "accent-text"
+    ]
    },
    "dark": {
     "min": 5.39,
-    "fails": []
+    "fails": [],
+    "adjusted": []
    }
   }
  },
@@ -849,6 +1537,19 @@
    "#3b82f6",
    "#e3eeff"
   ],
+  "scale": {
+   "50": "#f2f7ff",
+   "100": "#e3eeff",
+   "200": "#c6dcff",
+   "300": "#a2c6ff",
+   "400": "#72a7ff",
+   "500": "#4087fc",
+   "600": "#256cde",
+   "700": "#1657bd",
+   "800": "#0b4398",
+   "900": "#083376",
+   "950": "#042150"
+  },
   "fonts": {
    "body": "Noto Sans JP",
    "head": "Audiowide",
@@ -860,14 +1561,23 @@
    "md": 8,
    "lg": 12
   },
+  "spacing": {
+   "sm": 4,
+   "md": 8
+  },
   "contrast": {
    "light": {
     "min": 4.63,
-    "fails": []
+    "fails": [],
+    "adjusted": [
+     "fg-3",
+     "accent-text"
+    ]
    },
    "dark": {
     "min": 5.39,
-    "fails": []
+    "fails": [],
+    "adjusted": []
    }
   }
  },
@@ -884,6 +1594,19 @@
    "#3b82f6",
    "#e3eeff"
   ],
+  "scale": {
+   "50": "#f2f7ff",
+   "100": "#e3eeff",
+   "200": "#c6dcff",
+   "300": "#a2c6ff",
+   "400": "#72a7ff",
+   "500": "#4087fc",
+   "600": "#256cde",
+   "700": "#1657bd",
+   "800": "#0b4398",
+   "900": "#083376",
+   "950": "#042150"
+  },
   "fonts": {
    "body": "Noto Sans JP",
    "head": "Bangers",
@@ -895,14 +1618,23 @@
    "md": 8,
    "lg": 12
   },
+  "spacing": {
+   "sm": 4,
+   "md": 8
+  },
   "contrast": {
    "light": {
     "min": 4.63,
-    "fails": []
+    "fails": [],
+    "adjusted": [
+     "fg-3",
+     "accent-text"
+    ]
    },
    "dark": {
     "min": 5.39,
-    "fails": []
+    "fails": [],
+    "adjusted": []
    }
   }
  },
@@ -919,6 +1651,19 @@
    "#3b82f6",
    "#e3eeff"
   ],
+  "scale": {
+   "50": "#f2f7ff",
+   "100": "#e3eeff",
+   "200": "#c6dcff",
+   "300": "#a2c6ff",
+   "400": "#72a7ff",
+   "500": "#4087fc",
+   "600": "#256cde",
+   "700": "#1657bd",
+   "800": "#0b4398",
+   "900": "#083376",
+   "950": "#042150"
+  },
   "fonts": {
    "body": "Open Sans",
    "head": "Space Grotesk",
@@ -930,14 +1675,23 @@
    "md": 8,
    "lg": 12
   },
+  "spacing": {
+   "sm": 4,
+   "md": 8
+  },
   "contrast": {
    "light": {
     "min": 4.63,
-    "fails": []
+    "fails": [],
+    "adjusted": [
+     "fg-3",
+     "accent-text"
+    ]
    },
    "dark": {
     "min": 5.39,
-    "fails": []
+    "fails": [],
+    "adjusted": []
    }
   }
  },
@@ -954,6 +1708,19 @@
    "#49b6e5",
    "#d8f2ff"
   ],
+  "scale": {
+   "50": "#eef9ff",
+   "100": "#dcf1fb",
+   "200": "#bae2f6",
+   "300": "#8fceed",
+   "400": "#5db4db",
+   "500": "#2299c6",
+   "600": "#007ea7",
+   "700": "#006789",
+   "800": "#00506c",
+   "900": "#003e54",
+   "950": "#002838"
+  },
   "fonts": {
    "body": "Noto Sans JP",
    "head": "Delius Swash Caps",
@@ -965,14 +1732,23 @@
    "md": 8,
    "lg": 12
   },
+  "spacing": {
+   "sm": 4,
+   "md": 8
+  },
   "contrast": {
    "light": {
     "min": 4.61,
-    "fails": []
+    "fails": [],
+    "adjusted": [
+     "fg-3",
+     "accent-text"
+    ]
    },
    "dark": {
     "min": 5.39,
-    "fails": []
+    "fails": [],
+    "adjusted": []
    }
   }
  },
@@ -989,6 +1765,19 @@
    "#8555ef",
    "#edeaff"
   ],
+  "scale": {
+   "50": "#f7f5ff",
+   "100": "#edeaff",
+   "200": "#dbd4ff",
+   "300": "#c6b8ff",
+   "400": "#ac93ff",
+   "500": "#9469ff",
+   "600": "#7d4be4",
+   "700": "#6738c2",
+   "800": "#51289d",
+   "900": "#3e1f7a",
+   "950": "#281253"
+  },
   "fonts": {
    "body": "Outfit",
    "head": "Outfit",
@@ -1000,14 +1789,24 @@
    "md": 8,
    "lg": 12
   },
+  "spacing": {
+   "sm": 4,
+   "md": 8
+  },
   "contrast": {
    "light": {
     "min": 4.61,
-    "fails": []
+    "fails": [],
+    "adjusted": [
+     "fg-3",
+     "accent",
+     "accent-text"
+    ]
    },
    "dark": {
     "min": 5.39,
-    "fails": []
+    "fails": [],
+    "adjusted": []
    }
   }
  },
@@ -1024,6 +1823,19 @@
    "#111111",
    "#ededed"
   ],
+  "scale": {
+   "50": "#f7f7f7",
+   "100": "#ededed",
+   "200": "#dbdbdb",
+   "300": "#c4c4c4",
+   "400": "#a8a8a8",
+   "500": "#8c8c8c",
+   "600": "#737373",
+   "700": "#5d5d5d",
+   "800": "#494949",
+   "900": "#383838",
+   "950": "#242424"
+  },
   "fonts": {
    "body": "Gelasio",
    "head": "Gelasio",
@@ -1035,14 +1847,22 @@
    "md": 8,
    "lg": 12
   },
+  "spacing": {
+   "sm": 8,
+   "md": 16
+  },
   "contrast": {
    "light": {
     "min": 4.74,
-    "fails": []
+    "fails": [],
+    "adjusted": [
+     "fg-3"
+    ]
    },
    "dark": {
     "min": 5.39,
-    "fails": []
+    "fails": [],
+    "adjusted": []
    }
   }
  },
@@ -1059,6 +1879,19 @@
    "#0c5cab",
    "#e1eeff"
   ],
+  "scale": {
+   "50": "#f1f7ff",
+   "100": "#e1eeff",
+   "200": "#c2ddff",
+   "300": "#9bc8ff",
+   "400": "#6fabf3",
+   "500": "#478ee1",
+   "600": "#2b74c5",
+   "700": "#1b5ea6",
+   "800": "#104985",
+   "900": "#0c3868",
+   "950": "#062446"
+  },
   "fonts": {
    "body": "IBM Plex Sans",
    "head": "IBM Plex Sans",
@@ -1070,14 +1903,22 @@
    "md": 8,
    "lg": 12
   },
+  "spacing": {
+   "sm": 8,
+   "md": 16
+  },
   "contrast": {
    "light": {
     "min": 4.73,
-    "fails": []
+    "fails": [],
+    "adjusted": [
+     "fg-3"
+    ]
    },
    "dark": {
     "min": 5.39,
-    "fails": []
+    "fails": [],
+    "adjusted": []
    }
   }
  },
@@ -1094,6 +1935,19 @@
    "#d72274",
    "#ffe5ec"
   ],
+  "scale": {
+   "50": "#fff3f6",
+   "100": "#ffe5ec",
+   "200": "#ffcad8",
+   "300": "#ffa6c0",
+   "400": "#ff6fa2",
+   "500": "#ed3c85",
+   "600": "#ce116c",
+   "700": "#ab0058",
+   "800": "#880044",
+   "900": "#6a0034",
+   "950": "#480021"
+  },
   "fonts": {
    "body": "IBM Plex Mono",
    "head": "IBM Plex Mono",
@@ -1105,14 +1959,23 @@
    "md": 8,
    "lg": 12
   },
+  "spacing": {
+   "sm": 4,
+   "md": 8
+  },
   "contrast": {
    "light": {
     "min": 4.61,
-    "fails": []
+    "fails": [],
+    "adjusted": [
+     "fg-3",
+     "accent"
+    ]
    },
    "dark": {
     "min": 5.39,
-    "fails": []
+    "fails": [],
+    "adjusted": []
    }
   }
  },
@@ -1129,6 +1992,19 @@
    "#0250cc",
    "#e3edff"
   ],
+  "scale": {
+   "50": "#f2f7ff",
+   "100": "#e3edff",
+   "200": "#c7dcff",
+   "300": "#a3c5ff",
+   "400": "#74a7ff",
+   "500": "#4286ff",
+   "600": "#2269e7",
+   "700": "#1354c4",
+   "800": "#09409f",
+   "900": "#07317c",
+   "950": "#031f54"
+  },
   "fonts": {
    "body": "Noto Sans JP",
    "head": "New Rocker",
@@ -1140,14 +2016,22 @@
    "md": 8,
    "lg": 12
   },
+  "spacing": {
+   "sm": 8,
+   "md": 16
+  },
   "contrast": {
    "light": {
     "min": 4.73,
-    "fails": []
+    "fails": [],
+    "adjusted": [
+     "fg-3"
+    ]
    },
    "dark": {
     "min": 5.39,
-    "fails": []
+    "fails": [],
+    "adjusted": []
    }
   }
  },
@@ -1164,6 +2048,19 @@
    "#222222",
    "#ededed"
   ],
+  "scale": {
+   "50": "#f7f7f7",
+   "100": "#ededed",
+   "200": "#dbdbdb",
+   "300": "#c4c4c4",
+   "400": "#a8a8a8",
+   "500": "#8c8c8c",
+   "600": "#737373",
+   "700": "#5d5d5d",
+   "800": "#494949",
+   "900": "#383838",
+   "950": "#242424"
+  },
   "fonts": {
    "body": "Gelasio",
    "head": "Gelasio",
@@ -1175,14 +2072,22 @@
    "md": 8,
    "lg": 12
   },
+  "spacing": {
+   "sm": 4,
+   "md": 8
+  },
   "contrast": {
    "light": {
     "min": 4.74,
-    "fails": []
+    "fails": [],
+    "adjusted": [
+     "fg-3"
+    ]
    },
    "dark": {
     "min": 5.39,
-    "fails": []
+    "fails": [],
+    "adjusted": []
    }
   }
  },
@@ -1199,6 +2104,19 @@
    "#f2673c",
    "#ffe7e0"
   ],
+  "scale": {
+   "50": "#fff4f1",
+   "100": "#ffe7e0",
+   "200": "#ffcebf",
+   "300": "#ffac94",
+   "400": "#f8815d",
+   "500": "#e45a2e",
+   "600": "#c63d06",
+   "700": "#a32f00",
+   "800": "#812400",
+   "900": "#651a00",
+   "950": "#440f00"
+  },
   "fonts": {
    "body": "Inter",
    "head": "Inter",
@@ -1210,14 +2128,23 @@
    "md": 8,
    "lg": 12
   },
+  "spacing": {
+   "sm": 4,
+   "md": 8
+  },
   "contrast": {
    "light": {
     "min": 4.65,
-    "fails": []
+    "fails": [],
+    "adjusted": [
+     "fg-3",
+     "accent-text"
+    ]
    },
    "dark": {
     "min": 5.39,
-    "fails": []
+    "fails": [],
+    "adjusted": []
    }
   }
  },
@@ -1234,6 +2161,19 @@
    "#f2d9dc",
    "#f2ebec"
   ],
+  "scale": {
+   "50": "#f9f6f6",
+   "100": "#f1ebec",
+   "200": "#e2d8d9",
+   "300": "#cfc0c1",
+   "400": "#b6a2a4",
+   "500": "#9c8588",
+   "600": "#826d6f",
+   "700": "#6b585a",
+   "800": "#544446",
+   "900": "#413436",
+   "950": "#2a2122"
+  },
   "fonts": {
    "body": "Noto Serif Display",
    "head": "Noto Serif Display",
@@ -1245,14 +2185,23 @@
    "md": 8,
    "lg": 12
   },
+  "spacing": {
+   "sm": 4,
+   "md": 8
+  },
   "contrast": {
    "light": {
     "min": 4.74,
-    "fails": []
+    "fails": [],
+    "adjusted": [
+     "fg-3",
+     "accent-text"
+    ]
    },
    "dark": {
     "min": 5.39,
-    "fails": []
+    "fails": [],
+    "adjusted": []
    }
   }
  },
@@ -1269,6 +2218,19 @@
    "#3b82f6",
    "#e3eeff"
   ],
+  "scale": {
+   "50": "#f2f7ff",
+   "100": "#e3eeff",
+   "200": "#c6dcff",
+   "300": "#a2c6ff",
+   "400": "#72a7ff",
+   "500": "#4087fc",
+   "600": "#256cde",
+   "700": "#1657bd",
+   "800": "#0b4398",
+   "900": "#083376",
+   "950": "#042150"
+  },
   "fonts": {
    "body": "Roboto",
    "head": "Audiowide",
@@ -1280,14 +2242,23 @@
    "md": 8,
    "lg": 12
   },
+  "spacing": {
+   "sm": 4,
+   "md": 8
+  },
   "contrast": {
    "light": {
     "min": 4.63,
-    "fails": []
+    "fails": [],
+    "adjusted": [
+     "fg-3",
+     "accent-text"
+    ]
    },
    "dark": {
     "min": 5.39,
-    "fails": []
+    "fails": [],
+    "adjusted": []
    }
   }
  },
@@ -1304,6 +2275,19 @@
    "#3b82f6",
    "#e3eeff"
   ],
+  "scale": {
+   "50": "#f2f7ff",
+   "100": "#e3eeff",
+   "200": "#c6dcff",
+   "300": "#a2c6ff",
+   "400": "#72a7ff",
+   "500": "#4087fc",
+   "600": "#256cde",
+   "700": "#1657bd",
+   "800": "#0b4398",
+   "900": "#083376",
+   "950": "#042150"
+  },
   "fonts": {
    "body": "Inter",
    "head": "Inter",
@@ -1315,14 +2299,23 @@
    "md": 8,
    "lg": 12
   },
+  "spacing": {
+   "sm": 4,
+   "md": 8
+  },
   "contrast": {
    "light": {
     "min": 4.63,
-    "fails": []
+    "fails": [],
+    "adjusted": [
+     "fg-3",
+     "accent-text"
+    ]
    },
    "dark": {
     "min": 5.39,
-    "fails": []
+    "fails": [],
+    "adjusted": []
    }
   }
  },
@@ -1339,6 +2332,19 @@
    "#1856ff",
    "#e4edff"
   ],
+  "scale": {
+   "50": "#f3f7ff",
+   "100": "#e4edff",
+   "200": "#c9dbff",
+   "300": "#a7c4ff",
+   "400": "#7aa5ff",
+   "500": "#4e84ff",
+   "600": "#225fff",
+   "700": "#1047df",
+   "800": "#0835b5",
+   "900": "#05298d",
+   "950": "#031960"
+  },
   "fonts": {
    "body": "Plus Jakarta Sans",
    "head": "Plus Jakarta Sans",
@@ -1350,14 +2356,22 @@
    "md": 8,
    "lg": 12
   },
+  "spacing": {
+   "sm": 8,
+   "md": 16
+  },
   "contrast": {
    "light": {
     "min": 4.69,
-    "fails": []
+    "fails": [],
+    "adjusted": [
+     "fg-3"
+    ]
    },
    "dark": {
     "min": 5.39,
-    "fails": []
+    "fails": [],
+    "adjusted": []
    }
   }
  },
@@ -1374,6 +2388,19 @@
    "#990ffa",
    "#f1e8ff"
   ],
+  "scale": {
+   "50": "#f8f5ff",
+   "100": "#f1e8ff",
+   "200": "#e3d1ff",
+   "300": "#d2b3ff",
+   "400": "#bd8aff",
+   "500": "#aa59ff",
+   "600": "#980af9",
+   "700": "#7d00cf",
+   "800": "#6200a4",
+   "900": "#4c0081",
+   "950": "#330058"
+  },
   "fonts": {
    "body": "Montserrat",
    "head": "Space Grotesk",
@@ -1385,14 +2412,22 @@
    "md": 8,
    "lg": 12
   },
+  "spacing": {
+   "sm": 8,
+   "md": 16
+  },
   "contrast": {
    "light": {
     "min": 4.74,
-    "fails": []
+    "fails": [],
+    "adjusted": [
+     "fg-3"
+    ]
    },
    "dark": {
     "min": 5.39,
-    "fails": []
+    "fails": [],
+    "adjusted": []
    }
   }
  },
@@ -1409,6 +2444,19 @@
    "#00592b",
    "#dff3e3"
   ],
+  "scale": {
+   "50": "#f1f9f3",
+   "100": "#e2f2e5",
+   "200": "#c6e4cd",
+   "300": "#a3d2af",
+   "400": "#7bb88c",
+   "500": "#569f6c",
+   "600": "#3b8554",
+   "700": "#2a6d42",
+   "800": "#1d5632",
+   "900": "#164225",
+   "950": "#0c2b17"
+  },
   "fonts": {
    "body": "Noto Sans JP",
    "head": "Oswald",
@@ -1420,14 +2468,79 @@
    "md": 8,
    "lg": 12
   },
+  "spacing": {
+   "sm": 4,
+   "md": 8
+  },
   "contrast": {
    "light": {
     "min": 4.72,
-    "fails": []
+    "fails": [],
+    "adjusted": [
+     "fg-3"
+    ]
    },
    "dark": {
     "min": 5.39,
-    "fails": []
+    "fails": [],
+    "adjusted": []
+   }
+  }
+ },
+ {
+  "id": "impeccable",
+  "label": "Impeccable",
+  "desc": "Graphic editorial-poster aesthetic with warm cream and burnt-orange rhythm plus a sharp amber accent.",
+  "from": "impeccable",
+  "status": "excluded-brand",
+  "darkOnly": false,
+  "swatch": [
+   "#f8f6f4",
+   "#1d1a17",
+   "#cc8800",
+   "#fee9d0"
+  ],
+  "scale": {
+   "50": "#fef5ea",
+   "100": "#faead6",
+   "200": "#f3d5af",
+   "300": "#e9bb7f",
+   "400": "#d59b46",
+   "500": "#bc7d00",
+   "600": "#9b6700",
+   "700": "#7f5300",
+   "800": "#644100",
+   "900": "#4e3100",
+   "950": "#341f00"
+  },
+  "fonts": {
+   "body": "Chakra Petch",
+   "head": "Chakra Petch",
+   "jp": "Noto Sans JP",
+   "href": "https://fonts.googleapis.com/css2?family=Chakra+Petch:wght@400;500;600&family=Noto+Sans+JP:wght@400;500;600&display=swap"
+  },
+  "radius": {
+   "sm": 4,
+   "md": 8,
+   "lg": 12
+  },
+  "spacing": {
+   "sm": 4,
+   "md": 8
+  },
+  "contrast": {
+   "light": {
+    "min": 4.73,
+    "fails": [],
+    "adjusted": [
+     "fg-3",
+     "accent-text"
+    ]
+   },
+   "dark": {
+    "min": 5.39,
+    "fails": [],
+    "adjusted": []
    }
   }
  },
@@ -1444,6 +2557,19 @@
    "#27272a",
    "#ededee"
   ],
+  "scale": {
+   "50": "#f7f7f7",
+   "100": "#ededed",
+   "200": "#dadadc",
+   "300": "#c4c4c6",
+   "400": "#a7a7aa",
+   "500": "#8c8c8f",
+   "600": "#727376",
+   "700": "#5d5d60",
+   "800": "#49494b",
+   "900": "#38383a",
+   "950": "#242425"
+  },
   "fonts": {
    "body": "Inter",
    "head": "Inter",
@@ -1455,14 +2581,135 @@
    "md": 8,
    "lg": 12
   },
+  "spacing": {
+   "sm": 4,
+   "md": 8
+  },
   "contrast": {
    "light": {
     "min": 4.74,
-    "fails": []
+    "fails": [],
+    "adjusted": [
+     "fg-3"
+    ]
    },
    "dark": {
     "min": 5.39,
-    "fails": []
+    "fails": [],
+    "adjusted": []
+   }
+  }
+ },
+ {
+  "id": "lingo",
+  "label": "Lingo",
+  "desc": "Playful, minimal design with bright colors, rounded shapes, tactile 3D borders, and friendly illustrations for approachable interfaces.",
+  "from": "lingo",
+  "status": "excluded-brand",
+  "darkOnly": false,
+  "swatch": [
+   "#f5f7f5",
+   "#191b18",
+   "#58cc02",
+   "#dff5d7"
+  ],
+  "scale": {
+   "50": "#eefcea",
+   "100": "#ddf5d5",
+   "200": "#bceaac",
+   "300": "#93da78",
+   "400": "#64c238",
+   "500": "#46a500",
+   "600": "#388800",
+   "700": "#2c6f00",
+   "800": "#215700",
+   "900": "#184300",
+   "950": "#0d2c00"
+  },
+  "fonts": {
+   "body": "Nunito",
+   "head": "Nunito",
+   "jp": "M PLUS Rounded 1c",
+   "href": "https://fonts.googleapis.com/css2?family=Nunito:wght@400;500;600&family=M+PLUS+Rounded+1c:wght@400;500;700&display=swap"
+  },
+  "radius": {
+   "sm": 4,
+   "md": 8,
+   "lg": 12
+  },
+  "spacing": {
+   "sm": 4,
+   "md": 8
+  },
+  "contrast": {
+   "light": {
+    "min": 4.68,
+    "fails": [],
+    "adjusted": [
+     "fg-3",
+     "accent-text"
+    ]
+   },
+   "dark": {
+    "min": 5.39,
+    "fails": [],
+    "adjusted": []
+   }
+  }
+ },
+ {
+  "id": "material",
+  "label": "Material",
+  "desc": "Google's Material Design with layered surfaces, dynamic theming, built-in motion, and responsive cross-platform patterns.",
+  "from": "material",
+  "status": "excluded-brand",
+  "darkOnly": false,
+  "swatch": [
+   "#f6f6f9",
+   "#1a1a1e",
+   "#6442d6",
+   "#ebebff"
+  ],
+  "scale": {
+   "50": "#f6f6ff",
+   "100": "#ebebff",
+   "200": "#d7d6ff",
+   "300": "#bfbbff",
+   "400": "#a298ff",
+   "500": "#8870ff",
+   "600": "#7052e6",
+   "700": "#5c3ec4",
+   "800": "#482e9e",
+   "900": "#37237b",
+   "950": "#231554"
+  },
+  "fonts": {
+   "body": "Inter",
+   "head": "Roboto",
+   "jp": "Noto Sans JP",
+   "href": "https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Roboto:wght@400;500;600&family=Noto+Sans+JP:wght@400;500;600&display=swap"
+  },
+  "radius": {
+   "sm": 4,
+   "md": 8,
+   "lg": 12
+  },
+  "spacing": {
+   "sm": 4,
+   "md": 8
+  },
+  "contrast": {
+   "light": {
+    "min": 4.74,
+    "fails": [],
+    "adjusted": [
+     "fg-3"
+    ]
+   },
+   "dark": {
+    "min": 5.39,
+    "fails": [],
+    "adjusted": []
    }
   }
  },
@@ -1479,6 +2726,19 @@
    "#2db58a",
    "#d7f5e7"
   ],
+  "scale": {
+   "50": "#edfaf4",
+   "100": "#dcf3e9",
+   "200": "#b9e7d3",
+   "300": "#8dd6b8",
+   "400": "#58be98",
+   "500": "#08a57b",
+   "600": "#008864",
+   "700": "#006f51",
+   "800": "#00573f",
+   "900": "#004330",
+   "950": "#002c1e"
+  },
   "fonts": {
    "body": "Space Mono",
    "head": "Space Mono",
@@ -1490,14 +2750,23 @@
    "md": 8,
    "lg": 12
   },
+  "spacing": {
+   "sm": 4,
+   "md": 8
+  },
   "contrast": {
    "light": {
     "min": 4.69,
-    "fails": []
+    "fails": [],
+    "adjusted": [
+     "fg-3",
+     "accent-text"
+    ]
    },
    "dark": {
     "min": 5.39,
-    "fails": []
+    "fails": [],
+    "adjusted": []
    }
   }
  },
@@ -1514,6 +2783,19 @@
    "#0c0c09",
    "#ededeb"
   ],
+  "scale": {
+   "50": "#f7f7f6",
+   "100": "#ededec",
+   "200": "#dbdbd9",
+   "300": "#c4c4c1",
+   "400": "#a8a8a4",
+   "500": "#8c8c88",
+   "600": "#73736f",
+   "700": "#5e5e5a",
+   "800": "#494946",
+   "900": "#383836",
+   "950": "#242422"
+  },
   "fonts": {
    "body": "Open Sans",
    "head": "Inter",
@@ -1525,14 +2807,22 @@
    "md": 8,
    "lg": 12
   },
+  "spacing": {
+   "sm": 4,
+   "md": 8
+  },
   "contrast": {
    "light": {
     "min": 4.73,
-    "fails": []
+    "fails": [],
+    "adjusted": [
+     "fg-3"
+    ]
    },
    "dark": {
     "min": 5.39,
-    "fails": []
+    "fails": [],
+    "adjusted": []
    }
   }
  },
@@ -1549,6 +2839,19 @@
    "#553f83",
    "#eee9ff"
   ],
+  "scale": {
+   "50": "#f7f5ff",
+   "100": "#eeeafc",
+   "200": "#ddd5f7",
+   "300": "#c8bbee",
+   "400": "#ad9cdc",
+   "500": "#937dc7",
+   "600": "#7964ac",
+   "700": "#635090",
+   "800": "#4e3e73",
+   "900": "#3c2f59",
+   "950": "#271e3b"
+  },
   "fonts": {
    "body": "IBM Plex Serif",
    "head": "IBM Plex Serif",
@@ -1560,14 +2863,22 @@
    "md": 8,
    "lg": 12
   },
+  "spacing": {
+   "sm": 4,
+   "md": 8
+  },
   "contrast": {
    "light": {
     "min": 4.73,
-    "fails": []
+    "fails": [],
+    "adjusted": [
+     "fg-3"
+    ]
    },
    "dark": {
     "min": 5.41,
-    "fails": []
+    "fails": [],
+    "adjusted": []
    }
   }
  },
@@ -1584,6 +2895,19 @@
    "#37f712",
    "#ddf5d9"
   ],
+  "scale": {
+   "50": "#ebfde8",
+   "100": "#d7f8d2",
+   "200": "#afefa6",
+   "300": "#7ae06d",
+   "400": "#2ec913",
+   "500": "#1ea900",
+   "600": "#178b00",
+   "700": "#117200",
+   "800": "#0b5900",
+   "900": "#074500",
+   "950": "#032d00"
+  },
   "fonts": {
    "body": "Space Mono",
    "head": "Space Mono",
@@ -1595,14 +2919,23 @@
    "md": 8,
    "lg": 12
   },
+  "spacing": {
+   "sm": 4,
+   "md": 8
+  },
   "contrast": {
    "light": {
     "min": 4.64,
-    "fails": []
+    "fails": [],
+    "adjusted": [
+     "fg-3",
+     "accent-text"
+    ]
    },
    "dark": {
     "min": 5.39,
-    "fails": []
+    "fails": [],
+    "adjusted": []
    }
   }
  },
@@ -1619,6 +2952,19 @@
    "#fdc800",
    "#f9eccb"
   ],
+  "scale": {
+   "50": "#fcf6e7",
+   "100": "#f7ecd0",
+   "200": "#eed9a3",
+   "300": "#e1c169",
+   "400": "#cda204",
+   "500": "#ac8700",
+   "600": "#8d6f00",
+   "700": "#745a00",
+   "800": "#5b4600",
+   "900": "#463600",
+   "950": "#2e2200"
+  },
   "fonts": {
    "body": "Inter",
    "head": "Inter",
@@ -1630,14 +2976,23 @@
    "md": 8,
    "lg": 12
   },
+  "spacing": {
+   "sm": 4,
+   "md": 8
+  },
   "contrast": {
    "light": {
     "min": 4.72,
-    "fails": []
+    "fails": [],
+    "adjusted": [
+     "fg-3",
+     "accent-text"
+    ]
    },
    "dark": {
     "min": 5.39,
-    "fails": []
+    "fails": [],
+    "adjusted": []
    }
   }
  },
@@ -1654,6 +3009,19 @@
    "#bbf351",
    "#e5f3d3"
   ],
+  "scale": {
+   "50": "#f3fae9",
+   "100": "#e5f3d4",
+   "200": "#cde5ab",
+   "300": "#afd376",
+   "400": "#8cba33",
+   "500": "#729d00",
+   "600": "#5d8100",
+   "700": "#4b6900",
+   "800": "#3a5200",
+   "900": "#2c3f00",
+   "950": "#1c2900"
+  },
   "fonts": {
    "body": "Roboto",
    "head": "STIX Two Text",
@@ -1665,14 +3033,23 @@
    "md": 8,
    "lg": 12
   },
+  "spacing": {
+   "sm": 4,
+   "md": 8
+  },
   "contrast": {
    "light": {
     "min": 4.72,
-    "fails": []
+    "fails": [],
+    "adjusted": [
+     "fg-3",
+     "accent-text"
+    ]
    },
    "dark": {
     "min": 5.39,
-    "fails": []
+    "fails": [],
+    "adjusted": []
    }
   }
  },
@@ -1689,6 +3066,19 @@
    "#006666",
    "#ddf2f1"
   ],
+  "scale": {
+   "50": "#f0f9f9",
+   "100": "#e0f1f0",
+   "200": "#c3e2e1",
+   "300": "#9ecfce",
+   "400": "#74b5b4",
+   "500": "#4b9b9b",
+   "600": "#2e8181",
+   "700": "#1c6a6a",
+   "800": "#115453",
+   "900": "#0c4040",
+   "950": "#062a2a"
+  },
   "fonts": {
    "body": "Space Mono",
    "head": "Space Mono",
@@ -1700,14 +3090,78 @@
    "md": 8,
    "lg": 12
   },
+  "spacing": {
+   "sm": 4,
+   "md": 8
+  },
   "contrast": {
    "light": {
     "min": 4.72,
-    "fails": []
+    "fails": [],
+    "adjusted": [
+     "fg-3"
+    ]
    },
    "dark": {
     "min": 5.39,
-    "fails": []
+    "fails": [],
+    "adjusted": []
+   }
+  }
+ },
+ {
+  "id": "pacman",
+  "label": "Pacman",
+  "desc": "Retro arcade-inspired design with pixel fonts, dotted borders, playful high-contrast colors, and 8-bit game aesthetics.",
+  "from": "pacman",
+  "status": "excluded-brand",
+  "darkOnly": false,
+  "swatch": [
+   "#f5f7fa",
+   "#191b1e",
+   "#2a3fe5",
+   "#e5edff"
+  ],
+  "scale": {
+   "50": "#f3f7ff",
+   "100": "#e5edff",
+   "200": "#ccdaff",
+   "300": "#abc3ff",
+   "400": "#83a3ff",
+   "500": "#5b81ff",
+   "600": "#3a5aff",
+   "700": "#2c45da",
+   "800": "#2034b1",
+   "900": "#18278a",
+   "950": "#0d195e"
+  },
+  "fonts": {
+   "body": "Noto Sans JP",
+   "head": "Press Start 2P",
+   "jp": "Noto Sans JP",
+   "href": "https://fonts.googleapis.com/css2?family=Press+Start+2P&family=Noto+Sans+JP:wght@400;500;600&display=swap"
+  },
+  "radius": {
+   "sm": 4,
+   "md": 8,
+   "lg": 12
+  },
+  "spacing": {
+   "sm": 8,
+   "md": 16
+  },
+  "contrast": {
+   "light": {
+    "min": 4.73,
+    "fails": [],
+    "adjusted": [
+     "fg-3"
+    ]
+   },
+   "dark": {
+    "min": 5.39,
+    "fails": [],
+    "adjusted": []
    }
   }
  },
@@ -1724,6 +3178,19 @@
    "#111111",
    "#ededed"
   ],
+  "scale": {
+   "50": "#f7f7f7",
+   "100": "#ededed",
+   "200": "#dbdbdb",
+   "300": "#c4c4c4",
+   "400": "#a8a8a8",
+   "500": "#8c8c8c",
+   "600": "#737373",
+   "700": "#5d5d5d",
+   "800": "#494949",
+   "900": "#383838",
+   "950": "#242424"
+  },
   "fonts": {
    "body": "Roboto",
    "head": "Montserrat",
@@ -1735,14 +3202,22 @@
    "md": 8,
    "lg": 12
   },
+  "spacing": {
+   "sm": 4,
+   "md": 8
+  },
   "contrast": {
    "light": {
     "min": 4.74,
-    "fails": []
+    "fails": [],
+    "adjusted": [
+     "fg-3"
+    ]
    },
    "dark": {
     "min": 5.39,
-    "fails": []
+    "fails": [],
+    "adjusted": []
    }
   }
  },
@@ -1759,6 +3234,19 @@
    "#00bd7d",
    "#d4f7e3"
   ],
+  "scale": {
+   "50": "#ecfbf2",
+   "100": "#daf5e5",
+   "200": "#b5e9cc",
+   "300": "#85d9ad",
+   "400": "#49c18a",
+   "500": "#00a66d",
+   "600": "#008959",
+   "700": "#007048",
+   "800": "#005838",
+   "900": "#00442a",
+   "950": "#002c1a"
+  },
   "fonts": {
    "body": "Poppins",
    "head": "Oswald",
@@ -1770,14 +3258,23 @@
    "md": 8,
    "lg": 12
   },
+  "spacing": {
+   "sm": 4,
+   "md": 8
+  },
   "contrast": {
    "light": {
     "min": 4.69,
-    "fails": []
+    "fails": [],
+    "adjusted": [
+     "fg-3",
+     "accent-text"
+    ]
    },
    "dark": {
     "min": 5.39,
-    "fails": []
+    "fails": [],
+    "adjusted": []
    }
   }
  },
@@ -1794,6 +3291,19 @@
    "#fafafa",
    "#ededed"
   ],
+  "scale": {
+   "50": "#f7f7f7",
+   "100": "#ededed",
+   "200": "#dbdbdb",
+   "300": "#c4c4c4",
+   "400": "#a8a8a8",
+   "500": "#8c8c8c",
+   "600": "#737373",
+   "700": "#5d5d5d",
+   "800": "#494949",
+   "900": "#383838",
+   "950": "#242424"
+  },
   "fonts": {
    "body": "Noto Sans JP",
    "head": "Oswald",
@@ -1805,14 +3315,23 @@
    "md": 8,
    "lg": 12
   },
+  "spacing": {
+   "sm": 8,
+   "md": 16
+  },
   "contrast": {
    "light": {
     "min": 4.69,
-    "fails": []
+    "fails": [],
+    "adjusted": [
+     "fg-3",
+     "accent-text"
+    ]
    },
    "dark": {
     "min": 5.39,
-    "fails": []
+    "fails": [],
+    "adjusted": []
    }
   }
  },
@@ -1829,6 +3348,19 @@
    "#3b82f6",
    "#e3eeff"
   ],
+  "scale": {
+   "50": "#f2f7ff",
+   "100": "#e3eeff",
+   "200": "#c6dcff",
+   "300": "#a2c6ff",
+   "400": "#72a7ff",
+   "500": "#4087fc",
+   "600": "#256cde",
+   "700": "#1657bd",
+   "800": "#0b4398",
+   "900": "#083376",
+   "950": "#042150"
+  },
   "fonts": {
    "body": "Inter",
    "head": "Inter",
@@ -1840,14 +3372,23 @@
    "md": 8,
    "lg": 12
   },
+  "spacing": {
+   "sm": 4,
+   "md": 8
+  },
   "contrast": {
    "light": {
     "min": 4.63,
-    "fails": []
+    "fails": [],
+    "adjusted": [
+     "fg-3",
+     "accent-text"
+    ]
    },
    "dark": {
     "min": 5.39,
-    "fails": []
+    "fails": [],
+    "adjusted": []
    }
   }
  },
@@ -1864,6 +3405,19 @@
    "#fece14",
    "#f8eccb"
   ],
+  "scale": {
+   "50": "#fcf7e7",
+   "100": "#f6edd0",
+   "200": "#eddaa3",
+   "300": "#dfc269",
+   "400": "#caa304",
+   "500": "#a98800",
+   "600": "#8b7000",
+   "700": "#725b00",
+   "800": "#5a4700",
+   "900": "#453600",
+   "950": "#2d2300"
+  },
   "fonts": {
    "body": "Poppins",
    "head": "Poppins",
@@ -1875,14 +3429,23 @@
    "md": 8,
    "lg": 12
   },
+  "spacing": {
+   "sm": 4,
+   "md": 8
+  },
   "contrast": {
    "light": {
     "min": 4.71,
-    "fails": []
+    "fails": [],
+    "adjusted": [
+     "fg-3",
+     "accent-text"
+    ]
    },
    "dark": {
     "min": 5.39,
-    "fails": []
+    "fails": [],
+    "adjusted": []
    }
   }
  },
@@ -1899,6 +3462,19 @@
    "#ea580b",
    "#ffe7de"
   ],
+  "scale": {
+   "50": "#fff4f0",
+   "100": "#ffe7de",
+   "200": "#ffcebc",
+   "300": "#ffad8f",
+   "400": "#fc7f4e",
+   "500": "#e85605",
+   "600": "#c04500",
+   "700": "#9e3700",
+   "800": "#7d2a00",
+   "900": "#621f00",
+   "950": "#421200"
+  },
   "fonts": {
    "body": "Noto Sans JP",
    "head": "Limelight",
@@ -1910,14 +3486,23 @@
    "md": 8,
    "lg": 12
   },
+  "spacing": {
+   "sm": 4,
+   "md": 8
+  },
   "contrast": {
    "light": {
     "min": 4.6,
-    "fails": []
+    "fails": [],
+    "adjusted": [
+     "fg-3",
+     "accent-text"
+    ]
    },
    "dark": {
     "min": 5.4,
-    "fails": []
+    "fails": [],
+    "adjusted": []
    }
   }
  },
@@ -1934,6 +3519,19 @@
    "#3b82f6",
    "#e3eeff"
   ],
+  "scale": {
+   "50": "#f2f7ff",
+   "100": "#e3eeff",
+   "200": "#c6dcff",
+   "300": "#a2c6ff",
+   "400": "#72a7ff",
+   "500": "#4087fc",
+   "600": "#256cde",
+   "700": "#1657bd",
+   "800": "#0b4398",
+   "900": "#083376",
+   "950": "#042150"
+  },
   "fonts": {
    "body": "Noto Sans JP",
    "head": "Playfair Display",
@@ -1945,14 +3543,23 @@
    "md": 8,
    "lg": 12
   },
+  "spacing": {
+   "sm": 4,
+   "md": 8
+  },
   "contrast": {
    "light": {
     "min": 4.63,
-    "fails": []
+    "fails": [],
+    "adjusted": [
+     "fg-3",
+     "accent-text"
+    ]
    },
    "dark": {
     "min": 5.39,
-    "fails": []
+    "fails": [],
+    "adjusted": []
    }
   }
  },
@@ -1969,6 +3576,19 @@
    "#3b82f6",
    "#e3eeff"
   ],
+  "scale": {
+   "50": "#f2f7ff",
+   "100": "#e3eeff",
+   "200": "#c6dcff",
+   "300": "#a2c6ff",
+   "400": "#72a7ff",
+   "500": "#4087fc",
+   "600": "#256cde",
+   "700": "#1657bd",
+   "800": "#0b4398",
+   "900": "#083376",
+   "950": "#042150"
+  },
   "fonts": {
    "body": "Noto Sans JP",
    "head": "Macondo",
@@ -1980,14 +3600,23 @@
    "md": 8,
    "lg": 12
   },
+  "spacing": {
+   "sm": 4,
+   "md": 8
+  },
   "contrast": {
    "light": {
     "min": 4.63,
-    "fails": []
+    "fails": [],
+    "adjusted": [
+     "fg-3",
+     "accent-text"
+    ]
    },
    "dark": {
     "min": 5.39,
-    "fails": []
+    "fails": [],
+    "adjusted": []
    }
   }
  },
@@ -2004,6 +3633,19 @@
    "#f237a1",
    "#ffe5ef"
   ],
+  "scale": {
+   "50": "#fff3f8",
+   "100": "#ffe5ef",
+   "200": "#ffc9e0",
+   "300": "#ffa4cd",
+   "400": "#ff6ab6",
+   "500": "#ed319d",
+   "600": "#cc0082",
+   "700": "#a8006a",
+   "800": "#850053",
+   "900": "#680040",
+   "950": "#46002a"
+  },
   "fonts": {
    "body": "Space Grotesk",
    "head": "Space Grotesk",
@@ -2015,14 +3657,190 @@
    "md": 8,
    "lg": 12
   },
+  "spacing": {
+   "sm": 4,
+   "md": 8
+  },
   "contrast": {
    "light": {
     "min": 4.64,
-    "fails": []
+    "fails": [],
+    "adjusted": [
+     "fg-3"
+    ]
    },
    "dark": {
     "min": 5.39,
-    "fails": []
+    "fails": [],
+    "adjusted": []
+   }
+  }
+ },
+ {
+  "id": "roku",
+  "label": "Roku",
+  "desc": "App dashboard with purple-themed aesthetic, top-bar navigation, card-based layouts, and developer-first workflows.",
+  "from": "roku",
+  "status": "excluded-brand",
+  "darkOnly": false,
+  "swatch": [
+   "#f7f6f9",
+   "#1b1a1e",
+   "#9333ea",
+   "#f1e8ff"
+  ],
+  "scale": {
+   "50": "#f8f5ff",
+   "100": "#f1e8ff",
+   "200": "#e3d1ff",
+   "300": "#d1b3ff",
+   "400": "#bd8aff",
+   "500": "#aa5aff",
+   "600": "#9232e9",
+   "700": "#7a1dc6",
+   "800": "#6010a0",
+   "900": "#4a0c7d",
+   "950": "#310655"
+  },
+  "fonts": {
+   "body": "Inter",
+   "head": "Inter",
+   "jp": "Noto Sans JP",
+   "href": "https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Noto+Sans+JP:wght@400;500;600&display=swap"
+  },
+  "radius": {
+   "sm": 4,
+   "md": 8,
+   "lg": 12
+  },
+  "spacing": {
+   "sm": 4,
+   "md": 8
+  },
+  "contrast": {
+   "light": {
+    "min": 4.7,
+    "fails": [],
+    "adjusted": [
+     "fg-3"
+    ]
+   },
+   "dark": {
+    "min": 5.39,
+    "fails": [],
+    "adjusted": []
+   }
+  }
+ },
+ {
+  "id": "sega",
+  "label": "Sega",
+  "desc": "Arcade-inspired game interface with pixel typography, hard edges, and physically punchy, offset-shadow controls.",
+  "from": "sega",
+  "status": "excluded-brand",
+  "darkOnly": false,
+  "swatch": [
+   "#f6f7f9",
+   "#191a1e",
+   "#4502ff",
+   "#e7ecff"
+  ],
+  "scale": {
+   "50": "#f4f6ff",
+   "100": "#e7ecff",
+   "200": "#d0d9ff",
+   "300": "#b3c0ff",
+   "400": "#8f9fff",
+   "500": "#6e7bff",
+   "600": "#5452ff",
+   "700": "#4425f3",
+   "800": "#3515c5",
+   "900": "#27119a",
+   "950": "#18096a"
+  },
+  "fonts": {
+   "body": "Noto Sans JP",
+   "head": "VT323",
+   "jp": "Noto Sans JP",
+   "href": "https://fonts.googleapis.com/css2?family=VT323&family=Noto+Sans+JP:wght@400;500;600&display=swap"
+  },
+  "radius": {
+   "sm": 4,
+   "md": 8,
+   "lg": 12
+  },
+  "spacing": {
+   "sm": 4,
+   "md": 8
+  },
+  "contrast": {
+   "light": {
+    "min": 4.73,
+    "fails": [],
+    "adjusted": [
+     "fg-3"
+    ]
+   },
+   "dark": {
+    "min": 5.39,
+    "fails": [],
+    "adjusted": []
+   }
+  }
+ },
+ {
+  "id": "shadcn",
+  "label": "Shadcn",
+  "desc": "Shadcn/ui-inspired design with minimal, clean components, monochrome palette, and utility-first patterns.",
+  "from": "shadcn",
+  "status": "excluded-brand",
+  "darkOnly": false,
+  "swatch": [
+   "#f9f6f7",
+   "#1e191a",
+   "#000000",
+   "#ededed"
+  ],
+  "scale": {
+   "50": "#f7f7f7",
+   "100": "#ededed",
+   "200": "#dbdbdb",
+   "300": "#c4c4c4",
+   "400": "#a8a8a8",
+   "500": "#8c8c8c",
+   "600": "#737373",
+   "700": "#5d5d5d",
+   "800": "#494949",
+   "900": "#383838",
+   "950": "#242424"
+  },
+  "fonts": {
+   "body": "Geist",
+   "head": "Geist",
+   "jp": "Noto Sans JP",
+   "href": "https://fonts.googleapis.com/css2?family=Geist:wght@400;500;600&family=Noto+Sans+JP:wght@400;500;600&display=swap"
+  },
+  "radius": {
+   "sm": 4,
+   "md": 8,
+   "lg": 12
+  },
+  "spacing": {
+   "sm": 4,
+   "md": 8
+  },
+  "contrast": {
+   "light": {
+    "min": 4.74,
+    "fails": [],
+    "adjusted": [
+     "fg-3"
+    ]
+   },
+   "dark": {
+    "min": 5.39,
+    "fails": [],
+    "adjusted": []
    }
   }
  },
@@ -2039,6 +3857,19 @@
    "#1dad97",
    "#d6f5ed"
   ],
+  "scale": {
+   "50": "#edfaf7",
+   "100": "#dbf3ed",
+   "200": "#b9e6db",
+   "300": "#8cd5c5",
+   "400": "#56bca9",
+   "500": "#00a38d",
+   "600": "#008674",
+   "700": "#006d5e",
+   "800": "#00564a",
+   "900": "#004238",
+   "950": "#002b24"
+  },
   "fonts": {
    "body": "Noto Sans JP",
    "head": "Delicious Handrawn",
@@ -2050,14 +3881,23 @@
    "md": 8,
    "lg": 12
   },
+  "spacing": {
+   "sm": 4,
+   "md": 8
+  },
   "contrast": {
    "light": {
     "min": 4.71,
-    "fails": []
+    "fails": [],
+    "adjusted": [
+     "fg-3",
+     "accent-text"
+    ]
    },
    "dark": {
     "min": 5.39,
-    "fails": []
+    "fails": [],
+    "adjusted": []
    }
   }
  },
@@ -2074,6 +3914,19 @@
    "#fa3c00",
    "#ffe7e1"
   ],
+  "scale": {
+   "50": "#fff4f1",
+   "100": "#ffe7e1",
+   "200": "#ffcec2",
+   "300": "#ffac98",
+   "400": "#ff7a5c",
+   "500": "#f83b00",
+   "600": "#cd2f00",
+   "700": "#a92500",
+   "800": "#861b00",
+   "900": "#691300",
+   "950": "#470a00"
+  },
   "fonts": {
    "body": "Roboto",
    "head": "Germania One",
@@ -2085,14 +3938,23 @@
    "md": 8,
    "lg": 12
   },
+  "spacing": {
+   "sm": 4,
+   "md": 8
+  },
   "contrast": {
    "light": {
     "min": 4.7,
-    "fails": []
+    "fails": [],
+    "adjusted": [
+     "fg-3",
+     "accent-text"
+    ]
    },
    "dark": {
     "min": 5.39,
-    "fails": []
+    "fails": [],
+    "adjusted": []
    }
   }
  },
@@ -2109,6 +3971,19 @@
    "#3b82f6",
    "#e3eeff"
   ],
+  "scale": {
+   "50": "#f2f7ff",
+   "100": "#e3eeff",
+   "200": "#c6dcff",
+   "300": "#a2c6ff",
+   "400": "#72a7ff",
+   "500": "#4087fc",
+   "600": "#256cde",
+   "700": "#1657bd",
+   "800": "#0b4398",
+   "900": "#083376",
+   "950": "#042150"
+  },
   "fonts": {
    "body": "Inter",
    "head": "Inter",
@@ -2120,14 +3995,23 @@
    "md": 8,
    "lg": 12
   },
+  "spacing": {
+   "sm": 8,
+   "md": 16
+  },
   "contrast": {
    "light": {
     "min": 4.63,
-    "fails": []
+    "fails": [],
+    "adjusted": [
+     "fg-3",
+     "accent-text"
+    ]
    },
    "dark": {
     "min": 5.39,
-    "fails": []
+    "fails": [],
+    "adjusted": []
    }
   }
  },
@@ -2144,6 +4028,19 @@
    "#3b82f6",
    "#e3eeff"
   ],
+  "scale": {
+   "50": "#f2f7ff",
+   "100": "#e3eeff",
+   "200": "#c6dcff",
+   "300": "#a2c6ff",
+   "400": "#72a7ff",
+   "500": "#4087fc",
+   "600": "#256cde",
+   "700": "#1657bd",
+   "800": "#0b4398",
+   "900": "#083376",
+   "950": "#042150"
+  },
   "fonts": {
    "body": "Open Sans",
    "head": "Montserrat",
@@ -2155,14 +4052,23 @@
    "md": 8,
    "lg": 12
   },
+  "spacing": {
+   "sm": 8,
+   "md": 16
+  },
   "contrast": {
    "light": {
     "min": 4.63,
-    "fails": []
+    "fails": [],
+    "adjusted": [
+     "fg-3",
+     "accent-text"
+    ]
    },
    "dark": {
     "min": 5.39,
-    "fails": []
+    "fails": [],
+    "adjusted": []
    }
   }
  },
@@ -2179,6 +4085,19 @@
    "#3b82f6",
    "#e3eeff"
   ],
+  "scale": {
+   "50": "#f2f7ff",
+   "100": "#e3eeff",
+   "200": "#c6dcff",
+   "300": "#a2c6ff",
+   "400": "#72a7ff",
+   "500": "#4087fc",
+   "600": "#256cde",
+   "700": "#1657bd",
+   "800": "#0b4398",
+   "900": "#083376",
+   "950": "#042150"
+  },
   "fonts": {
    "body": "Inter",
    "head": "Inter",
@@ -2190,14 +4109,23 @@
    "md": 8,
    "lg": 12
   },
+  "spacing": {
+   "sm": 4,
+   "md": 8
+  },
   "contrast": {
    "light": {
     "min": 4.63,
-    "fails": []
+    "fails": [],
+    "adjusted": [
+     "fg-3",
+     "accent-text"
+    ]
    },
    "dark": {
     "min": 5.39,
-    "fails": []
+    "fails": [],
+    "adjusted": []
    }
   }
  },
@@ -2214,6 +4142,19 @@
    "#072c2c",
    "#e5efef"
   ],
+  "scale": {
+   "50": "#f3f8f8",
+   "100": "#e6efef",
+   "200": "#cfdede",
+   "300": "#b1cac9",
+   "400": "#8fafae",
+   "500": "#709494",
+   "600": "#577b7a",
+   "700": "#446464",
+   "800": "#344f4e",
+   "900": "#273c3c",
+   "950": "#182727"
+  },
   "fonts": {
    "body": "Noto Sans JP",
    "head": "Oswald",
@@ -2225,14 +4166,22 @@
    "md": 8,
    "lg": 12
   },
+  "spacing": {
+   "sm": 8,
+   "md": 16
+  },
   "contrast": {
    "light": {
     "min": 4.73,
-    "fails": []
+    "fails": [],
+    "adjusted": [
+     "fg-3"
+    ]
    },
    "dark": {
     "min": 5.39,
-    "fails": []
+    "fails": [],
+    "adjusted": []
    }
   }
  },
@@ -2249,6 +4198,19 @@
    "#3b82f6",
    "#e3eeff"
   ],
+  "scale": {
+   "50": "#f2f7ff",
+   "100": "#e3eeff",
+   "200": "#c6dcff",
+   "300": "#a2c6ff",
+   "400": "#72a7ff",
+   "500": "#4087fc",
+   "600": "#256cde",
+   "700": "#1657bd",
+   "800": "#0b4398",
+   "900": "#083376",
+   "950": "#042150"
+  },
   "fonts": {
    "body": "Inter",
    "head": "Abril Fatface",
@@ -2260,14 +4222,23 @@
    "md": 8,
    "lg": 12
   },
+  "spacing": {
+   "sm": 4,
+   "md": 8
+  },
   "contrast": {
    "light": {
     "min": 4.63,
-    "fails": []
+    "fails": [],
+    "adjusted": [
+     "fg-3",
+     "accent-text"
+    ]
    },
    "dark": {
     "min": 5.39,
-    "fails": []
+    "fails": [],
+    "adjusted": []
    }
   }
  },
@@ -2284,6 +4255,19 @@
    "#c56a3c",
    "#ffe7dc"
   ],
+  "scale": {
+   "50": "#fff4ef",
+   "100": "#fee7dd",
+   "200": "#fbd0bd",
+   "300": "#f3b396",
+   "400": "#e1916b",
+   "500": "#cc7042",
+   "600": "#af5627",
+   "700": "#934317",
+   "800": "#75330d",
+   "900": "#5b2709",
+   "950": "#3d1804"
+  },
   "fonts": {
    "body": "Noto Sans JP",
    "head": "DM Serif Display",
@@ -2295,14 +4279,79 @@
    "md": 8,
    "lg": 12
   },
+  "spacing": {
+   "sm": 4,
+   "md": 8
+  },
   "contrast": {
    "light": {
     "min": 4.7,
-    "fails": []
+    "fails": [],
+    "adjusted": [
+     "fg-3",
+     "accent-text"
+    ]
    },
    "dark": {
     "min": 5.39,
-    "fails": []
+    "fails": [],
+    "adjusted": []
+   }
+  }
+ },
+ {
+  "id": "tetris",
+  "label": "Tetris",
+  "desc": "Classic block-game inspired design with playful colors, bold display fonts, and compact, high-energy layouts.",
+  "from": "tetris",
+  "status": "excluded-brand",
+  "darkOnly": false,
+  "swatch": [
+   "#f4f7ff",
+   "#171a24",
+   "#1c202b",
+   "#ebedf1"
+  ],
+  "scale": {
+   "50": "#f6f7f9",
+   "100": "#ebedf0",
+   "200": "#d8dbe1",
+   "300": "#c0c4ce",
+   "400": "#a3a7b4",
+   "500": "#878c9a",
+   "600": "#6e7380",
+   "700": "#595d69",
+   "800": "#454953",
+   "900": "#353840",
+   "950": "#222429"
+  },
+  "fonts": {
+   "body": "Noto Sans JP",
+   "head": "Bangers",
+   "jp": "Noto Sans JP",
+   "href": "https://fonts.googleapis.com/css2?family=Bangers&family=Noto+Sans+JP:wght@400;500;600&display=swap"
+  },
+  "radius": {
+   "sm": 4,
+   "md": 8,
+   "lg": 12
+  },
+  "spacing": {
+   "sm": 4,
+   "md": 8
+  },
+  "contrast": {
+   "light": {
+    "min": 4.73,
+    "fails": [],
+    "adjusted": [
+     "fg-3"
+    ]
+   },
+   "dark": {
+    "min": 5.4,
+    "fails": [],
+    "adjusted": []
    }
   }
  },
@@ -2319,6 +4368,19 @@
    "#7c61d4",
    "#eceaff"
   ],
+  "scale": {
+   "50": "#f6f5ff",
+   "100": "#eceaff",
+   "200": "#dad5ff",
+   "300": "#c4b9ff",
+   "400": "#a996fb",
+   "500": "#8f75ea",
+   "600": "#765bcd",
+   "700": "#6147ad",
+   "800": "#4c368b",
+   "900": "#3a296c",
+   "950": "#251949"
+  },
   "fonts": {
    "body": "Noto Sans JP",
    "head": "Fascinate",
@@ -2330,14 +4392,23 @@
    "md": 8,
    "lg": 12
   },
+  "spacing": {
+   "sm": 4,
+   "md": 8
+  },
   "contrast": {
    "light": {
     "min": 4.65,
-    "fails": []
+    "fails": [],
+    "adjusted": [
+     "fg-3",
+     "accent-text"
+    ]
    },
    "dark": {
     "min": 5.39,
-    "fails": []
+    "fails": [],
+    "adjusted": []
    }
   }
  },
@@ -2354,6 +4425,19 @@
    "#008080",
    "#daf3f2"
   ],
+  "scale": {
+   "50": "#eff9f9",
+   "100": "#def1f1",
+   "200": "#bee3e2",
+   "300": "#96d1d0",
+   "400": "#68b8b7",
+   "500": "#369e9d",
+   "600": "#0b8484",
+   "700": "#006c6c",
+   "800": "#005454",
+   "900": "#004141",
+   "950": "#002b2b"
+  },
   "fonts": {
    "body": "Noto Sans JP",
    "head": "Silkscreen",
@@ -2365,14 +4449,23 @@
    "md": 8,
    "lg": 12
   },
+  "spacing": {
+   "sm": 4,
+   "md": 8
+  },
   "contrast": {
    "light": {
     "min": 4.67,
-    "fails": []
+    "fails": [],
+    "adjusted": [
+     "fg-3",
+     "accent-text"
+    ]
    },
    "dark": {
     "min": 5.39,
-    "fails": []
+    "fails": [],
+    "adjusted": []
    }
   }
  }

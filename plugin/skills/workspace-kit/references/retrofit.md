@@ -38,7 +38,7 @@
 ## 3. 入れる
 ### 3-1. CSS
 ```bash
-pnpm dlx shadcn@4.21.3 add https://workspace-kit.vercel.app/r/v0.4.0/workspace-kit-css.json --yes
+pnpm dlx shadcn@4.21.3 add https://workspace-kit.vercel.app/r/v0.5.0/workspace-kit-css.json --yes
 ```
 `globals.css` の `@import "tailwindcss";` のすぐ後に `@import "./workspace-kit.css";` を足す。
 - `globals.css` に残っている「層の外の `body { font-family / background / color }`」と、`@theme` の `--font-sans` の上書きは外す（create-next-app の初期の CSS にも入っている）。残すと Workspace Kit の字体と色が負け、テーマを変えても地の色が変わらない
@@ -71,7 +71,7 @@ pnpm dlx shadcn@4.21.3 add https://workspace-kit.vercel.app/r/v0.4.0/workspace-k
 
 ### 3-2. 骨格
 ```bash
-pnpm dlx shadcn@4.21.3 add https://workspace-kit.vercel.app/r/v0.4.0/workspace-kit-shell.json --yes
+pnpm dlx shadcn@4.21.3 add https://workspace-kit.vercel.app/r/v0.5.0/workspace-kit-shell.json --yes
 ```
 つなぐ場所は4つ：
 1. ルートの `app/layout.tsx`：`<html lang="ja" suppressHydrationWarning>`、`<head>` に `<WorkspaceBoot />`（`@/components/shell/boot-script` から）。既存の画面にダーク表示の用意が無いときは `<WorkspaceBoot forceTheme="light" />` で明るさを固定する（⌘K の明るさの切り替えも隠れる。ダーク対応は画面ごとに後から）。日本語の字体は `next/font/google` の `IBM_Plex_Sans_JP`（`weight: ["400","500","600"]`, `preload: false`, `display: "swap"`, `variable: "--wk-font-jp"`）を `<html className>` に付ける
@@ -108,7 +108,7 @@ export function useAccount() {
 
 ### 3-3. 部品と色
 ```bash
-pnpm dlx shadcn@4.21.3 add https://workspace-kit.vercel.app/r/v0.4.0/workspace-kit-ui.json --yes
+pnpm dlx shadcn@4.21.3 add https://workspace-kit.vercel.app/r/v0.5.0/workspace-kit-ui.json --yes
 ```
 画面ごとに、相手のコードを読んでから置き換える。全部を一度に変えない。
 - 色コード（`#2563eb`・`bg-blue-600`・`text-gray-500` など）→ トークンのクラス（`bg-accent`・`text-fg-3` など。対応は [rules.md](rules.md)）
