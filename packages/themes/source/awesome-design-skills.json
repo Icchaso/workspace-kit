@@ -20,6 +20,10 @@
    "sm": "4px",
    "md": "8px"
   },
+  "spacing": {
+   "sm": "8px",
+   "md": "16px"
+  },
   "style": "modern, bold",
   "overview": "Conversational AI-first interface with minimal controls, clear outcomes, and delegated task flows for agentic workflows."
  },
@@ -41,6 +45,10 @@
    "mono": "JetBrains Mono"
   },
   "rounded": {
+   "sm": "4px",
+   "md": "8px"
+  },
+  "spacing": {
    "sm": "4px",
    "md": "8px"
   },
@@ -68,6 +76,10 @@
    "sm": "4px",
    "md": "8px"
   },
+  "spacing": {
+   "sm": "4px",
+   "md": "8px"
+  },
   "style": "high-contrast, artistic",
   "overview": "High-contrast, expressive style with creative typography and bold color choices for visually striking interfaces."
  },
@@ -89,6 +101,10 @@
    "mono": "JetBrains Mono"
   },
   "rounded": {
+   "sm": "4px",
+   "md": "8px"
+  },
+  "spacing": {
    "sm": "4px",
    "md": "8px"
   },
@@ -116,6 +132,10 @@
    "sm": "4px",
    "md": "8px"
   },
+  "spacing": {
+   "sm": "4px",
+   "md": "8px"
+  },
   "style": "modern, clean",
   "overview": "Modular grid layout with card-like blocks, clear hierarchy, soft spacing, and subtle visual contrast for organized, scannable interfaces."
  },
@@ -137,6 +157,10 @@
    "mono": "JetBrains Mono"
   },
   "rounded": {
+   "sm": "4px",
+   "md": "8px"
+  },
+  "spacing": {
    "sm": "4px",
    "md": "8px"
   },
@@ -164,6 +188,10 @@
    "sm": "4px",
    "md": "8px"
   },
+  "spacing": {
+   "sm": "4px",
+   "md": "8px"
+  },
   "style": "bold",
   "overview": "Raw, anti-design aesthetic inspired by concrete architecture with unadorned elements, jarring layouts, and functional minimalism."
  },
@@ -188,6 +216,10 @@
    "sm": "4px",
    "md": "8px"
   },
+  "spacing": {
+   "sm": "2px",
+   "md": "4px"
+  },
   "style": "minimal, clean",
   "overview": "Cozy cafe-inspired interface with warm tones, soft typography, and clean layouts for a relaxed browsing experience."
  },
@@ -209,6 +241,10 @@
    "mono": "JetBrains Mono"
   },
   "rounded": {
+   "sm": "4px",
+   "md": "8px"
+  },
+  "spacing": {
    "sm": "4px",
    "md": "8px"
   },
@@ -236,6 +272,10 @@
    "sm": "4px",
    "md": "8px"
   },
+  "spacing": {
+   "sm": "4px",
+   "md": "8px"
+  },
   "style": "modern, high-contrast, playful",
   "overview": "Soft, rounded 3D-like shapes mimicking malleable clay with playful, puffy elements and colorful surfaces."
  },
@@ -260,6 +300,10 @@
    "sm": "4px",
    "md": "8px"
   },
+  "spacing": {
+   "sm": "8px",
+   "md": "16px"
+  },
   "style": "minimal, clean",
   "overview": "Simplicity-focused design with ample whitespace, legible typography, and a limited color palette to reduce visual clutter."
  },
@@ -281,6 +325,10 @@
    "mono": "JetBrains Mono"
   },
   "rounded": {
+   "sm": "4px",
+   "md": "8px"
+  },
+  "spacing": {
    "sm": "4px",
    "md": "8px"
   },
@@ -308,6 +356,10 @@
    "sm": "4px",
    "md": "8px"
   },
+  "spacing": {
+   "sm": "8px",
+   "md": "16px"
+  },
   "style": "high-contrast, playful, premium",
   "overview": "Vibrant, high-contrast palettes and gradients for engaging, memorable, and modern user experiences."
  },
@@ -331,6 +383,10 @@
   "rounded": {
    "sm": "4px",
    "md": "8px"
+  },
+  "spacing": {
+   "sm": "8px",
+   "md": "16px"
   },
   "style": "modern, minimal, bold, playful",
   "overview": "Current-era minimalist design with bento grids, dark mode support, and high-performance accessible layouts."
@@ -356,6 +412,10 @@
    "sm": "4px",
    "md": "8px"
   },
+  "spacing": {
+   "sm": "8px",
+   "md": "16px"
+  },
   "style": "enterprise, premium",
   "overview": "Professional, brand-aligned design with structured grids, minimalist layouts, and consistent enterprise patterns."
  },
@@ -377,6 +437,10 @@
    "mono": "JetBrains Mono"
   },
   "rounded": {
+   "sm": "4px",
+   "md": "8px"
+  },
+  "spacing": {
    "sm": "4px",
    "md": "8px"
   },
@@ -404,6 +468,10 @@
    "sm": "4px",
    "md": "8px"
   },
+  "spacing": {
+   "sm": "4px",
+   "md": "8px"
+  },
   "style": "playful",
   "overview": "Playful, character-driven design with expressive typography and bold graphics for landing pages and creative projects."
  },
@@ -425,6 +493,10 @@
    "mono": "IBM Plex Mono"
   },
   "rounded": {
+   "sm": "4px",
+   "md": "8px"
+  },
+  "spacing": {
    "sm": "4px",
    "md": "8px"
   },
@@ -452,6 +524,10 @@
    "sm": "4px",
    "md": "8px"
   },
+  "spacing": {
+   "sm": "4px",
+   "md": "8px"
+  },
   "style": "playful",
   "overview": "Hand-drawn, sketch-like style with doodles, handwritten fonts, and imperfect lines for a playful, informal feel."
  },
@@ -473,6 +549,10 @@
    "mono": "JetBrains Mono"
   },
   "rounded": {
+   "sm": "4px",
+   "md": "8px"
+  },
+  "spacing": {
    "sm": "4px",
    "md": "8px"
   },
@@ -500,6 +580,10 @@
    "sm": "4px",
    "md": "8px"
   },
+  "spacing": {
+   "sm": "8px",
+   "md": "16px"
+  },
   "style": "modern, editorial",
   "overview": "Magazine-inspired editorial layout with refined serif typography, structured grids, and elegant reading experiences."
  },
@@ -524,6 +608,10 @@
    "sm": "4px",
    "md": "8px"
   },
+  "spacing": {
+   "sm": "8px",
+   "md": "16px"
+  },
   "style": "modern, clean, cloud-platform aesthetic (Heroku/Vercel/GitHub inspired), dark theme, subtle gradients, soft shadows, glass-like panels, rounded components",
   "overview": "Dark-themed cloud-platform aesthetic with modular grids, glass-like panels, and strong data hierarchy for productivity dashboards."
  },
@@ -545,6 +633,10 @@
    "mono": "IBM Plex Mono"
   },
   "rounded": {
+   "sm": "4px",
+   "md": "8px"
+  },
+  "spacing": {
    "sm": "4px",
    "md": "8px"
   },
@@ -572,6 +664,10 @@
    "sm": "4px",
    "md": "8px"
   },
+  "spacing": {
+   "sm": "8px",
+   "md": "16px"
+  },
   "style": "bold, premium",
   "overview": "Game-inspired fantasy aesthetic with bold, premium visuals, rich color palettes, and immersive thematic elements."
  },
@@ -593,6 +689,10 @@
    "mono": "JetBrains Mono"
   },
   "rounded": {
+   "sm": "4px",
+   "md": "8px"
+  },
+  "spacing": {
    "sm": "4px",
    "md": "8px"
   },
@@ -620,6 +720,10 @@
    "sm": "4px",
    "md": "8px"
   },
+  "spacing": {
+   "sm": "4px",
+   "md": "8px"
+  },
   "style": "minimal, enterprise",
   "overview": "Two-dimensional minimalist style with vibrant colors, clean typography, and no 3D effects for fast, user-friendly interfaces."
  },
@@ -641,6 +745,10 @@
    "mono": "Space Mono"
   },
   "rounded": {
+   "sm": "4px",
+   "md": "8px"
+  },
+  "spacing": {
    "sm": "4px",
    "md": "8px"
   },
@@ -668,6 +776,10 @@
    "sm": "4px",
    "md": "8px"
   },
+  "spacing": {
+   "sm": "4px",
+   "md": "8px"
+  },
   "style": "modern",
   "overview": "Forward-looking design with tech-inspired typography, modern layouts, and a sleek, innovation-driven aesthetic."
  },
@@ -689,6 +801,10 @@
    "mono": "JetBrains Mono"
   },
   "rounded": {
+   "sm": "4px",
+   "md": "8px"
+  },
+  "spacing": {
    "sm": "4px",
    "md": "8px"
   },
@@ -716,6 +832,10 @@
    "sm": "4px",
    "md": "8px"
   },
+  "spacing": {
+   "sm": "8px",
+   "md": "16px"
+  },
   "style": "clean, high-contrast, bold, enterprise, liquidglass effect, glassmorphism",
   "overview": "Frosted glass effect with translucent layers, subtle blur, and luminous borders for depth and modern elegance."
  },
@@ -740,6 +860,10 @@
    "sm": "4px",
    "md": "8px"
   },
+  "spacing": {
+   "sm": "8px",
+   "md": "16px"
+  },
   "style": "modern, playful",
   "overview": "Smooth color transitions and gradient-rich surfaces for modern, playful interfaces with visual depth."
  },
@@ -761,6 +885,10 @@
    "mono": "JetBrains Mono"
   },
   "rounded": {
+   "sm": "4px",
+   "md": "8px"
+  },
+  "spacing": {
    "sm": "4px",
    "md": "8px"
   },
@@ -788,6 +916,10 @@
    "sm": "4px",
    "md": "8px"
   },
+  "spacing": {
+   "sm": "4px",
+   "md": "8px"
+  },
   "style": "modern, clean, high-contrast",
   "overview": "Graphic editorial-poster aesthetic with warm cream and burnt-orange rhythm plus a sharp amber accent."
  },
@@ -809,6 +941,10 @@
    "mono": "JetBrains Mono"
   },
   "rounded": {
+   "sm": "4px",
+   "md": "8px"
+  },
+  "spacing": {
    "sm": "4px",
    "md": "8px"
   },
@@ -836,6 +972,10 @@
    "sm": "4px",
    "md": "8px"
   },
+  "spacing": {
+   "sm": "4px",
+   "md": "8px"
+  },
   "style": "bold, playful",
   "overview": "Playful, minimal design with bright colors, rounded shapes, tactile 3D borders, and friendly illustrations for approachable interfaces."
  },
@@ -857,6 +997,10 @@
    "mono": "Fira Code"
   },
   "rounded": {
+   "sm": "4px",
+   "md": "8px"
+  },
+  "spacing": {
    "sm": "4px",
    "md": "8px"
   },
@@ -884,6 +1028,10 @@
    "sm": "4px",
    "md": "8px"
   },
+  "spacing": {
+   "sm": "4px",
+   "md": "8px"
+  },
   "style": "high-contrast",
   "overview": "Dark cyber-terminal visual language with mono typography, dense data layouts, and one green interaction accent."
  },
@@ -905,6 +1053,10 @@
    "mono": "Inconsolata"
   },
   "rounded": {
+   "sm": "4px",
+   "md": "8px"
+  },
+  "spacing": {
    "sm": "4px",
    "md": "8px"
   },
@@ -932,6 +1084,10 @@
    "sm": "4px",
    "md": "8px"
   },
+  "spacing": {
+   "sm": "4px",
+   "md": "8px"
+  },
   "style": "modern, minimal, clean, editorial",
   "overview": "Contemporary editorial style with serif typography, minimal palettes, and clean layouts for polished digital products."
  },
@@ -953,6 +1109,10 @@
    "mono": "JetBrains Mono"
   },
   "rounded": {
+   "sm": "4px",
+   "md": "8px"
+  },
+  "spacing": {
    "sm": "4px",
    "md": "8px"
   },
@@ -980,6 +1140,10 @@
    "sm": "4px",
    "md": "8px"
   },
+  "spacing": {
+   "sm": "4px",
+   "md": "8px"
+  },
   "style": "modern, clean, high-contrast",
   "overview": "Modern take on brutalism with bold borders, vivid accent colors, and raw, high-contrast layouts on warm surfaces."
  },
@@ -1001,6 +1165,10 @@
    "mono": "Source Code Pro"
   },
   "rounded": {
+   "sm": "4px",
+   "md": "8px"
+  },
+  "spacing": {
    "sm": "4px",
    "md": "8px"
   },
@@ -1028,6 +1196,10 @@
    "sm": "4px",
    "md": "8px"
   },
+  "spacing": {
+   "sm": "4px",
+   "md": "8px"
+  },
   "style": "minimal, clean, high-contrast, playful, matrix",
   "overview": "Soft, extruded UI elements with inner and outer shadows on monochromatic surfaces for a tactile, embedded look."
  },
@@ -1052,6 +1224,10 @@
    "sm": "4px",
    "md": "8px"
   },
+  "spacing": {
+   "sm": "8px",
+   "md": "16px"
+  },
   "style": "high-contrast, playful, dotted borders",
   "overview": "Retro arcade-inspired design with pixel fonts, dotted borders, playful high-contrast colors, and 8-bit game aesthetics."
  },
@@ -1073,6 +1249,10 @@
    "mono": "PT Mono"
   },
   "rounded": {
+   "sm": "4px",
+   "md": "8px"
+  },
+  "spacing": {
    "sm": "4px",
    "md": "8px"
   },
@@ -1100,6 +1280,10 @@
    "sm": "4px",
    "md": "8px"
   },
+  "spacing": {
+   "sm": "4px",
+   "md": "8px"
+  },
   "style": "modern, clean, high-contrast",
   "overview": "Spatial depth design with isometric views, vanishing points, and layered elements that guide attention through 3D-like realism."
  },
@@ -1124,6 +1308,10 @@
    "sm": "4px",
    "md": "8px"
   },
+  "spacing": {
+   "sm": "8px",
+   "md": "16px"
+  },
   "style": "modern, bold, big headings",
   "overview": "High-end dark aesthetic with bold headings, monochromatic palette, and premium feel for premium brand experiences."
  },
@@ -1145,6 +1333,10 @@
    "mono": "JetBrains Mono"
   },
   "rounded": {
+   "sm": "4px",
+   "md": "8px"
+  },
+  "spacing": {
    "sm": "4px",
    "md": "8px"
   },
@@ -1172,6 +1364,10 @@
    "sm": "4px",
    "md": "8px"
   },
+  "spacing": {
+   "sm": "4px",
+   "md": "8px"
+  },
   "style": "modern",
   "overview": "Polished, business-ready design with modern typography, structured layouts, and a trustworthy visual identity."
  },
@@ -1180,9 +1376,7 @@
   "colors": {
    "primary": "#EA580B",
    "secondary": "#F59E0B",
-   "success": null,
-   "warning": null,
-   "danger": null,
+   "background": "#FFEDD5",
    "surface": "#FDBA74",
    "text": "#EA580C",
    "neutral": "#FDBA74"
@@ -1193,6 +1387,10 @@
    "mono": "JetBrains Mono"
   },
   "rounded": {
+   "sm": "4px",
+   "md": "8px"
+  },
+  "spacing": {
    "sm": "4px",
    "md": "8px"
   },
@@ -1220,6 +1418,10 @@
    "sm": "4px",
    "md": "8px"
   },
+  "spacing": {
+   "sm": "4px",
+   "md": "8px"
+  },
   "style": "modern, minimal",
   "overview": "Carefully curated, modern minimal style with elegant serif typography and understated, sophisticated palettes."
  },
@@ -1241,6 +1443,10 @@
    "mono": "JetBrains Mono"
   },
   "rounded": {
+   "sm": "4px",
+   "md": "8px"
+  },
+  "spacing": {
    "sm": "4px",
    "md": "8px"
   },
@@ -1268,6 +1474,10 @@
    "sm": "4px",
    "md": "8px"
   },
+  "spacing": {
+   "sm": "4px",
+   "md": "8px"
+  },
   "style": "clean, high-contrast",
   "overview": "Playful two-color risograph-inspired system with paper-like warmth, vivid pink actions, and bold blue structure."
  },
@@ -1289,6 +1499,10 @@
    "mono": "JetBrains Mono"
   },
   "rounded": {
+   "sm": "4px",
+   "md": "8px"
+  },
+  "spacing": {
    "sm": "4px",
    "md": "8px"
   },
@@ -1316,6 +1530,10 @@
    "sm": "4px",
    "md": "8px"
   },
+  "spacing": {
+   "sm": "4px",
+   "md": "8px"
+  },
   "style": "modern, playful",
   "overview": "Arcade-inspired game interface with pixel typography, hard edges, and physically punchy, offset-shadow controls."
  },
@@ -1337,6 +1555,10 @@
    "mono": "Fira Code"
   },
   "rounded": {
+   "sm": "4px",
+   "md": "8px"
+  },
+  "spacing": {
    "sm": "4px",
    "md": "8px"
   },
@@ -1364,6 +1586,10 @@
    "sm": "4px",
    "md": "8px"
   },
+  "spacing": {
+   "sm": "4px",
+   "md": "8px"
+  },
   "style": "modern, clean, high-contrast",
   "overview": "Hand-drawn sketch aesthetic on warm paper with soft teal accents, dashed outlines, and tactile illustrated shadows."
  },
@@ -1385,6 +1611,10 @@
    "mono": "JetBrains Mono"
   },
   "rounded": {
+   "sm": "4px",
+   "md": "8px"
+  },
+  "spacing": {
    "sm": "4px",
    "md": "8px"
   },
@@ -1412,6 +1642,10 @@
    "sm": "4px",
    "md": "8px"
   },
+  "spacing": {
+   "sm": "8px",
+   "md": "16px"
+  },
   "style": "modern, minimal, clean",
   "overview": "Modern minimalist aesthetic with clean lines, intentional color palette, subtle interactions, and consistent spacing."
  },
@@ -1436,6 +1670,10 @@
    "sm": "4px",
    "md": "8px"
   },
+  "spacing": {
+   "sm": "8px",
+   "md": "16px"
+  },
   "style": "minimal, clean",
   "overview": "Generous whitespace, consistent padding, and grid-based layouts for clean, readable, and breathing interfaces."
  },
@@ -1457,6 +1695,10 @@
    "mono": "Anonymous Pro"
   },
   "rounded": {
+   "sm": "4px",
+   "md": "8px"
+  },
+  "spacing": {
    "sm": "4px",
    "md": "8px"
   },
@@ -1484,6 +1726,10 @@
    "sm": "4px",
    "md": "8px"
   },
+  "spacing": {
+   "sm": "8px",
+   "md": "16px"
+  },
   "style": "clean, high-contrast, enterprise",
   "overview": "Clean, high-contrast enterprise design for data-driven workflows with intuitive drag-and-drop patterns and structured layouts."
  },
@@ -1505,6 +1751,10 @@
    "mono": "JetBrains Mono"
   },
   "rounded": {
+   "sm": "4px",
+   "md": "8px"
+  },
+  "spacing": {
    "sm": "4px",
    "md": "8px"
   },
@@ -1532,6 +1782,10 @@
    "sm": "4px",
    "md": "8px"
   },
+  "spacing": {
+   "sm": "4px",
+   "md": "8px"
+  },
   "style": "modern, clean, high-contrast, playful",
   "overview": "Sun-baked, clay-toned editorial system with warm cream surfaces, serif headlines, and a single terracotta accent."
  },
@@ -1553,6 +1807,10 @@
    "mono": "JetBrains Mono"
   },
   "rounded": {
+   "sm": "4px",
+   "md": "8px"
+  },
+  "spacing": {
    "sm": "4px",
    "md": "8px"
   },
@@ -1580,6 +1838,10 @@
    "sm": "4px",
    "md": "8px"
   },
+  "spacing": {
+   "sm": "2px",
+   "md": "4px"
+  },
   "style": "modern, clean, bold, playful",
   "overview": "Lively, colorful design with bold playful typography, warm accents, and dynamic visual energy."
  },
@@ -1601,6 +1863,10 @@
    "mono": "JetBrains Mono"
   },
   "rounded": {
+   "sm": "4px",
+   "md": "8px"
+  },
+  "spacing": {
    "sm": "4px",
    "md": "8px"
   },

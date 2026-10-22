@@ -5,7 +5,7 @@ Workspace Kit は次の著作物を使っています。各ライセンスの条
 ## 配布物に含めているもの
 
 ### awesome-design-skills（テーマの元の色・文字・角丸）
-- 使い方：67種のテーマの色・字体・角丸の値を読み取り、日本語の字体の組み合わせとコントラストの調整を加えて `packages/themes/dist/*.css` に変換した（配る `workspace-kit.css` の「テーマ12種」の部分）
+- 使い方：67種のテーマの `DESIGN.md` から色・字体・角丸・余白の値を読み取り（取り込んだ値は `packages/themes/source/awesome-design-skills.json`）、日本語の字体の組み合わせとコントラストの調整を加えて `packages/themes/dist/*.css` に変換した（配る `workspace-kit.css` の「テーマ12種」の部分）
 - ライセンス：MIT License
 - 著作権：Copyright (c) 2026 Bergside
 - 全文：`packages/themes/source/LICENSE-awesome-design-skills`（配る `workspace-kit.css` の先頭にも、この表示と全文の場所を書いている）

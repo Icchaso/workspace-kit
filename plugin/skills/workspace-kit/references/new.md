@@ -31,7 +31,7 @@ shadcn の設定ファイル `components.json` をプロジェクトのいちば
 ```
 雛形一式を入れて、create-next-app が作った最初のページを消す（見本の「今日」の画面と同じ `/` を取り合うため）：
 ```bash
-pnpm dlx shadcn@4.21.3 add https://workspace-kit.vercel.app/r/v0.4.1/workspace-kit-starter.json --yes --overwrite
+pnpm dlx shadcn@4.21.3 add https://workspace-kit.vercel.app/r/v0.5.0/workspace-kit-starter.json --yes --overwrite
 rm src/app/page.tsx
 pnpm build
 ```
