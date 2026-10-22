@@ -2,6 +2,7 @@
   "name": "workspace-kit",
   "private": true,
   "version": "0.5.0",
+  "license": "MIT",
   "description": "PCでもスマホでも最初から整ったUI/UXで動く、ツールの土台一式",
   "scripts": {
     "dev": "pnpm --filter starter dev",

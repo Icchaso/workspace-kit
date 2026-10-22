@@ -153,4 +153,4 @@ pnpm check:ui http://127.0.0.1:3456 screenshots/check   # next start で起動�
 ```
 
 ## ライセンス
-未定（決まり次第ここに書く）。第三者の著作物は [THIRD_PARTY_NOTICES.md](THIRD_PARTY_NOTICES.md)。
+MIT License（[LICENSE](LICENSE)）。無料で、商用でも自由に使い・直し・配れます。条件は著作権表示（`Copyright (c) 2026 ICHI DESIGN`）と許諾文を残すことだけで、無保証です。第三者の著作物は [THIRD_PARTY_NOTICES.md](THIRD_PARTY_NOTICES.md)。
