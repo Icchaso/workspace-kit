@@ -63,3 +63,8 @@
 - 日本語は文節で折り返す（土台の CSS の `word-break: auto-phrase`）。見出しは `text-wrap: balance`
 - 土台の CSS は `@layer base` に入れる（層の外に置くと Tailwind のクラスで打ち消せなくなる）
 - 空の状態には「次に何をすればよいか」と主ボタンを置く（`EmptyState`）
+
+## すりガラス（Liquid Glass）
+- 使うのは「浮く物」と「触る物」だけ（下タブ・＋ボタン・お知らせ・シート・⌘K・見出し・切り替え・小さいボタン・サイドバー）。カード・本文・ダイアログには使わない
+- クラスは `.wk-glass`（標準）・`.wk-glass-bar`（下タブ・入力欄）・`.wk-glass-sheet`（文字が多い面）・`.wk-glass-side`・`.wk-glass-ink`・`.wk-glass-accent`。自分で `backdrop-filter` を書かない（「透明度を下げる」の切り替えが効かなくなる）
+- 下の絵の歪み（屈折）は Chrome だけ。止まっている間は歪ませず、動いている間だけにする

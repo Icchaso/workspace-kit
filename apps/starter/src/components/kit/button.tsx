@@ -20,6 +20,8 @@ export const buttonVariants = cva(
         secondary: "border border-line bg-surface text-fg hover:bg-surface-2",
         // 主ボタンは1画面に1つ。同じ画面の2つ目の「進める」操作はこちら（主色の淡い地）
         soft: "bg-accent-soft text-accent-text hover:bg-[color-mix(in_oklab,var(--wk-accent-soft)_85%,var(--wk-accent))]",
+        // すりガラスの小さいボタン。貼り付く見出しの中の操作など、後ろが透ける所に使う
+        glass: "wk-glass text-fg hover:bg-[color-mix(in_oklab,var(--wk-surface)_82%,transparent)]",
         ghost: "text-fg-2 hover:bg-surface-2 hover:text-fg",
         danger: "text-danger hover:bg-danger-soft",
       },

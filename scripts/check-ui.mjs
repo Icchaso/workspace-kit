@@ -185,7 +185,7 @@ async function measureTab(reduced) {
   // ページの中で、押した瞬間からの変化を毎フレーム記録する
   await page.evaluate(() => {
     const nav = document.querySelector("[data-nav=tabbar]");
-    const pill = nav.children[1];
+    const pill = nav.querySelector(".wk-lens"); // 選択の板（見た目だけの要素。ガラスのレンズ）
     const h1 = () => document.querySelector("h1")?.textContent;
     const firstH1 = h1();
     const log = (window.__tab = { t0: 0, frames: [], h1At: null, onAt: null });

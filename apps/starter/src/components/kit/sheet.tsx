@@ -54,7 +54,7 @@ export function Sheet({
             }
           }}
           className={cn(
-            "fixed z-50 flex flex-col bg-surface shadow-float outline-none",
+            "wk-glass-sheet fixed z-50 flex flex-col outline-none",
             phone
               ? "inset-x-0 bottom-0 max-h-[88dvh] rounded-t-[22px] pb-[env(safe-area-inset-bottom,0px)]"
               : "top-3 right-3 bottom-3 w-[min(420px,calc(100vw-24px))] rounded-lg",

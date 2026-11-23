@@ -16,7 +16,7 @@
  */
 import Link from "next/link";
 import { usePathname, useRouter } from "next/navigation";
-import { animate, motion, useMotionValue, useReducedMotion, useTransform, useVelocity } from "motion/react";
+import { animate, motion, useMotionValue, useMotionValueEvent, useReducedMotion, useTransform, useVelocity } from "motion/react";
 import { Suspense, useCallback, useLayoutEffect, useRef, useState } from "react";
 import { Ellipsis } from "lucide-react";
 import { NAV, isActive } from "@/config/nav";
@@ -29,6 +29,27 @@ const PRESS = { type: "spring", visualDuration: 0.12, bounce: 0 } as const;
 const RELEASE = { type: "spring", visualDuration: 0.22, bounce: 0 } as const;
 const INSET = 4; // 板とバーの縁のすき間
 const DRAG_START = 6; // これ以上動いたら「なぞり」とみなす(px)
+
+/** 板の下の絵を歪ませる SVG フィルター（Chrome だけ効く）。ガラスのふちで光が曲がる感じを、拡大レンズの形で近づける */
+const REFRACT_MAP =
+  "data:image/svg+xml;utf8," +
+  encodeURIComponent(
+    '<svg xmlns="http://www.w3.org/2000/svg" width="1" height="1" viewBox="0 0 1 1" preserveAspectRatio="none">' +
+      '<defs><linearGradient id="x" x1="0" x2="1"><stop offset="0" stop-color="#f00"/><stop offset="1" stop-color="#000"/></linearGradient>' +
+      '<linearGradient id="y" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#0f0"/><stop offset="1" stop-color="#000"/></linearGradient></defs>' +
+      '<rect width="1" height="1" fill="url(#x)"/><rect width="1" height="1" fill="url(#y)" style="mix-blend-mode:screen"/></svg>',
+  );
+
+function RefractFilter() {
+  return (
+    <svg aria-hidden width="0" height="0" className="pointer-events-none absolute">
+      <filter id="wk-refract" x="0" y="0" width="100%" height="100%" colorInterpolationFilters="sRGB">
+        <feImage href={REFRACT_MAP} preserveAspectRatio="none" result="map" />
+        <feDisplacementMap in="SourceGraphic" in2="map" scale="16" xChannelSelector="R" yChannelSelector="G" />
+      </filter>
+    </svg>
+  );
+}
 
 const MORE = { href: "#more", label: "もっと", short: "もっと", icon: Ellipsis };
 
@@ -81,6 +102,12 @@ function TabBar({ pathname: at, account }: { pathname: string | null; account: R
   const scaleX = useTransform(() => stretch.get() * lens.get());
   const scaleY = useTransform(() => (1 / Math.sqrt(stretch.get())) * lens.get());
   const barScale = useMotionValue(1);
+  // 板が動いている間だけ、下の絵を歪ませる（止まっている間は文字をくっきり読ませる）。再描画は起こさず、属性だけ切り替える
+  const lensRef = useRef<HTMLDivElement>(null);
+  useMotionValueEvent(vx, "change", (v) => {
+    const el = lensRef.current;
+    if (el) el.dataset.moving = Math.abs(v) > 160 ? "1" : "0";
+  });
 
   const drag = useRef<{ id: number; startX: number; start: number; dragging: boolean } | null>(null);
   const placed = useRef(false);
@@ -196,24 +223,8 @@ function TabBar({ pathname: at, account }: { pathname: string | null; account: R
     >
       <motion.div
         aria-hidden
-        className="wk-glass-bar absolute inset-0 rounded-full border border-[var(--wk-glass-line)] bg-[var(--wk-glass)] shadow-[inset_0_1px_0_var(--wk-glass-hi),var(--wk-shadow)] backdrop-blur-[18px] backdrop-saturate-[1.8]"
+        className="wk-glass-bar absolute inset-0 rounded-full"
         style={{ scale: barScale }}
-      />
-      <motion.div
-        aria-hidden
-        className="pointer-events-none absolute rounded-full bg-[color-mix(in_oklab,var(--wk-fg)_9%,transparent)]"
-        style={{
-          top: INSET,
-          bottom: INSET,
-          left: INSET,
-          width: Math.max(0, slot - INSET * 2),
-          x,
-          // 動きを減らす設定では伸び縮みを付けない（瞬間移動の一瞬に速さが跳ねて伸びるため）。
-          // 設定の有無で style の項目を変えるとサーバーとの水和が食い違うので、項目は常に同じにして値だけ変える
-          scaleX: reduce ? 1 : scaleX,
-          scaleY: reduce ? 1 : scaleY,
-          opacity: active < 0 ? 0 : reduce ? 1 : lensOpacity,
-        }}
       />
       {items.map((item, i) => {
         const on = i === active;
@@ -263,6 +274,25 @@ function TabBar({ pathname: at, account }: { pathname: string | null; account: R
           </Link>
         );
       })}
+      <motion.div
+        aria-hidden
+        ref={lensRef}
+        data-moving="0"
+        className="wk-lens pointer-events-none absolute z-20 rounded-full"
+        style={{
+          top: INSET,
+          bottom: INSET,
+          left: INSET,
+          width: Math.max(0, slot - INSET * 2),
+          x,
+          // 動きを減らす設定では伸び縮みを付けない（瞬間移動の一瞬に速さが跳ねて伸びるため）。
+          // 設定の有無で style の項目を変えるとサーバーとの水和が食い違うので、項目は常に同じにして値だけ変える
+          scaleX: reduce ? 1 : scaleX,
+          scaleY: reduce ? 1 : scaleY,
+          opacity: active < 0 ? 0 : reduce ? 1 : lensOpacity,
+        }}
+      />
+      <RefractFilter />
     </nav>
     {needsMore && (
       <Sheet

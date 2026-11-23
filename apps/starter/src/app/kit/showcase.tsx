@@ -183,6 +183,10 @@ export function KitShowcase() {
             テーマ12種（ライト／ダーク両方）。文字と背景の差はすべて 4.5:1 以上に自動調整済み
           </li>
           <li className="flex gap-2">
+            <Smartphone aria-hidden size={16} className="mt-0.5 flex-none text-accent-text" />
+            すりガラス（Liquid Glass）：下タブ・＋ボタン・お知らせ・シート・⌘K・サイドバー・見出しなど、浮く物と触る物だけ。カードと本文は読みやすさ優先で不透明のまま。「透明度を下げる」設定では自動で不透明になる
+          </li>
+          <li className="flex gap-2">
             <Monitor aria-hidden size={16} className="mt-0.5 flex-none text-accent-text" />
             画面の検査台本：6つの幅 × ライト/ダークで撮影し、はみ出し・押せる大きさ・文字・コントラスト・動きの速さを数字で合否
           </li>

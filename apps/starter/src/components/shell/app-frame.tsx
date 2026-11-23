@@ -71,6 +71,7 @@ export function AppFrame({ children }: { children: React.ReactNode }) {
         <a href="#main" className="sr-only focus:not-sr-only focus:fixed focus:top-2 focus:left-2 focus:z-50 focus:rounded-md focus:bg-surface focus:px-3 focus:py-2">
           本文へ移動
         </a>
+        <div aria-hidden className="wk-ambient" />
         <SideNav onAdd={AddSheet ? openAdd : undefined} onSearch={openSearch} />
         <div className="wk-content">
           <main id="main">{children}</main>

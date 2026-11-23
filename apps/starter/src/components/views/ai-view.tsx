@@ -158,11 +158,11 @@ export function AiView() {
         sub="見本なので、返事は決まった台本です"
         actions={
           <>
-            <Button onClick={newChat} disabled={busy} aria-label="新しい会話" title="新しい会話" className="max-rail:w-hit max-rail:px-0">
+            <Button variant="glass" onClick={newChat} disabled={busy} aria-label="新しい会話" title="新しい会話" className="max-rail:w-hit max-rail:px-0">
               <MessageSquarePlus aria-hidden size={18} />
               <span className="max-rail:hidden">新しい会話</span>
             </Button>
-            <Button onClick={() => setHistoryOpen(true)} aria-label="履歴" title="履歴" className="max-rail:w-hit max-rail:px-0">
+            <Button variant="glass" onClick={() => setHistoryOpen(true)} aria-label="履歴" title="履歴" className="max-rail:w-hit max-rail:px-0">
               <History aria-hidden size={18} />
               <span className="max-rail:hidden">履歴</span>
             </Button>
@@ -254,7 +254,7 @@ export function AiView() {
                 e.preventDefault();
                 submit();
               }}
-              className="flex items-end gap-2 rounded-[20px] border border-line bg-surface py-1.5 pr-1.5 pl-4 shadow-float focus-within:border-accent"
+              className="wk-glass-bar flex items-end gap-2 rounded-[20px] py-1.5 pr-1.5 pl-4 focus-within:border-accent"
             >
               <textarea
                 ref={inputRef}

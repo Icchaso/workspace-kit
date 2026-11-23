@@ -57,7 +57,7 @@ function Side({ onSearch, onAdd, pathname: at }: Props & { pathname: string | nu
     <nav
       aria-label="メインメニュー"
       data-nav="side"
-      className="fixed inset-y-0 left-0 z-30 hidden flex-col gap-1 overflow-hidden border-r border-line bg-sidebar py-4 pr-3 rail:flex"
+      className="fixed inset-y-0 left-0 z-30 hidden flex-col gap-1 wk-glass-side overflow-hidden py-4 pr-3 rail:flex"
       style={{
         width: "var(--wk-nav-w)",
         // 横向きの iPhone では切り欠きの分だけ内側に寄せる

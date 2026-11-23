@@ -26,7 +26,7 @@ export function CommandPalette({ open, onOpenChange, onAdd }: { open: boolean; o
       <Dialog.Portal>
         {/* 出し入れの動きは付けない。キーボードで1日に何十回も開くので、押した瞬間に出て、すぐ消える方が速く感じる */}
         <Dialog.Backdrop className="fixed inset-0 z-50 bg-scrim" />
-        <Dialog.Popup className="fixed top-[max(12px,env(safe-area-inset-top,0px))] left-1/2 z-50 flex max-h-[min(560px,calc(100dvh-24px))] w-[min(600px,calc(100vw-24px))] -translate-x-1/2 flex-col overflow-hidden rounded-lg border border-line bg-surface shadow-float outline-none rail:top-[12vh]">
+        <Dialog.Popup className="fixed top-[max(12px,env(safe-area-inset-top,0px))] left-1/2 z-50 flex max-h-[min(560px,calc(100dvh-24px))] w-[min(600px,calc(100vw-24px))] -translate-x-1/2 flex-col wk-glass-sheet overflow-hidden rounded-lg outline-none rail:top-[12vh]">
           <Dialog.Title className="sr-only">検索・操作</Dialog.Title>
           <Body
             onRun={(run) => {

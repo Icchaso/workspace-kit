@@ -15,7 +15,7 @@ export function Toaster() {
       toastOptions={{
         duration: 4200,
         classNames: {
-          toast: "!rounded-[14px] !border-0 !bg-fg !text-canvas !shadow-float !text-sm !font-sans",
+          toast: "wk-glass-ink !rounded-[14px] !text-canvas !text-sm !font-sans",
           actionButton: "!bg-transparent !text-canvas !font-semibold !underline !underline-offset-2 !h-hit !text-sm",
         },
       }}

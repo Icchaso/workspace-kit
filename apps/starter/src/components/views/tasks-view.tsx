@@ -109,7 +109,7 @@ function Header() {
       sub={`${counts(tasks).open}件が未完了`}
       actions={
         <>
-          <Button onClick={openSearch} aria-label="検索・操作" title="検索・操作（⌘K）" className="max-rail:w-hit max-rail:px-0">
+          <Button variant="glass" onClick={openSearch} aria-label="検索・操作" title="検索・操作（⌘K）" className="max-rail:w-hit max-rail:px-0">
             <Search aria-hidden size={18} />
             <span className="max-rail:hidden">検索</span>
             <kbd className="font-sans text-xs text-fg-3 max-rail:hidden pointer-coarse:hidden">⌘K</kbd>
