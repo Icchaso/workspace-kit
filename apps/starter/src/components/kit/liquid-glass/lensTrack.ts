@@ -22,6 +22,12 @@ const FOLLOW = springFrom(0.2, 0.82);
  *  fast drag jiggles when it stops. Taps keep the standard feel. */
 const WOBBLE = springFrom(0.34, 0.16);
 const WOBBLE_REACH = 0.34;
+/** WK: タップで別のタブへ移るときは、大きくふくらませない（持ち上がりはこの割合まで）。押さえ続けるか、なぞり始めたら全部持ち上がる */
+const TAP_LIFT = 0.32;
+/** WK: タップで移るときの伸び。引っ張られて進む向きに伸び、止まるときは慣性で少し潰れて（縦長に）、ぷるんと戻る */
+const TAP_REACH = 0.24;
+/** WK: 押さえ続けたとみなすまで（ms）。これを過ぎたら泡を全部持ち上げる */
+const HOLD_LIFT_MS = 220;
 
 export interface LensTrackRefs {
   bar: React.RefObject<HTMLElement | null>;
@@ -232,13 +238,16 @@ export function useLensTrack(refs: LensTrackRefs, options: LensTrackOptions) {
     // Set while a drag moves the lens (and until it lands): only then does
     // it get the looser wobble.
     let dragging = false;
+    // WK: タップで別のタブへ移っている間（次に触れるまで）。伸びと潰れを強め、持ち上がりを控えめにする
+    let tapping = false;
+    let holdTimer = 0;
     const jelly = createJelly((value) => {
       state.squash = value;
       paint();
     }, 0.13, 1600);
     const x = createSpring(current * slot, SPRINGS.snap, (value, velocity) => {
       state.x = value;
-      jelly.feed(velocity, dragging ? WOBBLE_REACH : undefined);
+      jelly.feed(velocity, dragging ? WOBBLE_REACH : tapping ? TAP_REACH : undefined);
       paint();
     });
     const lift = createSpring(0, SPRINGS.lift, (value) => {
@@ -315,7 +324,15 @@ export function useLensTrack(refs: LensTrackRefs, options: LensTrackOptions) {
       light(event.clientX, box);
       haptic();
       lift.tune(SPRINGS.lift);
-      lift.set(still ? 0 : 1);
+      // WK: 別のタブを押したときは、まず控えめに持ち上げて滑らせる。押さえ続けたら全部持ち上げる（掴んだ感じ）
+      clearTimeout(holdTimer);
+      tapping = !still && index !== current;
+      lift.set(still ? 0 : tapping ? TAP_LIFT : 1);
+      if (tapping) {
+        holdTimer = window.setTimeout(() => {
+          if (gesture) lift.set(1);
+        }, HOLD_LIFT_MS);
+      }
       swell.tune(SPRINGS.press);
       swell.set(still ? 0 : 1);
       // The lens slides out of the old selection toward the finger.
@@ -341,6 +358,10 @@ export function useLensTrack(refs: LensTrackRefs, options: LensTrackOptions) {
       if (!dragging) {
         dragging = true;
         jelly.tune(WOBBLE);
+        // WK: なぞり始めたら、掴んだ泡として全部持ち上げる
+        tapping = false;
+        clearTimeout(holdTimer);
+        lift.set(1);
       }
       x.tune(SPRINGS.drag);
       x.set(at);
@@ -467,6 +488,7 @@ export function useLensTrack(refs: LensTrackRefs, options: LensTrackOptions) {
 
     return () => {
       clearTimeout(dropTimer);
+      clearTimeout(holdTimer);
       api.current = null;
       [x, lift, swell, pullY, jelly].forEach((s) => s.stop());
       shell.style.removeProperty('scale');
