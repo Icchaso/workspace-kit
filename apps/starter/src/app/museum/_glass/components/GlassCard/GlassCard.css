@@ -1,0 +1,16 @@
+/* 博物館用の写し。元は @zakisheriff/liquid-glass 4.0.3（MIT） */
+.lg-card.lg-glass {
+  --lg-glass-fill: var(--lg-panel-fill);
+  --lg-glass-blur: var(--lg-panel-blur);
+  color: var(--lg-fg);
+  font-family: var(--lg-font);
+}
+
+.lg-card--clear.lg-glass {
+  --lg-glass-fill: color-mix(in srgb, var(--lg-fill) 35%, transparent);
+  --lg-glass-blur: 2px;
+}
+
+.lg-card::after {
+  display: none;
+}

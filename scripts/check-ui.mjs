@@ -21,7 +21,7 @@
  *
  * 環境変数
  *   ROUTES=/,/tasks   … 見る画面（既定：/。DEMO=1 なら /,/tasks,/ai,/settings。見本サイト /kit は配っていないので、Workspace Kit 自身を測るときだけ足す）
- *   NO_NAV=/login     … ナビが無いのが正しい画面（ログイン・見本サイトなど。前方一致。既定：/kit）
+ *   NO_NAV=/login     … ナビが無いのが正しい画面（ログイン・見本サイトなど。前方一致。既定：/kit,/museum）
  *   DEMO=1            … 雛形の見本アプリ（タスク管理）の操作も確かめる
  *   PALETTE=sky       … テーマを指定して見る（既定：グラファイト）
  *   COOKIES_FILE=path … 開く前に入れておく Cookie を書いたファイル（1行 or「;」区切りで 名前=値）。ログインが要る画面を、手元の試験用の利用者で見るとき。
@@ -38,7 +38,7 @@ const base = process.argv[2] ?? "http://127.0.0.1:3456";
 const out = process.argv[3] ?? "screenshots/check";
 const DEMO = process.env.DEMO === "1";
 const ROUTES = (process.env.ROUTES ?? (DEMO ? "/,/tasks,/ai,/settings" : "/")).split(",");
-const NO_NAV = (process.env.NO_NAV ?? "/kit").split(",").filter(Boolean);
+const NO_NAV = (process.env.NO_NAV ?? "/kit,/museum").split(",").filter(Boolean);
 const PALETTE = process.env.PALETTE ?? "";
 const QUICK = !!process.env.QUICK;
 const cookieText = process.env.COOKIES_FILE ? readFileSync(process.env.COOKIES_FILE, "utf8") : (process.env.COOKIES ?? "");

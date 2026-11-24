@@ -1,0 +1,100 @@
+/* 博物館（見本サイト）用の写し。元は @zakisheriff/liquid-glass 4.0.3（Copyright (c) 2026 Zaki Sheriff、MIT License。全文は components/kit/liquid-glass/LICENSE） */
+ 
+import React, { useRef } from 'react';
+import { useLensTrack } from '../../engine/lensTrack';
+import { useRefraction } from '../../engine/refraction';
+import './LensTrack.css';
+
+export interface LensTrackProps {
+  items: React.ReactNode[];
+  labels: string[];
+  index: number;
+  onChange?: (index: number) => void;
+  variant: 'tabbar' | 'segmented';
+  intensity?: number;
+  className?: string;
+  style?: React.CSSProperties;
+  'aria-label'?: string;
+}
+
+export function LensTrack({
+  items,
+  labels,
+  index,
+  onChange,
+  variant,
+  intensity = 5,
+  className,
+  style,
+  'aria-label': ariaLabel,
+}: LensTrackProps) {
+  const bar = useRef<HTMLDivElement>(null);
+  const glass = useRef<HTMLSpanElement>(null);
+  const lens = useRef<HTMLSpanElement>(null);
+  const select = useRef<HTMLSpanElement>(null);
+  const strength = Math.max(1, Math.min(10, intensity)) / 5;
+  const tabbar = variant === 'tabbar';
+  const zoom = tabbar ? 1.04 : 1.1;
+
+  useRefraction(glass, { kind: 'surface', strength });
+  // iOS: a magnified centre and a thick rounded rim that bends whatever sits
+  // under its edge (icons, labels, the bar's own border) with a faint
+  // rainbow fringe.
+  // Where the backdrop can't be filtered (Safari, Firefox) the lens refracts a
+  // live copy of the bar instead, so the icons still magnify inside it. Both
+  // lenses work that way in every browser, so they look the same everywhere.
+  const overhang = tabbar ? 14 : 12;
+  // Only the part of the lens over the bar bends; where it rises past the bar
+  // it stays clear glass.
+  // The lens shows a magnified, fully tinted copy of the bar, bent at its rim
+  // where the browser can filter it: whatever the rim draws in is tinted too,
+  // as on iOS, instead of the real glyphs showing white through it.
+  useRefraction(lens, { kind: 'lens', strength: 1, stretch: 1, bezel: tabbar ? 24 : 16, zoom, dispersion: 1, copy: 'refract', copyOnly: true }, true, bar, () =>
+    bar.current?.hasAttribute('data-lifted') ?? false,
+  );
+
+  useLensTrack(
+    { bar, glass, lens, select },
+    {
+      count: items.length,
+      index,
+      onSelect: (next) => onChange?.(next),
+      overhang,
+      spread: tabbar ? 0.3 : 0.16,
+      contentZoom: zoom,
+      copied: true,
+      swell: tabbar ? 8 : 14,
+      // Neither bar stretches or moves up and down.
+      pull: false,
+    },
+  );
+
+  return (
+    <div
+      ref={bar}
+      role="tablist"
+      aria-label={ariaLabel}
+      className={['lg-track', `lg-track--${variant}`, className].filter(Boolean).join(' ')}
+      data-liquid-glass=""
+      style={{ ...style, '--lg-count': items.length, '--lg-index': index } as React.CSSProperties}
+    >
+      <span ref={glass} className="lg-glass lg-track__glass" aria-hidden="true" />
+      <span ref={select} className="lg-track__select" aria-hidden="true" />
+      {items.map((item, i) => (
+        <button
+          key={i}
+          type="button"
+          role="tab"
+          data-lg-item={i}
+          aria-selected={i === index}
+          aria-label={labels[i]}
+          tabIndex={i === index ? 0 : -1}
+          className="lg-track__item"
+        >
+          {item}
+        </button>
+      ))}
+      <span ref={lens} className="lg-glass lg-track__lens" data-lg-mirror-bare="" aria-hidden="true" />
+    </div>
+  );
+}

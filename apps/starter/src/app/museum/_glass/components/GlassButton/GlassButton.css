@@ -1,0 +1,149 @@
+/* 博物館用の写し。元は @zakisheriff/liquid-glass 4.0.3（MIT） */
+.lg-button {
+  --lg-h: 44px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  height: var(--lg-h);
+  min-width: var(--lg-h);
+  padding: 0 calc(var(--lg-h) * 0.42);
+  margin: 0;
+  border: 0;
+  border-radius: calc(var(--lg-h) / 2);
+  color: var(--lg-tint, var(--lg-fg));
+  font-family: var(--lg-font);
+  font-size: 16px;
+  font-weight: 500;
+  letter-spacing: -0.01em;
+  line-height: 1;
+  white-space: nowrap;
+  cursor: pointer;
+  /* As a link (`href`): no underline, same box as the button. */
+  text-decoration: none;
+  box-sizing: border-box;
+  touch-action: none;
+  user-select: none;
+  -webkit-user-select: none;
+  -webkit-touch-callout: none;
+  -webkit-user-drag: none;
+  transform-origin: center;
+  will-change: scale, translate;
+}
+
+.lg-button--sm {
+  --lg-h: 36px;
+  font-size: 14px;
+  gap: 6px;
+}
+
+.lg-button--lg {
+  --lg-h: 52px;
+  font-size: 17px;
+  font-weight: 600;
+}
+
+.lg-button[data-icon-only] {
+  width: var(--lg-h);
+  padding: 0;
+}
+
+.lg-button__icon {
+  display: inline-grid;
+  place-items: center;
+  width: calc(var(--lg-h) * 0.48);
+  height: calc(var(--lg-h) * 0.48);
+}
+
+.lg-button__icon > :is(svg, .lg-symbol) {
+  width: 100%;
+  height: 100%;
+}
+
+.lg-button__label {
+  display: inline-flex;
+  align-items: center;
+  gap: inherit;
+}
+
+/* iOS lights the glass up the instant it's touched and fades it on release. */
+.lg-button[data-pressed] {
+  background-color: var(--lg-fill-pressed);
+  transition-duration: 60ms;
+}
+
+.lg-button--filled {
+  --lg-glow: rgb(255 255 255 / 0.24);
+}
+
+.lg-button:not([data-shimmer])::after {
+  display: none;
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .lg-button:hover:not(:disabled) {
+    background-color: color-mix(in srgb, var(--lg-fill) 70%, var(--lg-fill-pressed));
+  }
+}
+
+.lg-button:focus-visible {
+  outline: 2px solid var(--lg-ring);
+  outline-offset: 3px;
+}
+
+.lg-button:disabled {
+  cursor: default;
+  color: var(--lg-fg-faint);
+}
+
+/* Clear: almost no frost, the backdrop reads straight through the lens. */
+.lg-button--clear {
+  --lg-glass-fill: color-mix(in srgb, var(--lg-fill) 30%, transparent);
+  --lg-glass-blur: 1.5px;
+}
+
+/* Tinted: regular glass, coloured label. */
+.lg-button--tinted {
+  color: var(--lg-tint, var(--lg-accent));
+}
+
+/* Tinted filled: a soft wash of the colour, label in the same colour
+   (iOS's bordered tinted style). */
+.lg-button--tinted-filled {
+  --lg-glass-fill: color-mix(in srgb, var(--lg-tint, var(--lg-tint-default, var(--lg-accent))) 26%, var(--lg-fill));
+  color: var(--lg-tint, var(--lg-tint-default, var(--lg-accent)));
+}
+
+.lg-button--tinted-filled[data-pressed] {
+  background-color: color-mix(in srgb, var(--lg-tint, var(--lg-tint-default, var(--lg-accent))) 30%, var(--lg-fill-pressed));
+}
+
+/* Destructive defaults the tint to red; an explicit `tint` still wins. */
+.lg-button[data-destructive] {
+  --lg-tint-default: var(--lg-red);
+}
+
+.lg-button--glass[data-destructive],
+.lg-button--clear[data-destructive],
+.lg-button--tinted[data-destructive] {
+  color: var(--lg-tint, var(--lg-red));
+}
+
+.lg-button--filled {
+  --lg-glass-fill: var(--lg-tint, var(--lg-tint-default, var(--lg-accent)));
+  color: #fff;
+}
+
+.lg-button--filled[data-pressed] {
+  background-color: color-mix(in srgb, var(--lg-tint, var(--lg-tint-default, var(--lg-accent))) 82%, #fff);
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .lg-button--filled:hover:not(:disabled) {
+    background-color: color-mix(in srgb, var(--lg-tint, var(--lg-tint-default, var(--lg-accent))) 90%, #fff);
+  }
+}
+
+.lg-button--filled:disabled {
+  --lg-glass-fill: var(--lg-fill);
+}

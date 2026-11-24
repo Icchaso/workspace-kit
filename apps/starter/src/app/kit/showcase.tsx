@@ -5,7 +5,8 @@
  * 中身は本物の雛形を iframe で開いているだけ（?palette=…&theme=… を付ける）。触ることもできる。
  */
 import { PALETTES } from "@workspace-kit/themes/catalog";
-import { ExternalLink, Monitor, Moon, Smartphone, Sun } from "lucide-react";
+import { ArrowRight, ExternalLink, Monitor, Moon, Smartphone, Sun } from "lucide-react";
+import Link from "next/link";
 import { useLayoutEffect, useRef, useState, useSyncExternalStore } from "react";
 import { Segmented } from "@/components/kit/segmented";
 import { cn } from "@/lib/cn";
@@ -78,6 +79,10 @@ export function KitShowcase() {
         <p className="max-w-[60ch] text-fg-2">
           自分の業務ツールに入れると、ナビ・ボタン・シート・色・文字・動きがそろいます。下の見本は本物のアプリです。テーマと画面の型を切り替えて、スマホ幅と PC 幅の見え方を並べて確かめられます。
         </p>
+        <Link href="/museum" className="mt-1 flex min-h-hit w-fit items-center gap-1.5 rounded-full border border-line bg-surface px-4 text-sm font-medium hover:bg-surface-2">
+          部品と動きを触って試す（UI博物館）
+          <ArrowRight aria-hidden size={16} />
+        </Link>
       </header>
 
       <section aria-labelledby="pick-h" className="grid gap-4">

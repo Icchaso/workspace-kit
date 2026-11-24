@@ -1,0 +1,83 @@
+/*
+ * UI博物館だけの見た目。配る部品集には入れない。
+ * 展示の台の背景（模様・色の帯・無地）は、ガラスの透けと曲がりが分かるように置く。写真は使わず CSS で描く。
+ */
+.museum {
+  /* ガラスの部品（@zakisheriff/liquid-glass）の色を、今のテーマの色に合わせる */
+  --lg-accent: var(--wk-accent);
+  --lg-green: var(--wk-ok);
+  --lg-red: var(--wk-danger);
+}
+
+.museum-stage[data-backdrop="plain"] {
+  background: var(--wk-canvas);
+}
+.museum-stage[data-backdrop="pattern"] {
+  background-color: var(--wk-canvas);
+  background-image:
+    radial-gradient(circle at 18% 28%, color-mix(in oklab, var(--wk-accent) 38%, transparent) 0 18%, transparent 19%),
+    radial-gradient(circle at 82% 70%, color-mix(in oklab, #f59e0b 42%, transparent) 0 16%, transparent 17%),
+    repeating-linear-gradient(135deg, color-mix(in oklab, var(--wk-fg) 9%, transparent) 0 2px, transparent 2px 14px);
+}
+.museum-stage[data-backdrop="bands"] {
+  background: linear-gradient(
+    100deg,
+    #ff6b8b 0 20%,
+    #ffb84d 20% 40%,
+    #5ed39b 40% 60%,
+    #4da3ff 60% 80%,
+    #a07bff 80% 100%
+  );
+}
+
+/* 小さなスマホ枠の下タブ：5つでも枠に収まるよう、1項目の最小幅を詰める */
+.museum .museum-tabbar .lg-track {
+  --lg-item-w: 48px;
+}
+
+/* 星の評価：押した星がぽんと弾む */
+@keyframes museum-pop {
+  0% { scale: 1; }
+  40% { scale: 1.28; }
+  100% { scale: 1; }
+}
+.museum-pop {
+  animation: museum-pop 260ms var(--wk-ease-out);
+}
+
+/* コード入力：違う数字のとき横に揺れる */
+@keyframes museum-shake {
+  0%, 100% { translate: 0; }
+  20% { translate: -7px; }
+  40% { translate: 6px; }
+  60% { translate: -4px; }
+  80% { translate: 2px; }
+}
+.museum-shake {
+  animation: museum-shake 320ms ease-out;
+}
+
+/* 読み込み中のくるくる */
+@keyframes museum-spin {
+  to { rotate: 360deg; }
+}
+.museum-spin {
+  animation: museum-spin 800ms linear infinite;
+}
+
+/* 時刻のホイール：中央の行以外を薄くする */
+.museum-wheel {
+  mask-image: linear-gradient(to bottom, transparent, #000 35%, #000 65%, transparent);
+  scrollbar-width: none;
+}
+.museum-wheel::-webkit-scrollbar {
+  display: none;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .museum-pop,
+  .museum-shake,
+  .museum-spin {
+    animation: none;
+  }
+}

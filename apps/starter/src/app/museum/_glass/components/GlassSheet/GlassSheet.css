@@ -1,0 +1,81 @@
+/* 博物館用の写し。元は @zakisheriff/liquid-glass 4.0.3（MIT） */
+.lg-sheet-layer {
+  position: fixed;
+  inset: 0;
+  z-index: 1000;
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+  pointer-events: none;
+}
+
+.lg-sheet__scrim {
+  position: absolute;
+  inset: 0;
+  background: var(--lg-scrim);
+  opacity: 0;
+  pointer-events: auto;
+}
+
+/* Floating iOS 26 sheet: inset from the screen edges, deep corner radius. */
+.lg-sheet.lg-glass {
+  --lg-glass-fill: var(--lg-panel-fill);
+  --lg-glass-blur: var(--lg-panel-blur);
+  position: relative;
+  width: min(560px, calc(100% - 16px));
+  max-height: calc(100% - 64px);
+  margin-bottom: max(8px, env(safe-area-inset-bottom));
+  overflow-y: auto;
+  overscroll-behavior: contain;
+  border-radius: 38px;
+  color: var(--lg-fg);
+  font-family: var(--lg-font);
+  pointer-events: auto;
+  touch-action: pan-y;
+  outline: none;
+  transform: translateY(110%);
+  will-change: transform;
+}
+
+.lg-sheet::after {
+  display: none;
+}
+
+/* With detents the sheet is full height and parks part-way down (medium);
+   its content only scrolls once it's fully raised, otherwise a drag
+   anywhere moves the sheet. */
+.lg-sheet--detents.lg-glass {
+  /* Edge to edge and running on past the bottom of the screen, so its lower
+     edge and corners never show, even when pulled up past full height. */
+  --lg-sheet-run: 160px;
+  width: min(640px, 100%);
+  height: calc(100% - 10px + var(--lg-sheet-run));
+  max-height: none;
+  margin-bottom: calc(-1 * var(--lg-sheet-run));
+  padding-bottom: var(--lg-sheet-run);
+  border-radius: 38px 38px 0 0;
+}
+
+.lg-sheet--detents:not([data-raised]) {
+  overflow: hidden;
+  touch-action: none;
+}
+
+.lg-sheet__grabber-zone {
+  display: flex;
+  justify-content: center;
+  padding: 8px 0 4px;
+  cursor: grab;
+  touch-action: none;
+}
+
+.lg-sheet__grabber {
+  width: 36px;
+  height: 5px;
+  border-radius: 3px;
+  background: var(--lg-fg-faint);
+}
+
+.lg-sheet__content {
+  padding: 8px 24px 28px;
+}

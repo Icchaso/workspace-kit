@@ -1,0 +1,318 @@
+/* 博物館用の写し。元は @zakisheriff/liquid-glass 4.0.3（MIT） */
+.lg-track {
+  --lg-pad: 4px;
+  --lg-item-h: 54px;
+  --lg-item-w: 68px;
+  --lg-lift: 0;
+  position: relative;
+  overflow: visible;
+  display: inline-grid;
+  grid-auto-flow: column;
+  grid-auto-columns: minmax(var(--lg-item-w), 1fr);
+  padding: var(--lg-pad);
+  border-radius: 999px;
+  font-family: var(--lg-font);
+  touch-action: none;
+  user-select: none;
+  -webkit-user-select: none;
+  -webkit-tap-highlight-color: transparent;
+  transform-origin: center;
+}
+
+.lg-track__glass {
+  --lg-glass-fill: var(--lg-navigation-fill);
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  pointer-events: none;
+  z-index: 0;
+}
+
+.lg-track[data-lifted] {
+  z-index: 10;
+}
+
+.lg-track[data-lifted] .lg-track__glass::after {
+  opacity: 0.7;
+  transition-duration: 120ms;
+}
+
+.lg-track__item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 2px;
+  height: var(--lg-item-h);
+  min-width: 0;
+  padding: 0 10px;
+  font: inherit;
+  white-space: nowrap;
+}
+
+.lg-track__item[aria-selected='true'] {
+  color: var(--lg-track-active, var(--lg-accent));
+}
+
+/* Preview the tab beneath the dragged droplet using the original icon row. */
+.lg-track[data-previewing] .lg-track__item {
+  color: var(--lg-fg);
+}
+
+.lg-track[data-previewing] .lg-track__item[data-lg-preview] {
+  color: var(--lg-track-active, var(--lg-accent));
+}
+
+.lg-track[data-lifted] .lg-nav__label {
+  background: var(--lg-content-tint);
+  background-clip: text;
+  -webkit-background-clip: text;
+  color: transparent;
+  -webkit-text-fill-color: transparent;
+}
+
+.lg-track[data-lifted] .lg-nav__icon > .lg-symbol {
+  background: var(--lg-content-tint);
+}
+
+.lg-track__item {
+  position: relative;
+  z-index: 2;
+  margin: 0;
+  border: 0;
+  border-radius: 999px;
+  background: none;
+  color: var(--lg-fg);
+  cursor: pointer;
+  -webkit-touch-callout: none;
+}
+
+.lg-track[data-keyboard] .lg-track__item:focus-visible {
+  outline: 2px solid var(--lg-ring);
+  outline-offset: -3px;
+}
+
+.lg-track__lens,
+.lg-track__select {
+  position: absolute;
+  top: var(--lg-pad);
+  left: var(--lg-pad);
+  width: calc((100% - var(--lg-pad) * 2) / var(--lg-count));
+  height: calc(100% - var(--lg-pad) * 2);
+  border-radius: 999px;
+  pointer-events: none;
+  transform: translateX(calc(100% * var(--lg-index)));
+}
+
+/* The selection: a flat pill at rest, a clear refracting lens when lifted. */
+.lg-track__lens.lg-glass {
+  z-index: 1;
+  background-color: color-mix(in srgb, var(--lg-selection-lens-fill) calc(var(--lg-lift) * 100%), transparent);
+  -webkit-backdrop-filter: none;
+  backdrop-filter: none;
+  box-shadow:
+    0 calc(var(--lg-lift) * 8px) calc(var(--lg-lift) * 26px) rgb(0 0 0 / calc(var(--lg-lift) * 0.18)),
+    inset 0 0 0 0.5px color-mix(in srgb, var(--lg-selection-lens-edge) calc(var(--lg-lift) * 45%), transparent),
+    var(--lg-selection-lens-bevel);
+  transition: none;
+}
+
+.lg-track__lens.lg-glass::before {
+  /* A faint rim: the stretched light at the edge outlines the lens already. */
+  opacity: calc(var(--lg-lift) * 0.5);
+  /* Above a copied lens's contents (Safari), so the rim still catches light. */
+  z-index: 2;
+}
+
+/* No press bloom on the lens: its white wash greys out the label beneath. */
+.lg-track__lens.lg-glass::after {
+  display: none;
+}
+
+/* The resting selection pill: its own element, so it is always a true pill. */
+.lg-track__select {
+  z-index: 1;
+  background: var(--lg-track-selection);
+  opacity: calc(1 - var(--lg-lift) * 2.2);
+}
+
+/* The lens only exists while lifted (JS fades it in with the lift). */
+.lg-track__lens {
+  opacity: 0;
+}
+
+.lg-track[data-lifted] .lg-track__lens.lg-glass {
+  z-index: 4;
+}
+
+/* Only a refracting lens samples the backdrop. Elsewhere (Safari, Firefox)
+   resampling the labels underneath just blurs and washes them out, so the
+   lens stays perfectly clear and the content beneath renders sharp. */
+.lg-track[data-lifted] .lg-track__lens.lg-glass[data-lg-refract] {
+  -webkit-backdrop-filter: var(--lg-filter, ) blur(0.3px) saturate(1.5) brightness(var(--lg-selection-lens-brightness));
+  backdrop-filter: var(--lg-filter, ) blur(0.3px) saturate(1.5) brightness(var(--lg-selection-lens-brightness));
+}
+
+.lg-track:not([data-ready]) .lg-track__lens {
+  transition: none;
+}
+
+/* ------------------------------------------------------------------ */
+/*  Tab bar                                                            */
+/* ------------------------------------------------------------------ */
+
+.lg-track--tabbar {
+  /* Room above the icon and below the label inside the selection pill. */
+  --lg-item-h: 60px;
+  --lg-navigation-fill: var(--lg-fill);
+  --lg-selection-lens-fill: rgb(255 255 255 / 0.09);
+  --lg-selection-lens-edge: rgb(255 255 255 / 0.25);
+  --lg-selection-lens-bevel: inset 0 0 0 transparent;
+  --lg-selection-lens-brightness: 1.06;
+  --lg-track-selection: var(--lg-tab-selection);
+  font-size: 10px;
+  font-weight: 600;
+  letter-spacing: 0.01em;
+}
+
+/* The label's line box leaves empty space under its letters, so an icon over
+   a label sits low when the boxes are centred: lift it to centre the ink. */
+.lg-track--tabbar:not(.lg-track--labels-only, .lg-track--icons-only) .lg-track__item {
+  padding-bottom: 3px;
+}
+
+.lg-track--tabbar .lg-nav__icon {
+  display: grid;
+  place-items: center;
+  width: 26px;
+  height: 26px;
+}
+
+/* An icon with a selected look: both versions share one cell. The bar shows
+   the selected look on the selected tab at rest. While the lens is lifted the
+   bar shows every icon plain and the lens copy shows every icon selected, so
+   an icon fills in exactly where the lens covers it. */
+.lg-nav__icons {
+  display: grid;
+}
+
+.lg-nav__icons > .lg-nav__icon {
+  grid-area: 1 / 1;
+}
+
+.lg-nav__icon--active,
+.lg-track__item[aria-selected='true'] .lg-nav__icon--idle {
+  visibility: hidden;
+}
+
+.lg-track__item[aria-selected='true'] .lg-nav__icon--active,
+.lg-track[data-lifted] .lg-nav__icon--idle {
+  visibility: visible;
+}
+
+.lg-track[data-lifted] .lg-nav__icon--active {
+  visibility: hidden;
+}
+
+/* The copy inside the lens carries the bar's flags too, so it needs the
+   stronger selector. */
+.lg-track[data-lg-copy] .lg-nav__icons > .lg-nav__icon--active {
+  visibility: visible;
+}
+
+.lg-track[data-lg-copy] .lg-nav__icons > .lg-nav__icon--idle {
+  visibility: hidden;
+}
+
+.lg-track--tabbar .lg-nav__icon > :is(svg, .lg-symbol) {
+  width: 100%;
+  height: 100%;
+}
+
+.lg-track--tabbar .lg-nav__label {
+  line-height: 1.1;
+}
+
+.lg-track--tabbar.lg-track--icons-only .lg-nav__icon {
+  width: 28px;
+  height: 28px;
+}
+
+.lg-track--tabbar.lg-track--labels-only {
+  --lg-item-h: 44px;
+  font-size: 15px;
+  font-weight: 600;
+}
+
+/* ------------------------------------------------------------------ */
+/*  Segmented control                                                  */
+/* ------------------------------------------------------------------ */
+
+.lg-track--segmented {
+  /* Like the tab bar: no inner bevel on the lifted lens, which read as a
+     stroke; its edge comes from the light it stretches. */
+  --lg-selection-lens-bevel: inset 0 0 0 transparent;
+  --lg-pad: 4px;
+  --lg-item-h: 36px;
+  --lg-item-w: 64px;
+  --lg-track-selection: var(--lg-segment-selection);
+  --lg-track-active: var(--lg-fg);
+  font-size: 15px;
+  font-weight: 500;
+  letter-spacing: -0.01em;
+}
+
+.lg-track--segmented .lg-track__item {
+  flex-direction: row;
+  gap: 6px;
+  padding: 0 16px;
+}
+
+.lg-track--segmented .lg-track__item {
+  color: var(--lg-fg);
+}
+
+.lg-track--segmented .lg-nav__icon {
+  display: inline-flex;
+}
+
+.lg-track--sm.lg-track--segmented {
+  --lg-item-h: 28px;
+  --lg-pad: 3px;
+  font-size: 13px;
+}
+
+/* Copied lens (Safari, Firefox): the real glyphs fade out under the clear
+   lens (lensTrack writes --lg-content-hide), leaving only the magnified copy. */
+/* Everything inside the lens takes the active colour, including what its rim
+   bends in from the neighbouring tabs. */
+.lg-track[data-lg-copy] > .lg-track__item {
+  color: var(--lg-track-active, var(--lg-accent));
+}
+
+.lg-track[data-lg-copy] .lg-nav__label {
+  background: none;
+  color: var(--lg-track-active, var(--lg-accent));
+  -webkit-text-fill-color: currentColor;
+}
+
+.lg-track[data-lg-copy] .lg-nav__icon > .lg-symbol {
+  background: var(--lg-track-active, var(--lg-accent));
+}
+
+/* The copy only carries the content. Its own bar glass and resting pill would
+   show up magnified inside the lens as a second outline. */
+[data-lg-copy] > :is(.lg-track__glass, .lg-track__select) {
+  visibility: hidden;
+}
+
+.lg-track[data-lifted]:not([data-lg-copy]) > .lg-track__item :is(.lg-nav__label, .lg-nav__icon) {
+  -webkit-mask: var(--lg-content-hide, none);
+  mask: var(--lg-content-hide, none);
+  -webkit-mask-composite: source-out, source-over, source-over, source-over;
+  mask-composite: subtract, add, add, add;
+}
+
+.lg-track:not([data-lifted]) .lg-track__lens > .lg-mirror {
+  visibility: hidden;
+}

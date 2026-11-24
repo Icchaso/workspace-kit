@@ -1,0 +1,6 @@
+/* 博物館（見本サイト）用の写し。元は @zakisheriff/liquid-glass 4.0.3（Copyright (c) 2026 Zaki Sheriff、MIT License。全文は components/kit/liquid-glass/LICENSE） */
+ 
+// Phosphor Icons (MIT, https://phosphoricons.com), inlined as SVG masks so
+// the input's glyphs follow its colour with no extra files or requests.
+export const searchSymbol = "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 256 256' fill='black'%3E%3Cpath d='M232.49,215.51,185,168a92.12,92.12,0,1,0-17,17l47.53,47.54a12,12,0,0,0,17-17ZM44,112a68,68,0,1,1,68,68A68.07,68.07,0,0,1,44,112Z'/%3E%3C/svg%3E";
+export const clearSymbol = "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 256 256' fill='black'%3E%3Cpath d='M128,24A104,104,0,1,0,232,128,104.11,104.11,0,0,0,128,24Zm37.66,130.34a8,8,0,0,1-11.32,11.32L128,139.31l-26.34,26.35a8,8,0,0,1-11.32-11.32L116.69,128,90.34,101.66a8,8,0,0,1,11.32-11.32L128,116.69l26.34-26.35a8,8,0,0,1,11.32,11.32L139.31,128Z'/%3E%3C/svg%3E";

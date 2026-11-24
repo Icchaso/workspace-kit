@@ -1,0 +1,107 @@
+/* 博物館（見本サイト）用の写し。元は @zakisheriff/liquid-glass 4.0.3（Copyright (c) 2026 Zaki Sheriff、MIT License。全文は components/kit/liquid-glass/LICENSE） */
+ 
+import React, { useImperativeHandle, useRef, useState } from 'react';
+import { usePress } from '../../engine/press';
+import { useRefraction } from '../../engine/refraction';
+import { Symbol } from '../internal/Symbol';
+import { searchSymbol, clearSymbol } from '../internal/inputSymbols';
+import './GlassInput.css';
+
+export interface GlassInputProps extends Omit<React.InputHTMLAttributes<HTMLInputElement>, 'onChange'> {
+  /** Refraction strength from 1 (subtle) to 10 (heavy). Default 5. */
+  intensity?: number;
+  /** Colour for the caret and focus glow. */
+  tint?: string;
+  placeholder?: string;
+  value?: string;
+  onChange?: (e: React.ChangeEvent<HTMLInputElement>) => void;
+  /** Small label above the field. */
+  label?: string;
+  /** Leading icon. `type="search"` gets a magnifier by default. */
+  icon?: React.ReactNode;
+  /** Trailing accessory, e.g. a microphone glyph. */
+  trailing?: React.ReactNode;
+  /** Called by the clear button. Without it, clearing emits an empty `onChange`. */
+  onClear?: () => void;
+}
+
+const Magnifier = <Symbol source={searchSymbol} size={20} />;
+const ClearGlyph = <Symbol source={clearSymbol} size={20} />;
+
+/** iOS 26 search / text field on regular glass. */
+export const GlassInput = React.forwardRef<HTMLInputElement, GlassInputProps>(
+  (
+    { intensity = 5, tint, label, icon, trailing, onClear, className, style, value, onChange, type = 'text', disabled, onFocus, onBlur, ...rest },
+    forwardedRef,
+  ) => {
+    const fieldRef = useRef<HTMLDivElement>(null);
+    const inputRef = useRef<HTMLInputElement>(null);
+    useImperativeHandle(forwardedRef, () => inputRef.current!);
+    const [focused, setFocused] = useState(false);
+    const [inner, setInner] = useState('');
+    const current = value ?? inner;
+
+    useRefraction(fieldRef, { kind: 'surface', strength: Math.max(1, Math.min(10, intensity)) / 5 });
+    usePress(fieldRef, { grow: 0.03, lean: 3, stretch: 0.03, disabled });
+
+    const leading = icon ?? (type === 'search' ? Magnifier : null);
+
+    const clear = () => {
+      if (onClear) onClear();
+      else {
+        const input = inputRef.current!;
+        const setter = Object.getOwnPropertyDescriptor(HTMLInputElement.prototype, 'value')?.set;
+        setter?.call(input, '');
+        input.dispatchEvent(new Event('input', { bubbles: true }));
+      }
+      inputRef.current?.focus();
+    };
+
+    return (
+      <label
+        className={['lg-input', className].filter(Boolean).join(' ')}
+        data-liquid-glass=""
+        style={tint ? ({ '--lg-input-tint': tint, ...style } as React.CSSProperties) : style}
+      >
+        {label && <span className="lg-input__label">{label}</span>}
+        <div ref={fieldRef} className="lg-glass lg-input__field" data-focused={focused ? '' : undefined}>
+          {leading && <span className="lg-input__icon">{leading}</span>}
+          <input
+            ref={inputRef}
+            type={type}
+            value={current}
+            disabled={disabled}
+            onChange={(event) => {
+              if (value === undefined) setInner(event.target.value);
+              onChange?.(event);
+            }}
+            onFocus={(event) => {
+              setFocused(true);
+              onFocus?.(event);
+            }}
+            onBlur={(event) => {
+              setFocused(false);
+              onBlur?.(event);
+            }}
+            {...rest}
+          />
+          {current && !disabled ? (
+            <button
+              type="button"
+              className="lg-input__clear"
+              aria-label="Clear"
+              onPointerDown={(event) => event.preventDefault()}
+              onClick={clear}
+            >
+              {ClearGlyph}
+            </button>
+          ) : (
+            trailing && <span className="lg-input__icon lg-input__trailing">{trailing}</span>
+          )}
+        </div>
+      </label>
+    );
+  },
+);
+
+GlassInput.displayName = 'GlassInput';
