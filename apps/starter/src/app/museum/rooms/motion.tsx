@@ -19,15 +19,17 @@ function Phone({
   className,
   innerRef,
   onScroll,
+  onWheel,
 }: {
   children: React.ReactNode;
   className?: string;
   innerRef?: React.Ref<HTMLDivElement>;
   onScroll?: React.UIEventHandler<HTMLDivElement>;
+  onWheel?: React.WheelEventHandler<HTMLDivElement>;
 }) {
   return (
-    <div className="relative h-[360px] w-[min(260px,100%)] overflow-hidden rounded-[28px] border-[6px] border-fg/85 bg-canvas shadow-float">
-      <div ref={innerRef} onScroll={onScroll} className={cn("h-full overflow-y-auto overscroll-contain [scrollbar-width:none]", className)}>
+    <div className="relative h-[360px] w-[min(260px,100%)] museum-phone overflow-hidden rounded-[28px] border-[6px] border-fg/85 bg-canvas shadow-float">
+      <div ref={innerRef} onScroll={onScroll} onWheel={onWheel} className={cn("h-full overflow-y-auto overscroll-none [scrollbar-width:none]", className)}>
         {children}
       </div>
     </div>
@@ -81,18 +83,47 @@ function PullRefresh() {
   const [armed, setArmed] = useState(false);
   useMotionValueEvent(y, "change", (v) => setArmed(v >= PULL));
   const settle = (to: number) => (reduce ? y.set(to) : animate(y, to, { type: "spring", stiffness: 420, damping: 38 }));
+  // 引いた距離 → 伸び（引くほど重く＝ゴム）
+  const stretch = (d: number) => y.set(PULL * 1.6 * (1 - Math.exp(-d / (PULL * 1.6))));
+  // 離したとき：線を越えていれば読み込む
+  const release = () => {
+    if (y.get() >= PULL) {
+      setLoading(true);
+      settle(PULL * 0.75);
+      setTimeout(() => {
+        setItems((s) => [`新着 ${new Date().toLocaleTimeString("ja-JP", { hour: "2-digit", minute: "2-digit", second: "2-digit" })}`, ...s]);
+        setLoading(false);
+        settle(0);
+      }, 1100);
+    } else settle(0);
+  };
+  // PC のトラックパッド（2本指で下へ）・マウスのホイール：一番上でさらに上へ送ると引いたのと同じに伸び、指を止めると離したことにする
+  const wheelPull = useRef(0);
+  const wheelEnd = useRef<ReturnType<typeof setTimeout> | null>(null);
+  const onWheel = (e: React.WheelEvent<HTMLDivElement>) => {
+    if (loading || start.current !== null) return;
+    const atTop = (box.current?.scrollTop ?? 0) <= 0;
+    if (!atTop || (e.deltaY >= 0 && wheelPull.current === 0)) return;
+    wheelPull.current = Math.max(0, wheelPull.current - e.deltaY);
+    stretch(wheelPull.current);
+    if (wheelEnd.current) clearTimeout(wheelEnd.current);
+    wheelEnd.current = setTimeout(() => {
+      wheelPull.current = 0;
+      release();
+    }, 160);
+  };
   return (
     <Exhibit
       id="pull-refresh"
       title="引っ張って更新"
-      lead="一番上で下に引くと、ゴムのように重くなりながら伸び、くるくるが回ります。線を越えて離すと読み込み、新しい行が上に加わります。"
+      lead="一番上で下に引くと（PC はマウスでつかんで下へ、またはトラックパッドを2本指で下へ）、ゴムのように重くなりながら伸び、くるくるが回ります。線を越えて離すと読み込み、新しい行が上に加わります。"
       stage="plain"
       minHeight={400}
       specs={["引くほど重くなる（ゴムのような手ごたえ）", "越えたら離して読み込む線の位置を決められる", "線を越えた瞬間に軽く震える（対応する端末）", "読み込み中は上にくるくるを残す"]}
     >
-      <Phone innerRef={box} className="touch-pan-x">
+      <Phone innerRef={box} onWheel={onWheel} className="touch-pan-x">
         <div
-          className="relative min-h-full"
+          className="relative min-h-full cursor-grab select-none active:cursor-grabbing"
           onPointerDown={(e) => {
             if (loading || (box.current?.scrollTop ?? 0) > 0) return;
             start.current = e.clientY;
@@ -100,22 +131,12 @@ function PullRefresh() {
           }}
           onPointerMove={(e) => {
             if (start.current === null) return;
-            const d = Math.max(0, e.clientY - start.current);
-            // 引くほど重く（ゴム）
-            y.set(PULL * 1.6 * (1 - Math.exp(-d / (PULL * 1.6))));
+            stretch(Math.max(0, e.clientY - start.current));
           }}
           onPointerUp={() => {
             if (start.current === null) return;
             start.current = null;
-            if (y.get() >= PULL) {
-              setLoading(true);
-              settle(PULL * 0.75);
-              setTimeout(() => {
-                setItems((s) => [`新着 ${new Date().toLocaleTimeString("ja-JP", { hour: "2-digit", minute: "2-digit", second: "2-digit" })}`, ...s]);
-                setLoading(false);
-                settle(0);
-              }, 1100);
-            } else settle(0);
+            release();
           }}
           onPointerCancel={() => {
             start.current = null;
@@ -303,7 +324,7 @@ function Sheets() {
       knobs={<KnobPick label="高さ" value={kind} onChange={setKind} options={[{ value: "detents", label: "半分→全画面" }, { value: "fit", label: "中身に合わせる" }]} />}
       specs={["止まる高さ（半分・全画面）を選べる。中身に合わせる型もある", "下へ引く・払う・後ろを押す・Esc で閉じる", "PC では右から出る引き出しにもできる（アプリ本体のシート）"]}
     >
-      <div ref={setFrame} className="relative h-[360px] w-[min(260px,100%)] overflow-hidden rounded-[28px] border-[6px] border-fg/85 bg-canvas shadow-float">
+      <div ref={setFrame} className="relative h-[360px] w-[min(260px,100%)] museum-phone overflow-hidden rounded-[28px] border-[6px] border-fg/85 bg-canvas shadow-float">
         <div className="grid h-full place-items-center">
           <button type="button" onClick={() => setOpen(true)} className="min-h-hit rounded-full bg-accent px-4 text-sm font-medium text-on-accent">
             シートを開く
@@ -356,7 +377,7 @@ function TabBarDemo() {
       }
       specs={["止まっているとき＝塗りアイコン＋主色の文字＋薄い玉", "押す＝控えめに持ち上がって伸び、止まる瞬間に少し潰れる", "押さえる・なぞる＝泡が持ち上がって指についてくる", "タブが6つ以上なら4つ＋「もっと」にまとめる"]}
     >
-      <div className="museum-tabbar relative h-[360px] w-[min(300px,100%)] overflow-hidden rounded-[28px] border-[6px] border-fg/85 shadow-float">
+      <div className="museum-tabbar relative h-[360px] w-[min(300px,100%)] museum-phone overflow-hidden rounded-[28px] border-[6px] border-fg/85 shadow-float">
         <div className="grid h-full place-items-center pb-16 text-sm text-fg-2">{tabs[cur].label}の画面</div>
         <div className="absolute inset-x-2 bottom-2.5 h-[60px]">
           <LensTrack

@@ -81,7 +81,13 @@ export const GlassSheet: React.FC<GlassSheetProps> = ({ open, onClose, intensity
     measure();
 
     const paint = (y: number) => {
-      sheet.style.transform = `translateY(${y}px)`;
+      // WK: 中身に合わせる型（止まる高さ無し）は、上へ引きすぎたとき浮き上がらず、下の端を付けたまま上へ伸びる。
+      // 元は全体が持ち上がり、シートの下に隙間（後ろの画面）が見えていた
+      if (!wanted.length) {
+        const lift = Math.max(0, -y);
+        sheet.style.height = lift > 0.5 ? `${height + lift}px` : '';
+        sheet.style.transform = `translateY(${Math.max(0, y)}px)`;
+      } else sheet.style.transform = `translateY(${y}px)`;
       // iOS leaves the page undimmed at the medium detent and dims it as the
       // sheet rises to full height.
       const dim = wanted.includes('medium') && medium > 0

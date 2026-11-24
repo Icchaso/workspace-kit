@@ -144,3 +144,16 @@
     display: none;
   }
 }
+
+/*
+ * 小さなスマホの枠。角の丸みで中身を切る（すりガラスの帯は、親の丸い角だけでは Chrome ではみ出すため clip-path でも切る）
+ */
+.museum .museum-phone {
+  clip-path: inset(0 round 28px);
+}
+
+/* 枠の中のシート：一番下・一番上より先へ引いたときに、ゴムのように伸びて下の地（隙間）が見えないようにする */
+.museum .museum-phone .lg-sheet {
+  overscroll-behavior: none;
+  scrollbar-width: none;
+}

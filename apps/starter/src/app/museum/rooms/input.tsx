@@ -136,8 +136,11 @@ function Stars() {
   const [rate, setRate] = useState(3);
   const [hover, setHover] = useState<number | null>(null);
   const [popped, setPopped] = useState<number | null>(null);
+  const [pressing, setPressing] = useState(false);
   const row = useRef<HTMLDivElement>(null);
   const shown = hover ?? rate;
+  // マウスを乗せているだけ（押していない）ときは「下見」。薄い星で見せ、決まった評価とは見分けがつくようにする
+  const preview = hover !== null && !pressing;
   const at = (x: number) => {
     const r = row.current!.getBoundingClientRect();
     return Math.min(5, Math.max(1, Math.ceil(((x - r.left) / r.width) * 5)));
@@ -147,9 +150,9 @@ function Stars() {
     <Exhibit
       id="stars"
       title="星の評価"
-      lead="押した星がぽんと弾みます。指で星の上をなぞると、離した所の数で決まります。"
+      lead="押した星がぽんと弾みます。指で星の上をなぞると、離した所の数で決まります。PC ではマウスを乗せると薄い星で下見でき、押すと決まります。"
       stage="plain"
-      specs={["タップでも、なぞっても選べる", "星の数（5つ・10段階）や半分の星にもできる", "選んだ数に合わせて言葉を出せる"]}
+      specs={["タップでも、なぞっても選べる", "PC はマウスを乗せると薄い星で下見（押すまで決まらない）。下見を出さない作りにもできる", "星の数（5つ・10段階）や半分の星にもできる", "選んだ数に合わせて言葉を出せる"]}
     >
       <div className="grid justify-items-center gap-2">
         <div
@@ -159,6 +162,7 @@ function Stars() {
           className="flex touch-none gap-1"
           onPointerDown={(e) => {
             e.currentTarget.setPointerCapture(e.pointerId);
+            setPressing(true);
             setHover(at(e.clientX));
           }}
           onPointerMove={(e) => {
@@ -168,6 +172,11 @@ function Stars() {
             const n = at(e.clientX);
             setRate(n);
             setPopped(n);
+            setPressing(false);
+            setHover(e.pointerType === "mouse" ? n : null);
+          }}
+          onPointerCancel={() => {
+            setPressing(false);
             setHover(null);
           }}
           onPointerLeave={() => setHover(null)}
@@ -184,11 +193,20 @@ function Stars() {
               }}
               className={cn("grid size-11 place-items-center", popped === n && "museum-pop")}
             >
-              <Star aria-hidden size={30} strokeWidth={1.6} className={cn("transition-colors duration-[var(--wk-dur-fast)]", n <= shown ? "fill-[#ffb800] text-[#e5a500]" : "text-fg-3")} />
+              <Star aria-hidden size={30} strokeWidth={1.6} className={cn("transition-colors duration-[var(--wk-dur-fast)]", n > shown ? "text-fg-3" : preview && !(hover === rate) ? "fill-[#ffb800]/30 text-[#e5a500]/70" : "fill-[#ffb800] text-[#e5a500]")} />
             </button>
           ))}
         </div>
-        <p className="text-sm text-fg-2">{labels[shown]}</p>
+        <p className="text-sm text-fg-2">
+          {preview && hover !== rate ? (
+            <>
+              {labels[shown]}
+              <span className="text-fg-3">（押すと決まる・いまは{rate}つ星）</span>
+            </>
+          ) : (
+            labels[shown]
+          )}
+        </p>
       </div>
     </Exhibit>
   );
