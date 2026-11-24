@@ -41,14 +41,8 @@ export function LensTrack({ count, index, onSelect, onPress, renderItem, classNa
   const select = useRef<HTMLSpanElement>(null);
 
   useRefraction(glass, { kind: "surface", strength: 1 });
-  // レンズはバーの拡大した写しを映し、縁で曲げる（Chrome は本物の屈折、Safari は写しを SVG で曲げる）
-  useRefraction(
-    lens,
-    { kind: "lens", strength: 1, stretch: 1, bezel: 24, zoom: ZOOM, dispersion: 1, copy: "refract", copyOnly: true },
-    true,
-    bar,
-    () => bar.current?.hasAttribute("data-lifted") ?? false,
-  );
+  // WK: 元はレンズの中にバーの写しを作って SVG で曲げていたが、iPhone（Safari）で毎コマの描き直しが重く、動きがもたついた（2026-11-24 実測）。
+  // 写しはやめ、レンズは澄んだ泡の縁だけにする。下のアイコンは本物を少し拡大し、文字はレンズの形どおりに主色へ塗る
 
   useLensTrack(
     { bar, glass, lens, select },
@@ -61,10 +55,10 @@ export function LensTrack({ count, index, onSelect, onPress, renderItem, classNa
       overhang: 14,
       spread: 0.3,
       contentZoom: ZOOM,
-      copied: true,
-      // WK: スライム感を強める（元は 14）。触っている間、バー全体が横に少しふくらむ
-      swell: 22,
-      pull: true,
+      copied: false,
+      // WK: バー自体は動かさない（ぼかしの描き直しで重くなるため。ICHI-OS の下タブと同じ決まり）
+      swell: 0,
+      pull: false,
     },
   );
 
@@ -81,7 +75,7 @@ export function LensTrack({ count, index, onSelect, onPress, renderItem, classNa
       {Array.from({ length: count }, (_, i) => (
         <React.Fragment key={i}>{renderItem(i, { "data-lg-item": i, className: "lg-track__item" })}</React.Fragment>
       ))}
-      <span ref={lens} className="lg-glass lg-track__lens" data-lg-mirror-bare="" aria-hidden="true" />
+      <span ref={lens} className="lg-glass lg-track__lens" aria-hidden="true" />
     </div>
   );
 }
