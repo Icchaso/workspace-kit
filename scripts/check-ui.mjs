@@ -9,6 +9,7 @@
  *   2. ナビがどの幅でも1つ見える（767px 以下＝下タブ、768px 以上＝サイドバーかアイコン列）
  *   3. 12px より小さい文字が無い
  *   4. 指で触る幅では、押せるものが 44px 以上・入力欄の文字が 16px 以上（16px 未満だと iPhone が勝手に拡大する）
+ *      選択欄（select）は標準の矢印のままでなく、右の余白が 28px 以上（矢印が枠の端にくっついて見えるのを止める）
  *   5. 文字と背景の差（コントラスト）など、axe-core の WCAG A/AA の指摘が無い
  *   6. 下タブの動き：押した瞬間に選択表示／玉が 120〜400ms で止まる／途中で 1.12 倍以上に伸びる／バーのふくらみは 1.08 倍まで／動きを減らす設定では瞬間移動
  *   7. 画面の切り替え：下タブを押してから見出しが変わるまで 150ms 未満
@@ -146,10 +147,15 @@ for (const vp of VIEWPORTS) {
           if (!cut && !scrollable && (b.right > innerWidth + 1 || b.left < -1)) cut = document.body;
           if (cut) clipped.push(`${(el.getAttribute("aria-label") || el.textContent || el.tagName).trim().slice(0, 12)}`);
         }
+        // 選択欄の矢印：標準の矢印のまま（枠の端にくっつく）か、右の余白が足りず矢印が端に寄る／文字と重なる
+        const chevron = [...document.querySelectorAll("select:not([multiple]):not([size])")]
+          .filter(visible)
+          .filter((el) => getComputedStyle(el).appearance !== "none" || parseFloat(getComputedStyle(el).paddingRight) < 28)
+          .map((el) => `${el.getAttribute("aria-label") || el.closest("label")?.firstChild?.textContent?.trim().slice(0, 10) || el.id || "select"}（${getComputedStyle(el).appearance !== "none" ? "標準の矢印" : `右の余白 ${parseFloat(getComputedStyle(el).paddingRight)}px`}）`);
         // すりガラスの見出し：ぼかしが効いていない（ビルドで backdrop-filter が消えた）と、後ろの文字と重なって読める
         const glass = [...document.querySelectorAll(".wk-glass-top")].filter(visible);
         const noBlur = glass.length > 0 && glass.every((g) => getComputedStyle(g).backdropFilter === "none") && !matchMedia("(prefers-reduced-transparency: reduce)").matches;
-        return { overflow: document.documentElement.scrollWidth - innerWidth, nav, tiny, small, zoomy, clipped, noBlur };
+        return { overflow: document.documentElement.scrollWidth - innerWidth, nav, tiny, small, zoomy, clipped, noBlur, chevron };
       }, vp.touch);
 
       if (r.overflow > 1) fail(where, `横に ${r.overflow}px はみ出している`);
@@ -160,6 +166,7 @@ for (const vp of VIEWPORTS) {
       if (r.zoomy.length) fail(where, `16px 未満の入力欄 ${r.zoomy.length}件（例：${r.zoomy.slice(0, 3).join(" / ")}）`);
       if (r.small.length) fail(where, `44px 未満の押せるもの ${r.small.length}件（例：${r.small.slice(0, 3).join(" / ")}）`);
       if (r.clipped.length) fail(where, `枠の外に切れている押せるもの ${r.clipped.length}件（例：${r.clipped.slice(0, 3).join(" / ")}）。表ならスマホでは並べ方を変える`);
+      if (r.chevron.length) fail(where, `選択欄の矢印が端に寄る ${r.chevron.length}件（例：${r.chevron.slice(0, 3).join(" / ")}）。標準の矢印を消して自前の矢印＋右 36px の余白にする（tokens/base.css の select の規則）`);
       if (r.noBlur) fail(where, "上の見出しのぼかしが効いていない（ビルド後の CSS に backdrop-filter が無い）");
 
       const axe = await new AxeBuilder({ page }).withTags(["wcag2a", "wcag2aa"]).analyze();
