@@ -64,7 +64,9 @@ function RingGauge() {
             fill="none"
             strokeWidth="14"
             strokeLinecap="round"
-            style={{ strokeDasharray: dash, stroke: levelColor(v, warn, Math.min(100, warn + 20)) }}
+            // 色は style（motion が値として扱い、変数の切り替えが反映されなかった）ではなく、SVG の属性で渡す
+            stroke={levelColor(v, warn, Math.min(100, warn + 20))}
+            style={{ strokeDasharray: dash }}
             className="transition-[stroke] duration-300"
           />
         </svg>

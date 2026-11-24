@@ -2,7 +2,7 @@
 /* eslint-disable @typescript-eslint/no-unused-vars -- 元のライブラリの書き方のまま使う */
 import React, { useEffect, useImperativeHandle, useRef } from 'react';
 import { SPRINGS, clamp, createSpring, rubberband } from '../../engine/spring';
-import { canRefractBackdrop, useRefraction } from '../../engine/refraction';
+import { useRefraction } from '../../engine/refraction';
 import { haptic } from '../../engine/haptics';
 import { guardSelection } from '../../engine/selection';
 import './GlassSlider.css';
@@ -148,14 +148,15 @@ export const GlassSlider = React.forwardRef<HTMLInputElement, GlassSliderProps>(
 
     const strength = Math.max(1, Math.min(10, intensity)) / 5;
     // Safari/Firefox draw the magnified rail as a copy inside the thumb.
-    const [mirrored, setMirrored] = React.useState(false);
-    useEffect(() => setMirrored(!canRefractBackdrop()), []);
+    // WK: つまみの中で溝を拡大して曲げる仕組みは使わない（Chrome で青い棒が太く歪んで見え、Safari では写しが重い。2026-11-24 いっちゃん指摘）。
+    // 持ち上がったつまみは、下タブと同じ薄いシャボン玉（.wk-bubble）にする
+    const mirrored = false;
     const progress = max > min ? clamp((Number(value) - min) / (max - min), 0, 1) : 0;
 
     // iOS magnifies the rail ~2× inside the lifted thumb.
     // Only the band around the rail bends; above and below it the lens stays
     // clear, so its rim doesn't drag a sliver of the fill to the top edge.
-    useRefraction(thumbRef, { kind: 'lens', zoom: 1.95, bezel: 7, thickness: 16, strength, dispersion: 0.6, inset: 11 }, showThumb, rootRef, () =>
+    useRefraction(thumbRef, { kind: 'lens', zoom: 1.95, bezel: 7, thickness: 16, strength, dispersion: 0.6, inset: 11 }, false, rootRef, () =>
       parseFloat(rootRef.current?.style.getPropertyValue('--lg-lift') || '0') > 0.01,
     );
     useRefraction(blockRef, { kind: 'surface', strength }, !showThumb);
@@ -370,6 +371,7 @@ export const GlassSlider = React.forwardRef<HTMLInputElement, GlassSliderProps>(
         <span className="lg-slider__thumb-slot" aria-hidden="true">
           <span ref={thumbRef} className="lg-glass lg-slider__thumb" data-lg-mirror-bare="">
             <span ref={faceRef} className="lg-slider__face" />
+            <span className="wk-bubble" />
           </span>
         </span>
         {input}

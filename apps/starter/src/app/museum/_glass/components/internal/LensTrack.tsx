@@ -49,7 +49,8 @@ export function LensTrack({
   // The lens shows a magnified, fully tinted copy of the bar, bent at its rim
   // where the browser can filter it: whatever the rim draws in is tinted too,
   // as on iOS, instead of the real glyphs showing white through it.
-  useRefraction(lens, { kind: 'lens', strength: 1, stretch: 1, bezel: tabbar ? 24 : 16, zoom, dispersion: 1, copy: 'refract', copyOnly: true }, true, bar, () =>
+  // WK: レンズの中に写しを作って曲げる仕組みは使わない（下タブと同じ理由：iPhone の Safari で重い）。持ち上がったレンズは薄いシャボン玉（museum.css）
+  useRefraction(lens, { kind: 'lens', strength: 1, stretch: 1, bezel: tabbar ? 24 : 16, zoom, dispersion: 1, copy: 'refract', copyOnly: true }, false, bar, () =>
     bar.current?.hasAttribute('data-lifted') ?? false,
   );
 
@@ -62,7 +63,7 @@ export function LensTrack({
       overhang,
       spread: tabbar ? 0.3 : 0.16,
       contentZoom: zoom,
-      copied: true,
+      copied: false, // WK: 写しを作らないので、下の文字をレンズの形に隠さない（隠すと文字が消える）
       swell: tabbar ? 8 : 14,
       // Neither bar stretches or moves up and down.
       pull: false,
