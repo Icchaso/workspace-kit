@@ -1,0 +1,706 @@
+/*
+ * 下タブのガラス（Liquid Glass）。元は @zakisheriff/liquid-glass 4.0.3 の styles/base.css と LensTrack.css
+ * （Copyright (c) 2026 Zaki Sheriff、MIT License。許諾文の全文は apps/starter/src/components/kit/liquid-glass/LICENSE）。
+ * 元の CSS はそのまま写し、Workspace Kit 用の上書きは一番下の「WK」の節にまとめた。
+ * 選んだ印は aria-selected のほかに data-on="1" でも効く（下タブはリンクの並びのため）。
+ */
+
+/* ======== 元：styles/base.css ======== */
+/* @zakisheriff/liquid-glass — tokens and the core glass material */
+
+:where(:root, [data-theme='light']) {
+  --lg-fg: rgb(0 0 0 / 0.88);
+  --lg-fg-muted: rgb(60 60 67 / 0.62);
+  --lg-fg-faint: rgb(60 60 67 / 0.3);
+  --lg-accent: #0088ff;
+  --lg-green: #34c759;
+  --lg-red: #ff383c;
+
+  /* Regular glass: bars, buttons, fields */
+  --lg-fill: rgb(255 255 255 / 0.66);
+  --lg-fill-pressed: rgb(255 255 255 / 0.92);
+  --lg-blur: 6px;
+  --lg-saturate: 1.9;
+  --lg-brightness: 1.04;
+  --lg-edge: rgb(0 0 0 / 0.06);
+  --lg-shadow: 0 8px 28px rgb(0 0 0 / 0.08), 0 1px 3px rgb(0 0 0 / 0.07);
+  --lg-rim-opacity: 1;
+  --lg-glow: rgb(255 255 255 / 0.55);
+
+  /* Clear glass: the lens that lifts out of selections and thumbs */
+  --lg-lens-fill: rgb(255 255 255 / 0.1);
+  --lg-lens-shadow: 0 10px 30px rgb(0 0 0 / 0.14), 0 2px 6px rgb(0 0 0 / 0.08);
+  --lg-lens-edge: rgb(0 0 0 / 0.07);
+  --lg-lens-ring: rgb(0 0 0 / 0.22);
+  /* A clear lens still needs a contour against a pale backdrop. */
+  --lg-navigation-fill: rgb(255 255 255 / 0.48);
+  --lg-selection-lens-fill: rgb(255 255 255 / 0.14);
+  --lg-selection-lens-edge: rgb(45 48 53 / 0.28);
+  --lg-selection-lens-bevel: inset 0 3px 7px rgb(45 48 53 / 0.1), inset 0 -1px 2px rgb(255 255 255 / 0.8);
+  --lg-selection-lens-brightness: 1;
+  --lg-switch-face-fade: 1;
+
+  /* Thick material: sheets, menus, cards */
+  --lg-panel-fill: rgb(255 255 255 / 0.62);
+  --lg-menu-fill: rgb(250 250 252 / 0.94);
+  --lg-panel-blur: 28px;
+
+  --lg-tab-selection: rgb(0 0 0 / 0.07);
+  --lg-segment-selection: rgb(0 0 0 / 0.08);
+  --lg-track: rgb(120 120 128 / 0.26);
+  --lg-rail: rgb(120 120 128 / 0.2);
+  --lg-block-well: rgb(120 120 128 / 0.24);
+  --lg-block-lit: #ffffff;
+  --lg-block-lit-fg: rgb(0 0 0 / 0.78);
+  --lg-thumb: #ffffff;
+  --lg-thumb-shadow: 0 3px 8px rgb(0 0 0 / 0.15), 0 1px 1px rgb(0 0 0 / 0.06), 0 0 0 0.5px rgb(0 0 0 / 0.04);
+  --lg-scrim: rgb(0 0 0 / 0.18);
+  --lg-ring: rgb(0 136 255 / 0.55);
+  --lg-font: -apple-system, BlinkMacSystemFont, 'SF Pro Text', 'SF Pro', 'Inter', system-ui, sans-serif;
+}
+
+:where([data-theme='dark']) {
+  --lg-fg: rgb(255 255 255 / 0.96);
+  --lg-fg-muted: rgb(235 235 245 / 0.6);
+  --lg-fg-faint: rgb(235 235 245 / 0.3);
+  --lg-accent: #0091ff;
+  --lg-green: #30d158;
+  --lg-red: #ff4245;
+  --lg-fill: rgb(44 44 48 / 0.5);
+  --lg-fill-pressed: rgb(90 90 96 / 0.55);
+  --lg-blur: 8px;
+  --lg-saturate: 1.6;
+  --lg-brightness: 0.96;
+  --lg-edge: rgb(255 255 255 / 0.09);
+  --lg-shadow: 0 8px 28px rgb(0 0 0 / 0.38), 0 1px 3px rgb(0 0 0 / 0.3);
+  --lg-rim-opacity: 0.62;
+  --lg-glow: rgb(255 255 255 / 0.16);
+  --lg-lens-fill: rgb(28 28 30 / 0.3);
+  --lg-lens-shadow: 0 10px 30px rgb(0 0 0 / 0.45), 0 2px 6px rgb(0 0 0 / 0.3);
+  --lg-lens-edge: rgb(255 255 255 / 0.12);
+  --lg-lens-ring: rgb(255 255 255 / 0.3);
+  --lg-navigation-fill: var(--lg-fill);
+  --lg-selection-lens-fill: rgb(255 255 255 / 0.09);
+  --lg-selection-lens-edge: rgb(255 255 255 / 0.25);
+  --lg-selection-lens-bevel: inset 0 0 0 transparent;
+  --lg-selection-lens-brightness: 1.06;
+  --lg-switch-face-fade: 0.92;
+  --lg-panel-fill: rgb(30 30 33 / 0.62);
+  --lg-menu-fill: rgb(38 38 42 / 0.94);
+  --lg-tab-selection: rgb(0 0 0 / 0.36);
+  --lg-segment-selection: rgb(255 255 255 / 0.14);
+  --lg-track: rgb(120 120 128 / 0.44);
+  --lg-rail: rgb(120 120 128 / 0.4);
+  --lg-block-well: rgb(120 120 128 / 0.3);
+  --lg-block-lit: #ffffff;
+  --lg-block-lit-fg: rgb(0 0 0 / 0.78);
+  --lg-thumb: #ffffff;
+  --lg-thumb-shadow: 0 3px 8px rgb(0 0 0 / 0.3), 0 1px 1px rgb(0 0 0 / 0.16);
+  --lg-scrim: rgb(0 0 0 / 0.4);
+  --lg-ring: rgb(0 145 255 / 0.7);
+}
+
+@media (prefers-color-scheme: dark) {
+  :where(:root:not([data-theme='light'])) {
+    --lg-fg: rgb(255 255 255 / 0.96);
+    --lg-fg-muted: rgb(235 235 245 / 0.6);
+    --lg-fg-faint: rgb(235 235 245 / 0.3);
+    --lg-accent: #0091ff;
+    --lg-green: #30d158;
+    --lg-red: #ff4245;
+    --lg-fill: rgb(44 44 48 / 0.5);
+    --lg-fill-pressed: rgb(90 90 96 / 0.55);
+    --lg-blur: 8px;
+    --lg-saturate: 1.6;
+    --lg-brightness: 0.96;
+    --lg-edge: rgb(255 255 255 / 0.09);
+    --lg-shadow: 0 8px 28px rgb(0 0 0 / 0.38), 0 1px 3px rgb(0 0 0 / 0.3);
+    --lg-rim-opacity: 0.62;
+    --lg-glow: rgb(255 255 255 / 0.16);
+    --lg-lens-fill: rgb(28 28 30 / 0.3);
+    --lg-lens-shadow: 0 10px 30px rgb(0 0 0 / 0.45), 0 2px 6px rgb(0 0 0 / 0.3);
+    --lg-lens-edge: rgb(255 255 255 / 0.12);
+    --lg-lens-ring: rgb(255 255 255 / 0.3);
+    --lg-navigation-fill: var(--lg-fill);
+    --lg-selection-lens-fill: rgb(255 255 255 / 0.09);
+    --lg-selection-lens-edge: rgb(255 255 255 / 0.25);
+    --lg-selection-lens-bevel: inset 0 0 0 transparent;
+    --lg-selection-lens-brightness: 1.06;
+    --lg-switch-face-fade: 0.92;
+    --lg-panel-fill: rgb(30 30 33 / 0.62);
+    --lg-menu-fill: rgb(38 38 42 / 0.94);
+      --lg-tab-selection: rgb(0 0 0 / 0.36);
+    --lg-segment-selection: rgb(255 255 255 / 0.14);
+    --lg-track: rgb(120 120 128 / 0.44);
+    --lg-rail: rgb(120 120 128 / 0.4);
+    --lg-thumb-shadow: 0 3px 8px rgb(0 0 0 / 0.3), 0 1px 1px rgb(0 0 0 / 0.16);
+    --lg-block-well: rgb(120 120 128 / 0.3);
+    --lg-scrim: rgb(0 0 0 / 0.4);
+    --lg-ring: rgb(0 145 255 / 0.7);
+  }
+}
+
+/* ------------------------------------------------------------------ */
+/*  The material                                                       */
+/* ------------------------------------------------------------------ */
+
+.lg-symbol {
+  display: inline-block;
+  flex: none;
+  width: var(--lg-symbol-size, 24px);
+  height: var(--lg-symbol-size, 24px);
+  vertical-align: middle;
+  background-color: currentColor;
+  -webkit-mask-size: contain;
+  mask-size: contain;
+  -webkit-mask-repeat: no-repeat;
+  mask-repeat: no-repeat;
+  -webkit-mask-position: center;
+  mask-position: center;
+  pointer-events: none;
+}
+
+/* Pressable glass (usePress) never lets a link or image inside it be dragged
+   out; the press stretches the glass instead. */
+[data-lg-press],
+[data-lg-press] :is(a, img) {
+  -webkit-user-drag: none;
+}
+
+.lg-glass {
+  position: relative;
+  box-sizing: border-box;
+  background-color: var(--lg-glass-fill, var(--lg-fill));
+  -webkit-backdrop-filter: blur(var(--lg-glass-blur, var(--lg-blur))) saturate(var(--lg-saturate));
+  backdrop-filter: var(--lg-filter, ) blur(var(--lg-glass-blur, var(--lg-blur))) saturate(var(--lg-saturate))
+    brightness(var(--lg-brightness));
+  box-shadow: var(--lg-glass-shadow, var(--lg-shadow)), inset 0 0 0 0.5px var(--lg-edge);
+  transition: background-color 260ms ease;
+  -webkit-tap-highlight-color: transparent;
+}
+
+/* Refraction is the costly part of glass: the backdrop is re-bent on every
+   frame it moves. It pauses while the page scrolls (blur and rim carry the
+   look in motion), off screen, and on resting surfaces of weak devices. */
+[data-lg-refract] {
+  --lg-filter: var(--lg-refraction);
+}
+
+html[data-lg-scrolling] [data-lg-refract],
+[data-lg-refract][data-lg-offscreen],
+html[data-lg-quality='low'] [data-lg-refract='surface'] {
+  --lg-filter: initial;
+}
+
+/* Baked specular rim: thin bright line, hottest on the diagonal corners. */
+.lg-glass::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  background-image: var(--lg-rim, none);
+  background-size: 100% 100%;
+  opacity: var(--lg-rim-opacity);
+  pointer-events: none;
+  z-index: 0;
+}
+
+/* Light bloom under the finger. */
+.lg-glass::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  pointer-events: none;
+  background: radial-gradient(
+    ellipse 85% 85% at var(--lg-x, 50%) var(--lg-y, 50%),
+    var(--lg-glow),
+    transparent
+  );
+  opacity: 0;
+  transition: opacity 360ms ease;
+  z-index: 0;
+}
+
+.lg-glass[data-pressed]::after {
+  opacity: 1;
+  transition-duration: 80ms;
+}
+
+.lg-glass > * {
+  position: relative;
+  z-index: 1;
+}
+
+@media (prefers-reduced-transparency: reduce) {
+  .lg-glass {
+    --lg-fill: color-mix(in srgb, Canvas 92%, transparent);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .lg-glass,
+  .lg-glass::after {
+    transition-duration: 0.01ms !important;
+  }
+}
+
+/* Safari / Firefox: a live copy of what's beneath, refracted inside the glass. */
+.lg-glass > .lg-mirror {
+  position: absolute !important;
+  inset: 0;
+  z-index: 0 !important;
+  pointer-events: none;
+  border-radius: inherit;
+  overflow: hidden;
+  -webkit-mask-image: var(--lg-inner-mask);
+  mask-image: var(--lg-inner-mask);
+  -webkit-mask-size: 100% 100%;
+  mask-size: 100% 100%;
+}
+
+.lg-mirror__zoom {
+  position: absolute;
+  inset: 0;
+  transform-origin: center;
+}
+
+.lg-mirror * {
+  transition: none !important;
+  animation: none !important;
+}
+
+.lg-mirror .lg-glass {
+  -webkit-backdrop-filter: none !important;
+  backdrop-filter: none !important;
+}
+
+.lg-mirror .lg-glass::after {
+  display: none;
+}
+
+.lg-mirror__viewport {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+}
+
+/* ------------------------------------------------------------------ */
+/*  Glass that holds glass                                             */
+/* ------------------------------------------------------------------ */
+
+/*
+ * An element with backdrop-filter becomes a "backdrop root": glass nested
+ * inside it can only see the container's own paint, never the page behind.
+ * Hosts (cards, sheets, bars) therefore frost on their ::before layer, so a
+ * lens lifted inside them still refracts the real backdrop, as on iOS.
+ */
+.lg-glass.lg-glass--host {
+  background-color: transparent;
+  -webkit-backdrop-filter: none;
+  backdrop-filter: none;
+}
+
+.lg-glass.lg-glass--host::before {
+  background-image:
+    var(--lg-rim, linear-gradient(transparent, transparent)),
+    linear-gradient(var(--lg-host-tint, transparent), var(--lg-host-tint, transparent)),
+    linear-gradient(var(--lg-glass-fill, var(--lg-fill)), var(--lg-glass-fill, var(--lg-fill)));
+  background-size: 100% 100%;
+  -webkit-backdrop-filter: blur(var(--lg-glass-blur, var(--lg-blur))) saturate(var(--lg-saturate));
+  backdrop-filter: var(--lg-filter, ) blur(var(--lg-glass-blur, var(--lg-blur))) saturate(var(--lg-saturate))
+    brightness(var(--lg-brightness));
+  opacity: 1;
+  transition: background-color 260ms ease;
+}
+
+/* ======== 元：components/internal/LensTrack.css ======== */
+.lg-track {
+  --lg-pad: 4px;
+  --lg-item-h: 54px;
+  --lg-item-w: 68px;
+  --lg-lift: 0;
+  position: relative;
+  overflow: visible;
+  display: inline-grid;
+  grid-auto-flow: column;
+  grid-auto-columns: minmax(var(--lg-item-w), 1fr);
+  padding: var(--lg-pad);
+  border-radius: 999px;
+  font-family: var(--lg-font);
+  touch-action: none;
+  user-select: none;
+  -webkit-user-select: none;
+  -webkit-tap-highlight-color: transparent;
+  transform-origin: center;
+}
+
+.lg-track__glass {
+  --lg-glass-fill: var(--lg-navigation-fill);
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  pointer-events: none;
+  z-index: 0;
+}
+
+.lg-track[data-lifted] {
+  z-index: 10;
+}
+
+.lg-track[data-lifted] .lg-track__glass::after {
+  opacity: 0.7;
+  transition-duration: 120ms;
+}
+
+.lg-track__item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 2px;
+  height: var(--lg-item-h);
+  min-width: 0;
+  padding: 0 10px;
+  font: inherit;
+  white-space: nowrap;
+}
+
+.lg-track__item:is([aria-selected='true'], [data-on='1']) {
+  color: var(--lg-track-active, var(--lg-accent));
+}
+
+/* Preview the tab beneath the dragged droplet using the original icon row. */
+.lg-track[data-previewing] .lg-track__item {
+  color: var(--lg-fg);
+}
+
+.lg-track[data-previewing] .lg-track__item[data-lg-preview] {
+  color: var(--lg-track-active, var(--lg-accent));
+}
+
+.lg-track[data-lifted] .lg-nav__label {
+  background: var(--lg-content-tint);
+  background-clip: text;
+  -webkit-background-clip: text;
+  color: transparent;
+  -webkit-text-fill-color: transparent;
+}
+
+.lg-track[data-lifted] .lg-nav__icon > .lg-symbol {
+  background: var(--lg-content-tint);
+}
+
+.lg-track__item {
+  position: relative;
+  z-index: 2;
+  margin: 0;
+  border: 0;
+  border-radius: 999px;
+  background: none;
+  color: var(--lg-fg);
+  cursor: pointer;
+  -webkit-touch-callout: none;
+}
+
+.lg-track[data-keyboard] .lg-track__item:focus-visible {
+  outline: 2px solid var(--lg-ring);
+  outline-offset: -3px;
+}
+
+.lg-track__lens,
+.lg-track__select {
+  position: absolute;
+  top: var(--lg-pad);
+  left: var(--lg-pad);
+  width: calc((100% - var(--lg-pad) * 2) / var(--lg-count));
+  height: calc(100% - var(--lg-pad) * 2);
+  border-radius: 999px;
+  pointer-events: none;
+  transform: translateX(calc(100% * var(--lg-index)));
+}
+
+/* The selection: a flat pill at rest, a clear refracting lens when lifted. */
+.lg-track__lens.lg-glass {
+  z-index: 1;
+  background-color: color-mix(in srgb, var(--lg-selection-lens-fill) calc(var(--lg-lift) * 100%), transparent);
+  -webkit-backdrop-filter: none;
+  backdrop-filter: none;
+  box-shadow:
+    0 calc(var(--lg-lift) * 8px) calc(var(--lg-lift) * 26px) rgb(0 0 0 / calc(var(--lg-lift) * 0.18)),
+    inset 0 0 0 0.5px color-mix(in srgb, var(--lg-selection-lens-edge) calc(var(--lg-lift) * 45%), transparent),
+    var(--lg-selection-lens-bevel);
+  transition: none;
+}
+
+.lg-track__lens.lg-glass::before {
+  /* A faint rim: the stretched light at the edge outlines the lens already. */
+  opacity: calc(var(--lg-lift) * 0.5);
+  /* Above a copied lens's contents (Safari), so the rim still catches light. */
+  z-index: 2;
+}
+
+/* No press bloom on the lens: its white wash greys out the label beneath. */
+.lg-track__lens.lg-glass::after {
+  display: none;
+}
+
+/* The resting selection pill: its own element, so it is always a true pill. */
+.lg-track__select {
+  z-index: 1;
+  background: var(--lg-track-selection);
+  opacity: calc(1 - var(--lg-lift) * 2.2);
+}
+
+/* The lens only exists while lifted (JS fades it in with the lift). */
+.lg-track__lens {
+  opacity: 0;
+}
+
+.lg-track[data-lifted] .lg-track__lens.lg-glass {
+  z-index: 4;
+}
+
+/* Only a refracting lens samples the backdrop. Elsewhere (Safari, Firefox)
+   resampling the labels underneath just blurs and washes them out, so the
+   lens stays perfectly clear and the content beneath renders sharp. */
+.lg-track[data-lifted] .lg-track__lens.lg-glass[data-lg-refract] {
+  -webkit-backdrop-filter: var(--lg-filter, ) blur(0.3px) saturate(1.5) brightness(var(--lg-selection-lens-brightness));
+  backdrop-filter: var(--lg-filter, ) blur(0.3px) saturate(1.5) brightness(var(--lg-selection-lens-brightness));
+}
+
+.lg-track:not([data-ready]) .lg-track__lens {
+  transition: none;
+}
+
+/* ------------------------------------------------------------------ */
+/*  Tab bar                                                            */
+/* ------------------------------------------------------------------ */
+
+.lg-track--tabbar {
+  /* Room above the icon and below the label inside the selection pill. */
+  --lg-item-h: 60px;
+  --lg-navigation-fill: var(--lg-fill);
+  --lg-selection-lens-fill: rgb(255 255 255 / 0.09);
+  --lg-selection-lens-edge: rgb(255 255 255 / 0.25);
+  --lg-selection-lens-bevel: inset 0 0 0 transparent;
+  --lg-selection-lens-brightness: 1.06;
+  --lg-track-selection: var(--lg-tab-selection);
+  font-size: 10px;
+  font-weight: 600;
+  letter-spacing: 0.01em;
+}
+
+/* The label's line box leaves empty space under its letters, so an icon over
+   a label sits low when the boxes are centred: lift it to centre the ink. */
+.lg-track--tabbar:not(.lg-track--labels-only, .lg-track--icons-only) .lg-track__item {
+  padding-bottom: 3px;
+}
+
+.lg-track--tabbar .lg-nav__icon {
+  display: grid;
+  place-items: center;
+  width: 26px;
+  height: 26px;
+}
+
+/* An icon with a selected look: both versions share one cell. The bar shows
+   the selected look on the selected tab at rest. While the lens is lifted the
+   bar shows every icon plain and the lens copy shows every icon selected, so
+   an icon fills in exactly where the lens covers it. */
+.lg-nav__icons {
+  display: grid;
+}
+
+.lg-nav__icons > .lg-nav__icon {
+  grid-area: 1 / 1;
+}
+
+.lg-nav__icon--active,
+.lg-track__item:is([aria-selected='true'], [data-on='1']) .lg-nav__icon--idle {
+  visibility: hidden;
+}
+
+.lg-track__item:is([aria-selected='true'], [data-on='1']) .lg-nav__icon--active,
+.lg-track[data-lifted] .lg-nav__icon--idle {
+  visibility: visible;
+}
+
+.lg-track[data-lifted] .lg-nav__icon--active {
+  visibility: hidden;
+}
+
+/* The copy inside the lens carries the bar's flags too, so it needs the
+   stronger selector. */
+.lg-track[data-lg-copy] .lg-nav__icons > .lg-nav__icon--active {
+  visibility: visible;
+}
+
+.lg-track[data-lg-copy] .lg-nav__icons > .lg-nav__icon--idle {
+  visibility: hidden;
+}
+
+.lg-track--tabbar .lg-nav__icon > :is(svg, .lg-symbol) {
+  width: 100%;
+  height: 100%;
+}
+
+.lg-track--tabbar .lg-nav__label {
+  line-height: 1.1;
+}
+
+.lg-track--tabbar.lg-track--icons-only .lg-nav__icon {
+  width: 28px;
+  height: 28px;
+}
+
+.lg-track--tabbar.lg-track--labels-only {
+  --lg-item-h: 44px;
+  font-size: 15px;
+  font-weight: 600;
+}
+
+/* ------------------------------------------------------------------ */
+/*  Segmented control                                                  */
+/* ------------------------------------------------------------------ */
+
+.lg-track--segmented {
+  /* Like the tab bar: no inner bevel on the lifted lens, which read as a
+     stroke; its edge comes from the light it stretches. */
+  --lg-selection-lens-bevel: inset 0 0 0 transparent;
+  --lg-pad: 4px;
+  --lg-item-h: 36px;
+  --lg-item-w: 64px;
+  --lg-track-selection: var(--lg-segment-selection);
+  --lg-track-active: var(--lg-fg);
+  font-size: 15px;
+  font-weight: 500;
+  letter-spacing: -0.01em;
+}
+
+.lg-track--segmented .lg-track__item {
+  flex-direction: row;
+  gap: 6px;
+  padding: 0 16px;
+}
+
+.lg-track--segmented .lg-track__item {
+  color: var(--lg-fg);
+}
+
+.lg-track--segmented .lg-nav__icon {
+  display: inline-flex;
+}
+
+.lg-track--sm.lg-track--segmented {
+  --lg-item-h: 28px;
+  --lg-pad: 3px;
+  font-size: 13px;
+}
+
+/* Copied lens (Safari, Firefox): the real glyphs fade out under the clear
+   lens (lensTrack writes --lg-content-hide), leaving only the magnified copy. */
+/* Everything inside the lens takes the active colour, including what its rim
+   bends in from the neighbouring tabs. */
+.lg-track[data-lg-copy] > .lg-track__item {
+  color: var(--lg-track-active, var(--lg-accent));
+}
+
+.lg-track[data-lg-copy] .lg-nav__label {
+  background: none;
+  color: var(--lg-track-active, var(--lg-accent));
+  -webkit-text-fill-color: currentColor;
+}
+
+.lg-track[data-lg-copy] .lg-nav__icon > .lg-symbol {
+  background: var(--lg-track-active, var(--lg-accent));
+}
+
+/* The copy only carries the content. Its own bar glass and resting pill would
+   show up magnified inside the lens as a second outline. */
+[data-lg-copy] > :is(.lg-track__glass, .lg-track__select) {
+  visibility: hidden;
+}
+
+.lg-track[data-lifted]:not([data-lg-copy]) > .lg-track__item :is(.lg-nav__label, .lg-nav__icon) {
+  -webkit-mask: var(--lg-content-hide, none);
+  mask: var(--lg-content-hide, none);
+  -webkit-mask-composite: source-out, source-over, source-over, source-over;
+  mask-composite: subtract, add, add, add;
+}
+
+.lg-track:not([data-lifted]) .lg-track__lens > .lg-mirror {
+  visibility: hidden;
+}
+
+/* ================================================================== */
+/*  WK：Workspace Kit 用の上書き                                        */
+/* ================================================================== */
+
+/* 色と文字はキットのトークンに合わせる（テーマを変えると選んだ色も変わる） */
+.lg-nav {
+  --lg-accent: var(--wk-tab-ink);
+  --lg-track-active: var(--wk-tab-ink);
+  --lg-fg: var(--wk-fg);
+  --lg-ring: var(--wk-ring, var(--wk-accent));
+  --lg-font: inherit;
+  --lg-item-h: 100%;
+  width: 100%;
+  font-size: 12px; /* 最小 12px を守る */
+}
+.lg-nav .lg-track__item { padding: 0 4px; gap: 3px; text-decoration: none; }
+.lg-nav .lg-nav__icon { display: grid; place-items: center; width: 24px; height: 24px; }
+.lg-nav { height: 100%; }
+.lg-nav .lg-nav__label { line-height: 1; }
+.lg-nav .lg-track__item:focus-visible { outline: 2px solid var(--lg-ring); outline-offset: -3px; }
+
+/* どのタブも選んでいない画面（ナビに無い画面）では、止まっている玉を出さない */
+.lg-nav[data-wk-none] .lg-track__select { visibility: hidden; }
+
+/* 止まっているとき：バーより少し灰色の、明るい玉。暗くしない。選んだタブはアイコンが塗りつぶし＋文字が青（iOS 26 の Apple Store に合わせた「S」） */
+.lg-nav .lg-track__select {
+  background: rgb(120 120 140 / 0.14);
+  box-shadow: inset 0 0 0 0.5px rgb(255 255 255 / 0.5);
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) .lg-nav .lg-track__select { background: rgb(0 0 0 / 0.28); box-shadow: inset 0 0 0 0.5px rgb(255 255 255 / 0.12); }
+}
+:root[data-theme="dark"] .lg-nav .lg-track__select { background: rgb(0 0 0 / 0.28); box-shadow: inset 0 0 0 0.5px rgb(255 255 255 / 0.12); }
+
+/* 持ち上がったとき：澄んだシャボン玉。中は塗らず背景が透ける。縁は白い線、上は白い光の帯（影ではない）、下の縁にだけ虹色 */
+.lg-nav .lg-track__lens.lg-glass {
+  background-color: transparent;
+  box-shadow:
+    inset 0 0 0 calc(var(--lg-lift) * 1px) rgb(255 255 255 / 0.85),
+    0 0 0 calc(var(--lg-lift) * 0.5px) rgb(120 120 140 / 0.38),
+    inset 0 7px 7px -5px rgb(255 255 255 / calc(var(--lg-lift) * 0.95)),
+    inset 0 -4px 6px -3px rgb(255 255 255 / calc(var(--lg-lift) * 0.45)),
+    0 4px 14px rgb(0 0 0 / calc(var(--lg-lift) * 0.1));
+}
+.lg-nav .lg-track__lens.lg-glass::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  padding: 2.4px;
+  background: linear-gradient(90deg, #ff5fa0, #ffb03a 22%, #7dffa0 42%, #4cc9ff 62%, #8a7cff 82%, #ff5fa0);
+  /* 輪の形 ∩ 下側だけ（上は消える） */
+  -webkit-mask: linear-gradient(0deg, #000 0, #000 30%, transparent 62%), linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
+  -webkit-mask-composite: source-in, xor;
+  mask: linear-gradient(0deg, #000 0, #000 30%, transparent 62%), linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
+  mask-composite: intersect, exclude;
+  opacity: calc(var(--lg-lift) * 0.85);
+  z-index: 3;
+  pointer-events: none;
+}
+.lg-nav .lg-track__lens.lg-glass::after { display: none; }
+
+/* 透明度を下げる設定・ハイコントラスト：ガラスをやめて不透明に */
+@media (prefers-reduced-transparency: reduce) {
+  .lg-nav .lg-track__glass { --lg-glass-fill: var(--wk-surface); -webkit-backdrop-filter: none; backdrop-filter: none; }
+}
+@media (forced-colors: active) {
+  .lg-nav .lg-track__glass { background: Canvas; border: 1px solid CanvasText; }
+  .lg-nav .lg-track__select { background: Highlight; opacity: 0.3; }
+  .lg-nav .lg-track__lens.lg-glass::before { display: none; }
+}

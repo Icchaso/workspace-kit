@@ -10,7 +10,7 @@
  *   3. 12px より小さい文字が無い
  *   4. 指で触る幅では、押せるものが 44px 以上・入力欄の文字が 16px 以上（16px 未満だと iPhone が勝手に拡大する）
  *   5. 文字と背景の差（コントラスト）など、axe-core の WCAG A/AA の指摘が無い
- *   6. 下タブの動き：押した瞬間に選択表示／丸い板が 120〜260ms で止まる／途中で 1.12 倍以上に伸びる／動きを減らす設定では瞬間移動
+ *   6. 下タブの動き：押した瞬間に選択表示／玉が 120〜400ms で止まる／途中で 1.12 倍以上に伸びる／バーのふくらみは 1.08 倍まで／動きを減らす設定では瞬間移動
  *   7. 画面の切り替え：下タブを押してから見出しが変わるまで 150ms 未満
  *   8. コンソールにエラーが出ていない
  *   9. （DEMO=1 のときだけ）見本アプリの操作が通る（スマホ：行を押して詳細シート・長押しで操作シート・右下の主ボタン・今日を締める・AIの成果物を今日に入れる／
@@ -176,27 +176,35 @@ async function measureTab(reduced) {
   await page.goto(base + ROUTES[0], { waitUntil: "networkidle" });
   await page.waitForTimeout(400);
   const nav = page.locator("[data-nav=tabbar]");
-  if (!(await nav.count()) || (await nav.locator("a").count()) < 2) {
+  // レンズの中にはバーの写し（同じリンクの複製）があるので、バー直下の項目だけ数える
+  const tabs = nav.locator(":scope > .lg-track > [data-lg-item], :scope > a");
+  if (!(await nav.count()) || (await tabs.count()) < 2) {
     await ctx.close();
     return null;
   }
   const box = await nav.boundingBox();
-  const count = await nav.locator("a").count();
+  const count = await tabs.count();
   // ページの中で、押した瞬間からの変化を毎フレーム記録する
   await page.evaluate(() => {
     const nav = document.querySelector("[data-nav=tabbar]");
-    const pill = nav.querySelector(".wk-lens"); // 選択の板（見た目だけの要素。ガラスのレンズ）
+    const pill = nav.querySelector(":scope > .lg-track > .lg-track__select"); // 止まっているときの玉（位置を測る）
+    const lens = nav.querySelector(":scope > .lg-track > .lg-track__lens"); // 触れている間に持ち上がるガラスのレンズ（伸びを測る）
+    const track = nav.querySelector(":scope > .lg-track"); // バー（触れている間だけ横に少しふくらむ）
     const h1 = () => document.querySelector("h1")?.textContent;
     const firstH1 = h1();
     const log = (window.__tab = { t0: 0, frames: [], h1At: null, onAt: null });
+    const restW = pill.offsetWidth; // 止まっているときの玉の幅（＝1タブの幅）
     nav.addEventListener("pointerdown", () => {
       log.t0 = performance.now();
       const loop = () => {
         const t = performance.now() - log.t0;
         const m = new DOMMatrixReadOnly(getComputedStyle(pill).transform);
-        const bar = new DOMMatrixReadOnly(getComputedStyle(nav.children[0]).transform);
-        log.frames.push({ t, x: m.m41, sx: m.a, bar: bar.a });
-        if (log.onAt === null && nav.querySelectorAll("a")[1].classList.contains("text-fg")) log.onAt = t;
+        const l = new DOMMatrixReadOnly(getComputedStyle(lens).transform);
+        const bar = parseFloat(getComputedStyle(track).scale) || 1;
+        // レンズの見た目の幅 ÷ 1タブの幅。レンズが見えていない間（持ち上がる前・収まった後）は 1
+        const shown = parseFloat(getComputedStyle(lens).opacity) > 0.05;
+        log.frames.push({ t, x: m.m41, sx: shown ? l.a * (lens.offsetWidth / restW) : 1, bar });
+        if (log.onAt === null && nav.querySelectorAll(":scope > .lg-track > [data-lg-item]")[1]?.dataset.on === "1") log.onAt = t;
         if (log.h1At === null && h1() !== firstH1) log.h1At = t;
         if (t < 700) requestAnimationFrame(loop);
       };
@@ -232,9 +240,11 @@ notes.push(
   `下タブ：選択表示 ${m.onAt?.toFixed(0)}ms／板が止まるまで ${m.settleMs?.toFixed(0)}ms（離してから）／伸び 最大 ${m.maxStretch.toFixed(2)}倍／バー 最大 ${m.maxBar.toFixed(3)}倍／見出しが変わるまで ${m.h1At === null ? "—" : (m.h1At - 90).toFixed(0)}ms（離してから）`,
 );
 if (m.onAt === null || m.onAt > 50) fail("下タブ", `押してから選択表示まで ${m.onAt}ms（50ms 以内のはず）`);
-if (m.settleMs === null || m.settleMs < 120 || m.settleMs > 260) fail("下タブ", `板が止まるまで ${m.settleMs}ms（120〜260ms のはず）`);
+// 2026-11-24 から、玉は揺れながら収まるスライム寄りの動き（いっちゃんが見本「3458」を選んだ）。そのぶん収まるまで少し長い
+if (m.settleMs === null || m.settleMs < 120 || m.settleMs > 400) fail("下タブ", `玉が止まるまで ${m.settleMs}ms（120〜400ms のはず）`);
 if (m.maxStretch < 1.12) fail("下タブ", `移動中の伸びが ${m.maxStretch.toFixed(2)}倍（1.12倍以上のはず）`);
-if (m.maxBar < 1.015) fail("下タブ", `押している間のふくらみが ${m.maxBar.toFixed(3)}倍（1.03倍前後のはず）`);
+// バー全体は触れている間だけ横に少しふくらむ（見本「3458」）。大きすぎると iPhone でぼかしの描き直しが重くなるので上限を見る
+if (m.maxBar > 1.08) fail("下タブ", `バーのふくらみが ${m.maxBar.toFixed(3)}倍（1.08倍以下のはず）`);
 if (m.h1At === null || m.h1At - 90 >= 150)
   fail("画面の切り替え", `指を離してから見出しが変わるまで ${m.h1At === null ? "変わらない（各画面に、画面の名前の <h1> が1つ要る）" : (m.h1At - 90).toFixed(0) + "ms"}（150ms 未満のはず）`);
 

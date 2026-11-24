@@ -5,3 +5,5 @@
 @import "@workspace-kit/themes/curated.css";
 /* 土台（文字・フォーカス・折り返し）と骨格（3段階のナビの幅・すりガラス・読み込みの骨） */
 @import "@workspace-kit/tokens/base.css";
+/* 下タブのガラス（Liquid Glass。元は @zakisheriff/liquid-glass・MIT） */
+@import "@workspace-kit/tokens/liquid-glass.css";

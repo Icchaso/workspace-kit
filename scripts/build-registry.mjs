@@ -49,6 +49,7 @@ function cssFile() {
     ["Tailwind のクラス名との対応", "packages/tokens/tailwind.css"],
     ["テーマ12種（<html data-palette=\"…\"> で切り替え）", "packages/themes/dist/curated.css"],
     ["土台と骨格", "packages/tokens/base.css"],
+    ["下タブのガラス（元は @zakisheriff/liquid-glass 4.0.3、Copyright (c) 2026 Zaki Sheriff、MIT License）", "packages/tokens/liquid-glass.css"],
   ];
   const content =
     `/*\n * Workspace Kit ${VERSION}（${BASE}/kit）\n * globals.css の \`@import "tailwindcss";\` のすぐ後に \`@import "./workspace-kit.css";\` と書いて読み込む。\n * テーマの元：awesome-design-skills（Copyright (c) 2026 Bergside, MIT License。許諾文の全文は https://opensource.org/license/mit ）\n */\n\n` +
@@ -62,6 +63,7 @@ const dep = (name) => `${name}@${installed(name)}`;
 const url = (name) => `${BASE}/r/${name}.json`;
 
 const UI = ["button", "confirm-dialog", "count-up", "data-list", "fab", "feedback", "segmented", "sheet", "steps", "toast"];
+const LIQUID_GLASS = ["lens-track.tsx", "lensTrack.ts", "refraction.ts", "mirror.ts", "quality.ts", "spring.ts", "selection.ts", "haptics.ts", "LICENSE"];
 const SHELL = ["app-frame", "bottom-tab-bar", "boot-script", "command-palette", "side-nav", "theme-fonts"];
 const DEMO = [
   "components/tasks/add-task-sheet.tsx",
@@ -119,6 +121,8 @@ const items = [
     registryDependencies: [url("workspace-kit-ui")],
     files: [
       ...SHELL.map((n) => fromSrc(`components/shell/${n}.tsx`)),
+      // 下タブのガラスの動き（元は @zakisheriff/liquid-glass・MIT。LICENSE も一緒に配る）
+      ...LIQUID_GLASS.map((n) => fromSrc(`components/kit/liquid-glass/${n}`)),
       await palettesFile(),
       fromTemplate("config/nav.ts"),
       fromTemplate("config/shell.tsx"),

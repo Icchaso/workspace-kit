@@ -58,15 +58,15 @@
 .wk-glass,
 .wk-glass-bar,
 .wk-glass-sheet {
-  border: 1px solid var(--wk-glass-line);
+  border: 1px solid color-mix(in oklab, var(--wk-fg) 6%, transparent);
   backdrop-filter: blur(var(--wk-glass-blur)) saturate(var(--wk-glass-sat));
 }
 /* 標準：小さいボタン・入力欄・切り替え */
-.wk-glass { background: var(--wk-glass); box-shadow: inset 0 1px 0 var(--wk-glass-hi), var(--wk-shadow-sm); }
+.wk-glass { background: var(--wk-glass); box-shadow: inset 0 0 0 1px var(--wk-glass-rim), inset 2px 3px 0 -2.5px var(--wk-glass-spec), inset -2px -2px 0 -2.5px var(--wk-glass-spec), inset 0 0 14px -2px var(--wk-glass-rim), var(--wk-shadow-sm); }
 /* 浮く大きな物：下タブ・サイドバー・＋ボタン・お知らせ */
-.wk-glass-bar { background: var(--wk-glass); box-shadow: inset 0 1px 0 var(--wk-glass-hi), var(--wk-shadow); }
+.wk-glass-bar { background: var(--wk-glass); box-shadow: inset 0 0 0 1px var(--wk-glass-rim), inset 2px 3px 0 -2.5px var(--wk-glass-spec), inset -2px -2px 0 -2.5px var(--wk-glass-spec), inset 0 0 14px -2px var(--wk-glass-rim), var(--wk-shadow); }
 /* 文字が多い面：シート・⌘Kパレット。読みやすさ優先で濃いめ */
-.wk-glass-sheet { background: var(--wk-glass-strong); box-shadow: inset 0 1px 0 var(--wk-glass-hi), var(--wk-shadow); }
+.wk-glass-sheet { background: var(--wk-glass-strong); box-shadow: inset 0 1px 0 var(--wk-glass-spec), inset 0 0 0 1px var(--wk-glass-rim), var(--wk-shadow); }
 /* 上に貼り付く見出し。縁の線は引かず、下の境目だけ */
 .wk-glass-top {
   background: color-mix(in oklab, var(--wk-canvas) 78%, transparent);
@@ -95,14 +95,7 @@
   box-shadow: inset 0 1px 0 color-mix(in oklab, white 45%, transparent), var(--wk-shadow);
   backdrop-filter: blur(var(--wk-glass-blur)) saturate(var(--wk-glass-sat));
 }
-/* 下タブの板（選んだタブの上に乗るレンズ）。動いている間だけ、Chrome では下の絵が歪んで見える（SVG フィルターを使えるのが Chrome だけのため）。
-   他のブラウザでは歪みの指定が無視され、淡い板になるだけ */
-.wk-lens {
-  background: var(--wk-glass-lens);
-  border: 1px solid color-mix(in oklab, var(--wk-fg) 12%, transparent);
-  box-shadow: inset 0 1px 0 var(--wk-glass-hi), inset 0 -1px 0 color-mix(in oklab, var(--wk-fg) 6%, transparent);
-}
-.wk-lens[data-moving="1"] { backdrop-filter: url(#wk-refract); }
+/* 下タブのガラス（バー・止まっている玉・持ち上がるレンズ）は liquid-glass.css にある */
 /* 色が透ける土台がない画面でも、ガラスが白い板に見えないように、主色をごく薄くにじませる */
 .wk-ambient {
   position: fixed;
@@ -110,8 +103,9 @@
   z-index: -1;
   pointer-events: none;
   background:
-    radial-gradient(60rem 28rem at 12% -8%, color-mix(in oklab, var(--wk-accent) 9%, transparent), transparent 70%),
-    radial-gradient(48rem 26rem at 95% 108%, color-mix(in oklab, var(--wk-accent) 7%, transparent), transparent 70%);
+    radial-gradient(60rem 30rem at 10% -8%, color-mix(in oklab, var(--wk-accent) 17%, transparent), transparent 70%),
+    radial-gradient(50rem 28rem at 96% 108%, color-mix(in oklab, var(--wk-accent) 14%, transparent), transparent 70%),
+    radial-gradient(34rem 20rem at 70% 40%, color-mix(in oklab, var(--wk-warn) 6%, transparent), transparent 70%);
 }
 
 /* ぼかしが使えない環境：濃いめにして文字を守る */
@@ -130,12 +124,10 @@
   .wk-glass-ink, [data-sonner-toast].wk-glass-ink { background: var(--wk-fg); backdrop-filter: none; }
   .wk-glass-side { background: var(--wk-sidebar); backdrop-filter: none; }
   .wk-glass-accent { background: var(--wk-accent); backdrop-filter: none; }
-  .wk-lens { backdrop-filter: none; background: color-mix(in oklab, var(--wk-fg) 14%, var(--wk-surface)); }
   .wk-ambient { background: none; }
 }
 @media (forced-colors: active) {
   .wk-glass, .wk-glass-bar, .wk-glass-sheet, .wk-glass-ink, .wk-glass-accent, .wk-glass-side { background: Canvas; backdrop-filter: none; border-color: CanvasText; }
-  .wk-lens { backdrop-filter: none; border-color: Highlight; }
 }
 
 /* 読み込みの骨：150ms 待ってから出す（速いときにチラつかせない） */

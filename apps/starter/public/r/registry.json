@@ -147,6 +147,51 @@
           "target": "components/shell/theme-fonts.tsx"
         },
         {
+          "path": "components/kit/liquid-glass/lens-track.tsx",
+          "type": "registry:file",
+          "target": "components/kit/liquid-glass/lens-track.tsx"
+        },
+        {
+          "path": "components/kit/liquid-glass/lensTrack.ts",
+          "type": "registry:file",
+          "target": "components/kit/liquid-glass/lensTrack.ts"
+        },
+        {
+          "path": "components/kit/liquid-glass/refraction.ts",
+          "type": "registry:file",
+          "target": "components/kit/liquid-glass/refraction.ts"
+        },
+        {
+          "path": "components/kit/liquid-glass/mirror.ts",
+          "type": "registry:file",
+          "target": "components/kit/liquid-glass/mirror.ts"
+        },
+        {
+          "path": "components/kit/liquid-glass/quality.ts",
+          "type": "registry:file",
+          "target": "components/kit/liquid-glass/quality.ts"
+        },
+        {
+          "path": "components/kit/liquid-glass/spring.ts",
+          "type": "registry:file",
+          "target": "components/kit/liquid-glass/spring.ts"
+        },
+        {
+          "path": "components/kit/liquid-glass/selection.ts",
+          "type": "registry:file",
+          "target": "components/kit/liquid-glass/selection.ts"
+        },
+        {
+          "path": "components/kit/liquid-glass/haptics.ts",
+          "type": "registry:file",
+          "target": "components/kit/liquid-glass/haptics.ts"
+        },
+        {
+          "path": "components/kit/liquid-glass/LICENSE",
+          "type": "registry:file",
+          "target": "components/kit/liquid-glass/LICENSE"
+        },
+        {
           "path": "lib/palettes.ts",
           "type": "registry:file",
           "target": "lib/palettes.ts"

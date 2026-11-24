@@ -1,13 +1,14 @@
 "use client";
 
 /**
- * スマホの下タブ（767px 以下だけ表示）。動きは iOS 26 の標準的な下タブ（押した所へ光る丸が伸び縮みしながら移る）に合わせている。
+ * スマホの下タブ（767px 以下だけ表示）。見た目と動きは iOS 26 の下タブ（Liquid Glass）に合わせている。
+ * ガラスの仕組みは components/kit/liquid-glass（元は @zakisheriff/liquid-glass・MIT）。
  *
- *   指が触れた瞬間 … 押したタブのアイコンが選択表示になり、バー全体が 1.03 倍にふくらむ
- *   指を離した瞬間 … 画面を切り替える（中身はフェードも横すべりもしない＝即移動）
- *   選択の丸い板   … 約 180ms で次のタブへ滑る。速く動いている間だけ横に伸びて少し淡くなる。揺れ（行き過ぎ）は無し
- *   押さえたまま横になぞる … 板が指についてくる。離したところのタブへ移る
- *   動きを減らす設定 … 板は瞬間移動、ふくらみ無し
+ *   止まっているとき … 選んだタブはアイコンが塗りつぶし＋文字が主色。下にバーより少し灰色の薄い玉
+ *   指が触れた瞬間   … 押したタブが選択表示になり、玉が持ち上がって澄んだ泡のレンズになる（下のアイコンを拡大して塗る）
+ *   押さえたまま横になぞる … レンズが指についてくる。速く動かすと伸び、止まるとぷるんと揺れる
+ *   指を離した瞬間   … 画面を切り替える（中身はフェードも横すべりもしない＝即移動）。レンズは揺れながら収まる
+ *   動きを減らす設定 … バネを使わず、すぐ収まる
  *   項目が6つ以上（またはログイン中の人の欄がある）とき … 先頭4つ＋「もっと」。「もっと」は残りの項目とアカウント欄を下からのシートで出す
  *
  * 画面の切り替えは <Link> の先読み（App Shell）が効いているので、押してから待たない。
@@ -16,40 +17,13 @@
  */
 import Link from "next/link";
 import { usePathname, useRouter } from "next/navigation";
-import { animate, motion, useMotionValue, useMotionValueEvent, useReducedMotion, useTransform, useVelocity } from "motion/react";
-import { Suspense, useCallback, useLayoutEffect, useRef, useState } from "react";
+import { Suspense, useState } from "react";
 import { Ellipsis } from "lucide-react";
 import { NAV, isActive } from "@/config/nav";
 import { useAccount } from "@/config/shell";
 import { Sheet } from "@/components/kit/sheet";
+import { LensTrack } from "@/components/kit/liquid-glass/lens-track";
 import { cn } from "@/lib/cn";
-
-const SLIDE = { type: "spring", visualDuration: 0.18, bounce: 0 } as const;
-const PRESS = { type: "spring", visualDuration: 0.12, bounce: 0 } as const;
-const RELEASE = { type: "spring", visualDuration: 0.22, bounce: 0 } as const;
-const INSET = 4; // 板とバーの縁のすき間
-const DRAG_START = 6; // これ以上動いたら「なぞり」とみなす(px)
-
-/** 板の下の絵を歪ませる SVG フィルター（Chrome だけ効く）。ガラスのふちで光が曲がる感じを、拡大レンズの形で近づける */
-const REFRACT_MAP =
-  "data:image/svg+xml;utf8," +
-  encodeURIComponent(
-    '<svg xmlns="http://www.w3.org/2000/svg" width="1" height="1" viewBox="0 0 1 1" preserveAspectRatio="none">' +
-      '<defs><linearGradient id="x" x1="0" x2="1"><stop offset="0" stop-color="#f00"/><stop offset="1" stop-color="#000"/></linearGradient>' +
-      '<linearGradient id="y" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#0f0"/><stop offset="1" stop-color="#000"/></linearGradient></defs>' +
-      '<rect width="1" height="1" fill="url(#x)"/><rect width="1" height="1" fill="url(#y)" style="mix-blend-mode:screen"/></svg>',
-  );
-
-function RefractFilter() {
-  return (
-    <svg aria-hidden width="0" height="0" className="pointer-events-none absolute">
-      <filter id="wk-refract" x="0" y="0" width="100%" height="100%" colorInterpolationFilters="sRGB">
-        <feImage href={REFRACT_MAP} preserveAspectRatio="none" result="map" />
-        <feDisplacementMap in="SourceGraphic" in2="map" scale="16" xChannelSelector="R" yChannelSelector="G" />
-      </filter>
-    </svg>
-  );
-}
 
 const MORE = { href: "#more", label: "もっと", short: "もっと", icon: Ellipsis };
 
@@ -75,10 +49,6 @@ function TabBar({ pathname: at, account }: { pathname: string | null; account: R
   const items = needsMore ? [...tabs, MORE] : tabs;
   const [moreOpen, setMoreOpen] = useState(false);
   const router = useRouter();
-  const reduce = useReducedMotion();
-  const barRef = useRef<HTMLElement>(null);
-  const [width, setWidth] = useState(0);
-  const slot = width / items.length;
 
   // 押した瞬間に選択表示にするための「仮の選択」。画面が移り終わったら実際の場所に従う
   // どのナビにも無い画面（と、場所がまだ分からない間）は -1＝どれも選ばない
@@ -93,230 +63,104 @@ function TabBar({ pathname: at, account }: { pathname: string | null; account: R
   }
   const active = pressed && pressed.from === pathname ? pressed.index : routeIndex;
 
-  const x = useMotionValue(0);
-  const vx = useVelocity(x);
-  // 隣のタブへ移るだけでも約1.2倍に伸びるよう、速さ 1200px/秒 で最大になる
-  const stretch = useTransform(vx, [-1200, 0, 1200], [1.25, 1, 1.25], { clamp: true });
-  const lensOpacity = useTransform(vx, [-1200, 0, 1200], [0.7, 1, 0.7], { clamp: true });
-  const lens = useMotionValue(1); // なぞっている間だけ板を少し大きく
-  const scaleX = useTransform(() => stretch.get() * lens.get());
-  const scaleY = useTransform(() => (1 / Math.sqrt(stretch.get())) * lens.get());
-  const barScale = useMotionValue(1);
-  // 板が動いている間だけ、下の絵を歪ませる（止まっている間は文字をくっきり読ませる）。再描画は起こさず、属性だけ切り替える
-  const lensRef = useRef<HTMLDivElement>(null);
-  useMotionValueEvent(vx, "change", (v) => {
-    const el = lensRef.current;
-    if (el) el.dataset.moving = Math.abs(v) > 160 ? "1" : "0";
-  });
-
-  const drag = useRef<{ id: number; startX: number; start: number; dragging: boolean } | null>(null);
-  const placed = useRef(false);
-
-  useLayoutEffect(() => {
-    const el = barRef.current;
-    if (!el) return;
-    const ro = new ResizeObserver(() => setWidth(el.clientWidth));
-    ro.observe(el);
-    setWidth(el.clientWidth);
-    return () => ro.disconnect();
-  }, []);
-
-  const moveTo = useCallback(
-    (index: number) => {
-      if (!slot || index < 0) return;
-      const to = index * slot;
-      // 最初の配置と「動きを減らす」は瞬間移動
-      if (!placed.current || reduce) {
-        x.set(to);
-        placed.current = true;
-        return;
-      }
-      animate(x, to, SLIDE);
-    },
-    [slot, reduce, x],
-  );
-
-  useLayoutEffect(() => {
-    if (!drag.current?.dragging) moveTo(active);
-  }, [active, moveTo]);
-
-
-  const indexAt = (clientX: number) => {
-    const rect = barRef.current!.getBoundingClientRect();
-    return Math.min(items.length - 1, Math.max(0, Math.floor(((clientX - rect.left) / rect.width) * items.length)));
-  };
-
-  const swell = (on: boolean) => {
-    if (reduce) return;
-    animate(barScale, on ? 1.03 : 1, on ? PRESS : RELEASE);
-  };
-
+  // 離した瞬間（キーボードの Enter もここに来る）
   const go = (index: number) => {
     const href = items[index].href;
+    setPressed({ index, from: pathname });
     if (href === MORE.href) {
-      setPressed({ index, from: pathname });
-      moveTo(index);
       setMoreOpen(true);
       return;
     }
-    setPressed({ index, from: pathname });
-    moveTo(index);
     if (!isActive(pathname, href)) router.push(href);
-  };
-
-  const onPointerDown = (e: React.PointerEvent<HTMLElement>) => {
-    if (e.button !== 0 || !barRef.current) return;
-    const index = indexAt(e.clientX);
-    drag.current = { id: e.pointerId, startX: e.clientX, start: index, dragging: false };
-    // 選択表示とふくらみは、指をつかむ処理より先に（つかめない端末でも押した瞬間に反応させる）
-    setPressed({ index, from: pathname });
-    swell(true);
-    try {
-      barRef.current.setPointerCapture(e.pointerId);
-    } catch {}
-  };
-
-  const onPointerMove = (e: React.PointerEvent<HTMLElement>) => {
-    const d = drag.current;
-    if (!d || d.id !== e.pointerId || !barRef.current) return;
-    if (!d.dragging && Math.abs(e.clientX - d.startX) < DRAG_START) return;
-    if (!d.dragging) {
-      d.dragging = true;
-      if (!reduce) animate(lens, 1.1, PRESS);
-    }
-    const rect = barRef.current.getBoundingClientRect();
-    const left = Math.min(width - slot, Math.max(0, e.clientX - rect.left - slot / 2));
-    x.set(left);
-    const index = indexAt(e.clientX);
-    if (index !== active) setPressed({ index, from: pathname });
-  };
-
-  const finish = (e: React.PointerEvent<HTMLElement>, cancelled: boolean) => {
-    const d = drag.current;
-    if (!d || d.id !== e.pointerId) return;
-    drag.current = null;
-    swell(false);
-    if (!reduce) animate(lens, 1, RELEASE);
-    if (cancelled) {
-      setPressed(null);
-      moveTo(routeIndex);
-      return;
-    }
-    go(d.dragging ? indexAt(e.clientX) : d.start);
   };
 
   return (
     <>
-    <nav
-      ref={barRef}
-      aria-label="メインメニュー"
-      data-nav="tabbar"
-      onPointerDown={onPointerDown}
-      onPointerMove={onPointerMove}
-      onPointerUp={(e) => finish(e, false)}
-      onPointerCancel={(e) => finish(e, true)}
-      className="fixed inset-x-3 z-40 mx-auto flex max-w-[520px] touch-none select-none rail:hidden"
-      style={{
-        bottom: "calc(var(--wk-tabbar-gap) + var(--wk-safe-b))",
-        height: "var(--wk-tabbar-h)",
-      }}
-    >
-      <motion.div
-        aria-hidden
-        className="wk-glass-bar absolute inset-0 rounded-full"
-        style={{ scale: barScale }}
-      />
-      {items.map((item, i) => {
-        const on = i === active;
-        const Icon = item.icon;
-        const cls = cn(
-          "relative z-10 flex min-w-11 flex-1 flex-col items-center justify-center gap-0.5 rounded-full text-xs",
-          "transition-colors duration-[var(--wk-dur-fast)]",
-          on ? "text-fg" : "text-fg-3",
-        );
-        const inner = (
-          <>
-            <Icon aria-hidden size={22} strokeWidth={on ? 2.4 : 1.8} />
-            <span className={cn("leading-none", on && "font-medium")}>{item.short}</span>
-          </>
-        );
-        if (item.href === MORE.href) {
-          return (
-            <button
-              key={item.href}
-              type="button"
-              aria-haspopup="dialog"
-              aria-expanded={moreOpen}
-              aria-current={i === routeIndex && tabIndex < 0 ? "page" : undefined}
-              // 指やマウスは上の pointer の処理で開く。キーボード（Enter・Space）のときだけここで開く
-              onClick={(e) => {
-                if (e.detail === 0) go(i);
-              }}
-              className={cls}
-            >
-              {inner}
-            </button>
-          );
-        }
-        return (
-          <Link
-            key={item.href}
-            href={item.href}
-            aria-current={isActive(pathname, item.href) ? "page" : undefined}
-            // 指やマウスでの移動は上の pointer の処理で行う。キーボード（Enter）のときだけ通常どおり移動する
-            onClick={(e) => {
-              if (e.detail !== 0) e.preventDefault();
-            }}
-            draggable={false}
-            className={cls}
-          >
-            {inner}
-          </Link>
-        );
-      })}
-      <motion.div
-        aria-hidden
-        ref={lensRef}
-        data-moving="0"
-        className="wk-lens pointer-events-none absolute z-20 rounded-full"
+      <nav
+        aria-label="メインメニュー"
+        data-nav="tabbar"
+        className="fixed inset-x-5 z-40 mx-auto max-w-[520px] select-none rail:hidden"
         style={{
-          top: INSET,
-          bottom: INSET,
-          left: INSET,
-          width: Math.max(0, slot - INSET * 2),
-          x,
-          // 動きを減らす設定では伸び縮みを付けない（瞬間移動の一瞬に速さが跳ねて伸びるため）。
-          // 設定の有無で style の項目を変えるとサーバーとの水和が食い違うので、項目は常に同じにして値だけ変える
-          scaleX: reduce ? 1 : scaleX,
-          scaleY: reduce ? 1 : scaleY,
-          opacity: active < 0 ? 0 : reduce ? 1 : lensOpacity,
+          bottom: "calc(var(--wk-tabbar-gap) + var(--wk-safe-b))",
+          height: "var(--wk-tabbar-h)",
         }}
-      />
-      <RefractFilter />
-    </nav>
-    {needsMore && (
-      <Sheet
-        open={moreOpen}
-        onOpenChange={(open) => {
-          setMoreOpen(open);
-          // 何も選ばずに閉じたら、板を今いる場所へ戻す
-          if (!open) setPressed(null);
-        }}
-        title="メニュー"
       >
-        <MoreList
-          rest={rest}
-          pathname={pathname}
-          account={account}
-          onPick={(run, navigates) => {
-            setMoreOpen(false);
-            // 画面が移らない操作（ログアウト前の確認・明るさの切り替えなど）は、板を今いる場所へ戻す
-            if (!navigates) setPressed(null);
-            run();
+        <LensTrack
+          count={items.length}
+          index={active}
+          onPress={(index) => setPressed({ index, from: pathname })}
+          onSelect={go}
+          renderItem={(i, props) => {
+            const item = items[i];
+            const on = i === active;
+            const Icon = item.icon;
+            const inner = (
+              <>
+                <span className="lg-nav__icons" aria-hidden>
+                  <span className="lg-nav__icon lg-nav__icon--idle">
+                    <Icon size={24} strokeWidth={1.8} />
+                  </span>
+                  <span className="lg-nav__icon lg-nav__icon--active">
+                    {/* 選んだ形：中を塗りつぶす（iOS の下タブと同じ） */}
+                    <Icon size={24} strokeWidth={2.1} fill="currentColor" fillOpacity={0.9} />
+                  </span>
+                </span>
+                <span className={cn("lg-nav__label", on && "font-semibold")}>{item.short}</span>
+              </>
+            );
+            if (item.href === MORE.href) {
+              return (
+                <button
+                  {...props}
+                  type="button"
+                  aria-haspopup="dialog"
+                  aria-expanded={moreOpen}
+                  aria-current={i === routeIndex && tabIndex < 0 ? "page" : undefined}
+                  data-on={on ? "1" : "0"}
+                >
+                  {inner}
+                </button>
+              );
+            }
+            return (
+              <Link
+                {...props}
+                href={item.href}
+                aria-current={isActive(pathname, item.href) ? "page" : undefined}
+                // 移動は上の onSelect（離した瞬間・Enter）で行う。リンクとしての移動は止める（二重に動かないように）
+                onClick={(e) => e.preventDefault()}
+                draggable={false}
+                data-on={on ? "1" : "0"}
+              >
+                {inner}
+              </Link>
+            );
           }}
         />
-      </Sheet>
-    )}
+      </nav>
+      {needsMore && (
+        <Sheet
+          open={moreOpen}
+          onOpenChange={(open) => {
+            setMoreOpen(open);
+            // 何も選ばずに閉じたら、玉を今いる場所へ戻す
+            if (!open) setPressed(null);
+          }}
+          title="メニュー"
+        >
+          <MoreList
+            rest={rest}
+            pathname={pathname}
+            account={account}
+            onPick={(run, navigates) => {
+              setMoreOpen(false);
+              // 画面が移らない操作（ログアウト前の確認・明るさの切り替えなど）は、玉を今いる場所へ戻す
+              if (!navigates) setPressed(null);
+              run();
+            }}
+          />
+        </Sheet>
+      )}
     </>
   );
 }

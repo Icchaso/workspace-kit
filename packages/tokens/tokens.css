@@ -43,16 +43,24 @@
   --wk-scrim: rgb(20 20 18 / 0.32);
   --wk-shadow-sm: 0 1px 2px rgb(20 20 18 / 0.08);
   --wk-shadow: 0 12px 32px rgb(20 20 18 / 0.14), 0 2px 6px rgb(20 20 18 / 0.08);
-  --wk-glass: color-mix(in oklab, var(--wk-surface) 72%, transparent);
+  --wk-glass: color-mix(in oklab, var(--wk-surface) 66%, transparent);
   --wk-glass-line: color-mix(in oklab, var(--wk-fg) 8%, transparent);
   --wk-glass-hi: color-mix(in oklab, white 60%, transparent); /* ガラスの上端に光が当たる細い線 */
+  --wk-glass-spec: color-mix(in oklab, white 95%, transparent); /* 左上・右下のふちに走る強い反射 */
+  --wk-glass-rim: color-mix(in oklab, white 45%, transparent); /* ふち全体の淡い輪郭 */
   /* Liquid Glass：濃さ3段（弱＝背景がよく透ける／標準／強＝文字が多い面）とぼかし */
   --wk-glass-weak: color-mix(in oklab, var(--wk-surface) 56%, transparent);
   --wk-glass-strong: color-mix(in oklab, var(--wk-surface) 88%, transparent);
   --wk-glass-ink: color-mix(in oklab, var(--wk-fg) 80%, transparent); /* お知らせなど黒地のガラス */
   --wk-glass-lens: color-mix(in oklab, var(--wk-fg) 10%, transparent); /* 下タブの選択の板 */
-  --wk-glass-blur: 18px;
+  --wk-glass-blur: 26px;
   --wk-glass-sat: 1.8;
+  /* 下タブ専用（Apple TV の録画から実測：ダークは背景を約45%暗くするだけで、ぼかしは弱い。選択の板はさらに暗い） */
+  --wk-tab-glass: color-mix(in oklab, white 34%, transparent);
+  --wk-tab-lens: color-mix(in oklab, black 9%, transparent);
+  --wk-tab-blur: 10px;
+  --wk-tab-sat: 1.6;
+  --wk-tab-ink: var(--wk-accent-text); /* 板の中のアイコンの色 */
 
   /* 余白の基本の2段（テーマの元の spacing。自前の画面の gap・padding に使える） */
   --wk-space-sm: 8px;
@@ -129,6 +137,13 @@
     --wk-shadow: 0 16px 40px rgb(0 0 0 / 0.5), 0 2px 6px rgb(0 0 0 / 0.4);
     --wk-glass-line: color-mix(in oklab, var(--wk-fg) 12%, transparent);
     --wk-glass-hi: color-mix(in oklab, white 9%, transparent);
+    --wk-glass-spec: color-mix(in oklab, white 34%, transparent);
+    --wk-glass-rim: color-mix(in oklab, white 14%, transparent);
+    --wk-tab-glass: color-mix(in oklab, black 30%, transparent);
+    --wk-tab-lens: color-mix(in oklab, black 42%, transparent);
+    --wk-tab-blur: 5px;
+    --wk-tab-sat: 0.9;
+    --wk-tab-ink: var(--wk-accent);
     color-scheme: dark;
   }
 }
@@ -143,6 +158,13 @@
   --wk-shadow: 0 16px 40px rgb(0 0 0 / 0.5), 0 2px 6px rgb(0 0 0 / 0.4);
   --wk-glass-line: color-mix(in oklab, var(--wk-fg) 12%, transparent);
   --wk-glass-hi: color-mix(in oklab, white 9%, transparent);
+  --wk-glass-spec: color-mix(in oklab, white 34%, transparent);
+  --wk-glass-rim: color-mix(in oklab, white 14%, transparent);
+  --wk-tab-glass: color-mix(in oklab, black 30%, transparent);
+  --wk-tab-lens: color-mix(in oklab, black 42%, transparent);
+  --wk-tab-blur: 5px;
+  --wk-tab-sat: 0.9;
+  --wk-tab-ink: var(--wk-accent);
   color-scheme: dark;
 }
 
